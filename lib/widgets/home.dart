@@ -1,9 +1,12 @@
+import 'package:androidto/data/conference_data.dart';
 import 'package:androidto/widgets/about.dart';
 import 'package:androidto/widgets/schedule.dart';
 import 'package:androidto/widgets/speakers.dart';
 import 'package:flutter/material.dart';
 
 class Home extends StatefulWidget {
+  ConferenceData conferenceData = ConferenceData.loading();
+
   @override
   State<StatefulWidget> createState() {
     return _HomeState();
@@ -11,23 +14,51 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
-  int _currentIndex = 0;
-  final List<Widget> _children = [
-    ScheduleWidget(),
-    SpeakersWidget(Colors.blueGrey),
-    AboutWidget(Colors.deepPurple)
-  ];
+  final scheduleKey = PageStorageKey('scheduleKey');
+  final speakersKey = PageStorageKey('speakersKey');
+  final aboutKey = PageStorageKey('aboutKey');
+
+  final PageStorageBucket bucket = PageStorageBucket();
+
+  int currentIndex = 0;
+
+  List<Widget> pages;
+
+  @override
+  void initState() {
+    widget.conferenceData.getScheduleList(_refresh)
+        .then((scheduleList) {
+          _refresh();
+        });
+    super.initState();
+  }
+
+  void _refresh() {
+    print("refresh");
+    setState(() {});
+  }
 
   @override
   Widget build(BuildContext context) {
+    pages = [
+      ScheduleWidget(
+          key: scheduleKey,
+          conferenceData: widget.conferenceData),
+      SpeakersWidget(Colors.blueGrey),
+      AboutWidget(Colors.purpleAccent)
+    ];
+
     return Scaffold(
       appBar: AppBar(
         title: Text('AndroidTO 2018'),
       ),
-      body: _children[_currentIndex],
+      body: PageStorage(
+        child: pages[currentIndex],
+        bucket: bucket,
+      ),
       bottomNavigationBar: BottomNavigationBar(
         onTap: onTabTapped,
-        currentIndex: _currentIndex,
+        currentIndex: currentIndex,
         items: [
           BottomNavigationBarItem(
             icon: new Icon(Icons.schedule),
@@ -47,7 +78,7 @@ class _HomeState extends State<Home> {
   }
   void onTabTapped(int index) {
     setState(() {
-      _currentIndex = index;
+      currentIndex = index;
     });
   }
 }

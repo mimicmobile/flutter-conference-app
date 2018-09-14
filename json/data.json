@@ -30,9 +30,9 @@
       "time": "8:00am",
       "talks": [
         {
-          "speaker": 0,
-          "track": 0,
-          "talk_type": 0,
+          "speaker_id": 0,
+          "track_id": 0,
+          "talk_type_id": 0,
           "title": "Exist and you will be invented extraordinarilly.",
           "description": "Suns, moons, and apostolic winds will always protect them."
         }
@@ -42,18 +42,30 @@
       "time": "8:30am",
       "talks": [
         {
-          "speaker": 0,
-          "track": 1,
-          "talk_type": 1,
+          "speaker_id": 0,
+          "track_id": 1,
+          "talk_type_id": 1,
           "title": "Silence is not closest in order, the home, or paradise, but everywhere.",
           "description": "Samadhi is not one in chaos, the country of tantra, or paradise, but everywhere."
         },
         {
-          "speaker": 0,
-          "track": 2,
-          "talk_type": 2,
+          "speaker_id": 0,
+          "track_id": 2,
+          "talk_type_id": 2,
           "title": "Heavens is not the holy freedom of the explosion of the conclusion.",
           "description": "In upstairs PLURALdie silently density."
+        }
+      ]
+    },
+    {
+      "time": "9:00am",
+      "talks": [
+        {
+          "speaker_id": 0,
+          "track_id": 0,
+          "talk_type_id": 0,
+          "title": "Gabaliums ortum in quadrata!",
+          "description": "If you travel or do with an eternal anger, control studies you."
         }
       ]
     }

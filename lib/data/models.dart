@@ -1,111 +1,89 @@
-import 'dart:async';
-import 'dart:io';
+import 'package:json_annotation/json_annotation.dart';
+part 'models.g.dart';
 
-import 'package:path/path.dart';
-import 'package:http/http.dart' as http;
-import 'package:path_provider/path_provider.dart';
-
-class ConferenceData {
-  static final ConferenceData _conferenceData = new ConferenceData._internal();
-  final String jsonUrl = "http://jeff.mimic.ca/p/androidto/data.json";
-
-  List<Speaker> speakers;
-  List<Track> tracks;
-  List<TalkType> talkTypes;
-  List<Schedule> schedule;
-
-  bool loaded = false;
-
-  ConferenceData();
-
-  static ConferenceData get() {
-    return _conferenceData;
-  }
-
-  ConferenceData._internal();
-
-  init() async {
-    bool exists = await _cacheExists;
-    if (exists) {
-      _loadDataFromCache;
-    } else {
-      _fetchData;
-    }
-    _staleCacheCheck;
-  }
-
-  String _cacheFileName(String path) {
-    return join(path, 'data.json');
-  }
-
-  Future<String> get _cachePath async {
-    final directory = await getApplicationDocumentsDirectory();
-    return directory.path;
-  }
-
-  Future<File> get _cachedFile async {
-    final path = await _cachePath;
-    return File(_cacheFileName(path));
-  }
-
-  Future<bool> get _cacheExists async {
-    final file = await _cachedFile;
-    return await file.exists();
-  }
-
-  Future<bool> get _staleCacheCheck async {
-    return http.head(this.jsonUrl).then((response) {
-      print("etag: $response.headers['Etag']");
-    }).catchError((e) => print(e));
-  }
-
-  get _loadDataFromCache async {
-    _cachedFile.then((file) {
-      print(file);
-      file.readAsString().then((contents) => _loadFromJson(contents));
-    });
-  }
-
-  Future get _fetchData async {
-    return http.get(this.jsonUrl).then((response) {
-      print(response);
-      saveData(response);
-    }).catchError((e) => print(e));
-  }
-
-  saveData(resource) async {
-    return _cachedFile.then((file) => file.writeAsString(resource));
-  }
-
-  _loadFromJson(String contents) {
-    print(contents);
-  }
-}
-
+@JsonSerializable()
 class Speaker {
-  String name;
-  String bio;
-  String imageUrl;
+  final String name;
+  final String bio;
+
+  @JsonKey(name: 'image_url')
+  final String imageUrl;
+
+  Speaker(this.name, this.bio, this.imageUrl);
+
+  factory Speaker.fromJson(Map<String, dynamic> content) => _$SpeakerFromJson(content);
+  Map<String, dynamic> toJson() => _$SpeakerToJson(this);
 }
 
-class Track {
-  String name;
-}
-
+@JsonSerializable()
 class TalkType {
-  String name;
-  String materialIcon;
+  final String name;
+
+  @JsonKey(name: 'material_icon')
+  final String materialIcon;
+
+  TalkType(this.name, this.materialIcon);
+
+  factory TalkType.fromJson(Map<String, dynamic> content) => _$TalkTypeFromJson(content);
+  Map<String, dynamic> toJson() => _$TalkTypeToJson(this);
 }
 
+@JsonSerializable()
 class Talk {
-  int speaker;
-  int track;
-  int talk_type;
-  String title;
-  String description;
+  @JsonKey(name: 'speaker_id')
+  final int speakerId;
+
+  @JsonKey(name: 'track_id')
+  final int trackId;
+
+  @JsonKey(name: 'talk_type_id')
+  final int talkTypeId;
+
+  final String title;
+  final String description;
+
+  Talk(this.speakerId, this.trackId, this.talkTypeId, this.title, this.description);
+
+  createAugmented(speakers, tracks, talkTypes) {
+    return new AugmentedTalk(title, description, speakers[this.speakerId],
+        tracks[this.trackId], talkTypes[this.talkTypeId]);
+  }
+
+  factory Talk.fromJson(Map<String, dynamic> content) => _$TalkFromJson(content);
+  Map<String, dynamic> toJson() => _$TalkToJson(this);
+
+  @override
+  String toString() {
+    return title;
+  }
 }
 
+@JsonSerializable()
 class Schedule {
-  String time;
-  List<Talk> talks;
+  final String time;
+  final List<Talk> talks;
+
+  Schedule(this.time, this.talks);
+
+  factory Schedule.fromJson(Map<String, dynamic> content) => _$ScheduleFromJson(content);
+  Map<String, dynamic> toJson() => _$ScheduleToJson(this);
+
+  @override
+  String toString() {
+    String str = "$time";
+    talks.forEach(((f) => str += "\n" + f.toString()));
+    return str;
+  }
 }
+
+class AugmentedTalk {
+  final String title;
+  final String description;
+  final Speaker speaker;
+  final String trackName;
+  final TalkType talkType;
+
+  AugmentedTalk(this.title, this.description, this.speaker, this.trackName,
+      this.talkType);
+}
+
