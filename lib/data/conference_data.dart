@@ -39,9 +39,9 @@ class ConferenceData {
   factory ConferenceData.fromJson(Map<String, dynamic> content) => _$ConferenceDataFromJson(content);
   Map<String, dynamic> toJson() => _$ConferenceDataToJson(this);
 
-  Future getScheduleList(refreshCallback) async {
+  Future init(refreshCallback) async {
     await _init(refreshCallback);
-    refreshCallback();
+    refreshCallback(false);
   }
 
   Future _init(refreshCallback) async {
@@ -54,13 +54,13 @@ class ConferenceData {
         if (isStale) {
           print("Cache outdated, fetching new data..");
           await _fetchAndSaveData;
-          refreshCallback();
+          refreshCallback(true);
         }
       });
     } else {
       print("Cache unavailable, fetching new data..");
       await _fetchAndSaveData;
-      refreshCallback();
+      refreshCallback(false);
     }
   }
 

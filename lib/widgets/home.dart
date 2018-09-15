@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:androidto/data/conference_data.dart';
 import 'package:androidto/widgets/about.dart';
 import 'package:androidto/widgets/schedule.dart';
@@ -23,15 +25,28 @@ class _HomeState extends State<Home> {
   int currentIndex = 0;
   List<Widget> pages;
 
+  BuildContext _buildContext;
+
   @override
   void initState() {
-    widget.conferenceData.getScheduleList(_refreshState);
+    widget.conferenceData.init(_refreshState);
     super.initState();
   }
 
-  void _refreshState() {
-    print("refresh");
+  void _refreshState(bool showSnackBar) {
     setState(() {});
+    if (showSnackBar) {
+      _showSnackBar('Schedule updated!');
+    }
+  }
+
+  void _showSnackBar(text) {
+    new Future.delayed(Duration.zero, () {
+      Scaffold.of(_buildContext).showSnackBar(new SnackBar(
+        content: Text(text),
+        backgroundColor: Colors.orangeAccent
+      ));
+    });
   }
 
   @override
@@ -52,9 +67,14 @@ class _HomeState extends State<Home> {
       appBar: AppBar(
         title: Text('AndroidTO 2018'),
       ),
-      body: PageStorage(
-        child: pages[currentIndex],
-        bucket: bucket,
+      body: new Builder(
+          builder: (BuildContext context) {
+            _buildContext = context;
+            return PageStorage(
+              child: pages[currentIndex],
+              bucket: bucket,
+            );
+          }
       ),
       bottomNavigationBar: BottomNavigationBar(
         onTap: onTabTapped,
