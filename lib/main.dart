@@ -9,7 +9,9 @@ class MyApp extends StatelessWidget {
     return new MaterialApp(
       title: 'AndroidTO 2018',
       theme: new ThemeData(
-        primarySwatch: Colors.orange,
+        primaryColor: Colors.orange,
+        accentColor: Colors.orangeAccent,
+        brightness: Brightness.dark
       ),
       home: Home(),
     );
