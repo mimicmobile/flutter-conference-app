@@ -2,8 +2,10 @@ import 'dart:async';
 import 'dart:convert';
 import 'dart:io';
 
-import 'package:androidto/data/list_items.dart';
-import 'package:androidto/data/models.dart';
+import 'package:androidto/models/list_items.dart';
+import 'package:androidto/models/data.dart';
+import 'package:androidto/interfaces/models.dart';
+import 'package:androidto/interfaces/presenters.dart';
 import 'package:http/http.dart' as http;
 import 'package:path/path.dart';
 import 'package:path_provider/path_provider.dart';
@@ -13,7 +15,7 @@ import 'package:json_annotation/json_annotation.dart';
 part 'conference_data.g.dart';
 
 @JsonSerializable()
-class ConferenceData {
+class ConferenceData implements IHomeModel {
   final String jsonUrl = "http://jeff.mimic.ca/p/androidto/data.json";
 
   List<Speaker> speakers;
@@ -24,27 +26,16 @@ class ConferenceData {
   List<TalkType> talkTypes;
 
   @JsonKey(ignore: true)
-  bool loaded = false;
+  IHomePresenter _presenter;
 
-  @JsonKey(ignore: true)
-  List<ListItem> scheduleList;
-
-  @JsonKey(ignore: true)
-  List<ListItem> speakerList;
-
-  ConferenceData({this.loaded = true});
-
-  factory ConferenceData.loading() => ConferenceData(loaded: false);
+  ConferenceData();
 
   factory ConferenceData.fromJson(Map<String, dynamic> content) => _$ConferenceDataFromJson(content);
   Map<String, dynamic> toJson() => _$ConferenceDataToJson(this);
 
-  Future init(refreshCallback) async {
-    await _init(refreshCallback);
-    refreshCallback(false);
-  }
-
-  Future _init(refreshCallback) async {
+  @override
+  Future init(IHomePresenter presenter) async {
+    _presenter = presenter;
     bool exists = await _cacheExists;
 
     if (exists) {
@@ -54,13 +45,11 @@ class ConferenceData {
         if (isStale) {
           print("Cache outdated, fetching new data..");
           await _fetchAndSaveData;
-          refreshCallback(true);
         }
       });
     } else {
       print("Cache unavailable, fetching new data..");
       await _fetchAndSaveData;
-      refreshCallback(false);
     }
   }
 
@@ -143,7 +132,11 @@ class ConferenceData {
 
     _generateScheduleList;
     _generateSpeakerList;
-    loaded = true;
+
+    var wasLoaded = _presenter.loaded;
+
+    _presenter.loaded = true;
+    _presenter.refreshState(showSnackBar: wasLoaded);
   }
 
   get _generateScheduleList {
@@ -157,7 +150,7 @@ class ConferenceData {
       });
     });
 
-    this.scheduleList = _scheduleList;
+    _presenter.scheduleList = _scheduleList;
     print("Schedule parsed and flattened | ${_scheduleList.length} items");
   }
 
@@ -168,7 +161,7 @@ class ConferenceData {
       _speakerList.add(new SpeakerItem(f));
     });
 
-    this.speakerList = _speakerList;
+    _presenter.speakerList = _speakerList;
     print("Speakers parsed | ${_speakerList.length} items");
   }
 }
