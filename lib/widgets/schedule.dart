@@ -24,22 +24,8 @@ class ScheduleWidgetState extends State<ScheduleWidget> {
           ListView.builder(
             itemCount: widget.scheduleList.length,
             itemBuilder: (context, index) {
-              final item = widget.scheduleList[index];
-
-              if (item is TimeItem) {
-                return ListTile(
-                  title: Text(
-                    item.time,
-                    style: Theme.of(context).textTheme.headline,
-                  )
-                );
-              } else if (item is TalkItem) {
-                return ListTile(
-                  title: Text(item.talk.title),
-                  subtitle: Text(item.talk.speaker.name),
-                );
-              }
-            },
+              return widget.scheduleList[index].getWidget(context);
+            }
           ),
     );
   }
