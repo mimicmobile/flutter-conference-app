@@ -1,14 +1,27 @@
+import 'package:androidto/data/list_items.dart';
 import 'package:flutter/material.dart';
 
 class SpeakersWidget extends StatelessWidget {
-  final Color color;
+  final List<ListItem> speakerList;
+  final bool loaded;
 
-  SpeakersWidget(this.color);
+  SpeakersWidget({
+    Key key,
+    @required this.speakerList,
+    @required this.loaded
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      color: color,
+      child: !loaded ?
+      Center(child: CircularProgressIndicator()) :
+      ListView.builder(
+          itemCount: speakerList.length,
+          itemBuilder: (context, index) {
+            return speakerList[index].getWidget(context);
+          }
+      ),
     );
   }
 }

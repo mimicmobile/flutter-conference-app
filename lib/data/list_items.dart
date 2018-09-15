@@ -32,3 +32,19 @@ class TalkItem implements ListItem {
     );
   }
 }
+
+class SpeakerItem implements ListItem {
+  final Speaker speaker;
+  SpeakerItem(this.speaker);
+
+  @override
+  ListTile getWidget(context) {
+    return ListTile(
+      title: Text(
+        this.speaker.name,
+        style: Theme.of(context).textTheme.headline
+      ),
+      subtitle: Text(this.speaker.bio),
+    );
+  }
+}

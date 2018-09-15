@@ -41,8 +41,11 @@ class _HomeState extends State<Home> {
           key: scheduleKey,
           scheduleList: widget.conferenceData.scheduleList,
           loaded: widget.conferenceData.loaded),
-      SpeakersWidget(Colors.blueGrey),
-      AboutWidget(Colors.purpleAccent)
+      SpeakersWidget(
+        key: speakersKey,
+        speakerList: widget.conferenceData.speakerList,
+        loaded: widget.conferenceData.loaded),
+      AboutWidget(Colors.purple)
     ];
 
     return Scaffold(

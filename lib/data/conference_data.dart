@@ -29,10 +29,10 @@ class ConferenceData {
   @JsonKey(ignore: true)
   List<ListItem> scheduleList;
 
-  ConferenceData({
-    this.loaded = true,
-    this.scheduleList = const [],
-  });
+  @JsonKey(ignore: true)
+  List<ListItem> speakerList;
+
+  ConferenceData({this.loaded = true});
 
   factory ConferenceData.loading() => ConferenceData(loaded: false);
 
@@ -142,8 +142,10 @@ class ConferenceData {
     this.talkTypes = conferenceData.talkTypes;
 
     _generateScheduleList;
+    _generateSpeakerList;
     loaded = true;
   }
+
   get _generateScheduleList {
     var _scheduleList = <ListItem>[];
 
@@ -157,5 +159,16 @@ class ConferenceData {
 
     this.scheduleList = _scheduleList;
     print("Schedule parsed and flattened | ${_scheduleList.length} items");
+  }
+
+  get _generateSpeakerList {
+    var _speakerList = <ListItem>[];
+
+    this.speakers.forEach((f) {
+      _speakerList.add(new SpeakerItem(f));
+    });
+
+    this.speakerList = _speakerList;
+    print("Speakers parsed | ${_speakerList.length} items");
   }
 }
