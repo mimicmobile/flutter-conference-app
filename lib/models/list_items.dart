@@ -1,4 +1,4 @@
-import 'package:androidto/models/data.dart';
+import 'package:flutter_conference_app/models/data.dart';
 import 'package:flutter/material.dart';
 
 abstract class ListItem {

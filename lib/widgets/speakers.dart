@@ -1,4 +1,4 @@
-import 'package:androidto/models/list_items.dart';
+import 'package:flutter_conference_app/models/list_items.dart';
 import 'package:flutter/material.dart';
 
 class SpeakersWidget extends StatelessWidget {

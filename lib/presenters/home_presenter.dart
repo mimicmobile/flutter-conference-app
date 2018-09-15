@@ -1,7 +1,7 @@
-import 'package:androidto/models/list_items.dart';
-import 'package:androidto/interfaces/models.dart';
-import 'package:androidto/interfaces/presenters.dart';
-import 'package:androidto/interfaces/views.dart';
+import 'package:flutter_conference_app/models/list_items.dart';
+import 'package:flutter_conference_app/interfaces/models.dart';
+import 'package:flutter_conference_app/interfaces/presenters.dart';
+import 'package:flutter_conference_app/interfaces/views.dart';
 import 'package:flutter/widgets.dart';
 
 class HomePresenter implements IHomePresenter {

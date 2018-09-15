@@ -1,6 +1,6 @@
-# androidto
+# flutter_conference_app
 
-AndroidTO 2018
+Flutter Conference app
 
 ## Getting Started
 

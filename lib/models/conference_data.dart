@@ -2,10 +2,11 @@ import 'dart:async';
 import 'dart:convert';
 import 'dart:io';
 
-import 'package:androidto/models/list_items.dart';
-import 'package:androidto/models/data.dart';
-import 'package:androidto/interfaces/models.dart';
-import 'package:androidto/interfaces/presenters.dart';
+import 'package:flutter_conference_app/config.dart';
+import 'package:flutter_conference_app/models/list_items.dart';
+import 'package:flutter_conference_app/models/data.dart';
+import 'package:flutter_conference_app/interfaces/models.dart';
+import 'package:flutter_conference_app/interfaces/presenters.dart';
 import 'package:http/http.dart' as http;
 import 'package:path/path.dart';
 import 'package:path_provider/path_provider.dart';
@@ -16,7 +17,7 @@ part 'conference_data.g.dart';
 
 @JsonSerializable()
 class ConferenceData implements IHomeModel {
-  final String jsonUrl = "http://jeff.mimic.ca/p/androidto/data.json";
+  final String jsonUrl = Config.jsonUrl;
 
   List<Speaker> speakers;
   List<Track> tracks;

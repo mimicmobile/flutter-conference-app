@@ -1,11 +1,12 @@
 import 'dart:async';
 
-import 'package:androidto/models/conference_data.dart';
-import 'package:androidto/interfaces/views.dart';
-import 'package:androidto/presenters/home_presenter.dart';
-import 'package:androidto/widgets/about.dart';
-import 'package:androidto/widgets/schedule.dart';
-import 'package:androidto/widgets/speakers.dart';
+import 'package:flutter_conference_app/config.dart';
+import 'package:flutter_conference_app/models/conference_data.dart';
+import 'package:flutter_conference_app/interfaces/views.dart';
+import 'package:flutter_conference_app/presenters/home_presenter.dart';
+import 'package:flutter_conference_app/widgets/about.dart';
+import 'package:flutter_conference_app/widgets/schedule.dart';
+import 'package:flutter_conference_app/widgets/speakers.dart';
 import 'package:flutter/material.dart';
 
 class Home extends StatefulWidget {
@@ -52,7 +53,7 @@ class _HomeState extends State<Home> implements IHomeView {
 
     return Scaffold(
       appBar: AppBar(
-        title: Text('AndroidTO 2018'),
+        title: Text(Config.title),
       ),
       body: new Builder(
           builder: (BuildContext context) {

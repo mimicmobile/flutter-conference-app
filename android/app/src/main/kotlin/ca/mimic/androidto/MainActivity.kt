@@ -1,4 +1,4 @@
-package ca.mimic.androidto
+package ca.mimic.flutter_conference
 
 import android.os.Bundle
 
