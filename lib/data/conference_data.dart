@@ -41,6 +41,7 @@ class ConferenceData {
 
   Future getScheduleList(refreshCallback) async {
     await _init(refreshCallback);
+    refreshCallback();
   }
 
   Future _init(refreshCallback) async {

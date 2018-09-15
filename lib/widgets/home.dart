@@ -5,7 +5,7 @@ import 'package:androidto/widgets/speakers.dart';
 import 'package:flutter/material.dart';
 
 class Home extends StatefulWidget {
-  ConferenceData conferenceData = ConferenceData.loading();
+  final ConferenceData conferenceData = ConferenceData.loading();
 
   @override
   State<StatefulWidget> createState() {
@@ -21,19 +21,15 @@ class _HomeState extends State<Home> {
   final PageStorageBucket bucket = PageStorageBucket();
 
   int currentIndex = 0;
-
   List<Widget> pages;
 
   @override
   void initState() {
-    widget.conferenceData.getScheduleList(_refresh)
-        .then((scheduleList) {
-          _refresh();
-        });
+    widget.conferenceData.getScheduleList(_refreshState);
     super.initState();
   }
 
-  void _refresh() {
+  void _refreshState() {
     print("refresh");
     setState(() {});
   }
@@ -43,7 +39,8 @@ class _HomeState extends State<Home> {
     pages = [
       ScheduleWidget(
           key: scheduleKey,
-          conferenceData: widget.conferenceData),
+          scheduleList: widget.conferenceData.scheduleList,
+          loaded: widget.conferenceData.loaded),
       SpeakersWidget(Colors.blueGrey),
       AboutWidget(Colors.purpleAccent)
     ];

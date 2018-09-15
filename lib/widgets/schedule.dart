@@ -1,10 +1,15 @@
-import 'package:androidto/data/conference_data.dart';
 import 'package:androidto/data/list_items.dart';
 import 'package:flutter/material.dart';
 
 class ScheduleWidget extends StatefulWidget {
-  final ConferenceData conferenceData;
-  const ScheduleWidget({Key key, @required this.conferenceData}) : super(key: key);
+  final List<ListItem> scheduleList;
+  final bool loaded;
+
+  const ScheduleWidget({
+    Key key,
+    @required this.scheduleList,
+    @required this.loaded}) :
+        super(key: key);
 
   @override
   State<StatefulWidget> createState() => ScheduleWidgetState();
@@ -14,12 +19,12 @@ class ScheduleWidgetState extends State<ScheduleWidget> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      child: !widget.conferenceData.loaded ?
+      child: !widget.loaded ?
           Center(child: CircularProgressIndicator()) :
           ListView.builder(
-            itemCount: widget.conferenceData.scheduleList.length,
+            itemCount: widget.scheduleList.length,
             itemBuilder: (context, index) {
-              final item = widget.conferenceData.scheduleList[index];
+              final item = widget.scheduleList[index];
 
               if (item is TimeItem) {
                 return ListTile(
