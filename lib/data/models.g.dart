@@ -7,30 +7,44 @@ part of 'models.dart';
 // **************************************************************************
 
 Speaker _$SpeakerFromJson(Map<String, dynamic> json) {
-  return Speaker(json['name'] as String, json['bio'] as String,
-      json['image_url'] as String);
+  return Speaker(json['id'] as String, json['name'] as String,
+      json['bio'] as String, json['image_url'] as String);
 }
 
 Map<String, dynamic> _$SpeakerToJson(Speaker instance) => <String, dynamic>{
+      'id': instance.id,
       'name': instance.name,
       'bio': instance.bio,
       'image_url': instance.imageUrl
     };
 
+Track _$TrackFromJson(Map<String, dynamic> json) {
+  return Track(
+      json['id'] as String, json['name'] as String, json['color'] as String);
+}
+
+Map<String, dynamic> _$TrackToJson(Track instance) => <String, dynamic>{
+      'id': instance.id,
+      'name': instance.name,
+      'color': instance.color
+    };
+
 TalkType _$TalkTypeFromJson(Map<String, dynamic> json) {
-  return TalkType(json['name'] as String, json['material_icon'] as String);
+  return TalkType(json['id'] as String, json['name'] as String,
+      json['material_icon'] as String);
 }
 
 Map<String, dynamic> _$TalkTypeToJson(TalkType instance) => <String, dynamic>{
+      'id': instance.id,
       'name': instance.name,
       'material_icon': instance.materialIcon
     };
 
 Talk _$TalkFromJson(Map<String, dynamic> json) {
   return Talk(
-      json['speaker_id'] as int,
-      json['track_id'] as int,
-      json['talk_type_id'] as int,
+      json['speaker_id'] as String,
+      json['track_id'] as String,
+      json['talk_type_id'] as String,
       json['title'] as String,
       json['description'] as String);
 }

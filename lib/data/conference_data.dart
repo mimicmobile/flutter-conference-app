@@ -17,7 +17,7 @@ class ConferenceData {
   final String jsonUrl = "http://jeff.mimic.ca/p/androidto/data.json";
 
   List<Speaker> speakers;
-  List<String> tracks;
+  List<Track> tracks;
   List<Schedule> schedule;
 
   @JsonKey(name: 'talk_types')
@@ -112,7 +112,7 @@ class ConferenceData {
         _populateData(
             ConferenceData.fromJson(json.decode(file.readAsStringSync())));
       } catch (e) {
-        print("Cache file has invalid JSON!");
+        print("Cache file has invalid JSON!\n" + e.toString());
       }
     });
   }

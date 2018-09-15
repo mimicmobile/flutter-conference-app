@@ -12,7 +12,10 @@ ConferenceData _$ConferenceDataFromJson(Map<String, dynamic> json) {
         ?.map((e) =>
             e == null ? null : Speaker.fromJson(e as Map<String, dynamic>))
         ?.toList()
-    ..tracks = (json['tracks'] as List)?.map((e) => e as String)?.toList()
+    ..tracks = (json['tracks'] as List)
+        ?.map(
+            (e) => e == null ? null : Track.fromJson(e as Map<String, dynamic>))
+        ?.toList()
     ..schedule = (json['schedule'] as List)
         ?.map((e) =>
             e == null ? null : Schedule.fromJson(e as Map<String, dynamic>))

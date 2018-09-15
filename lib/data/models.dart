@@ -3,26 +3,40 @@ part 'models.g.dart';
 
 @JsonSerializable()
 class Speaker {
+  final String id;
   final String name;
   final String bio;
 
   @JsonKey(name: 'image_url')
   final String imageUrl;
 
-  Speaker(this.name, this.bio, this.imageUrl);
+  Speaker(this.id, this.name, this.bio, this.imageUrl);
 
   factory Speaker.fromJson(Map<String, dynamic> content) => _$SpeakerFromJson(content);
   Map<String, dynamic> toJson() => _$SpeakerToJson(this);
 }
 
 @JsonSerializable()
+class Track {
+  final String id;
+  final String name;
+  final String color;
+
+  Track(this.id, this.name, this.color);
+
+  factory Track.fromJson(Map<String, dynamic> content) => _$TrackFromJson(content);
+  Map<String, dynamic> toJson() => _$TrackToJson(this);
+}
+
+@JsonSerializable()
 class TalkType {
+  final String id;
   final String name;
 
   @JsonKey(name: 'material_icon')
   final String materialIcon;
 
-  TalkType(this.name, this.materialIcon);
+  TalkType(this.id, this.name, this.materialIcon);
 
   factory TalkType.fromJson(Map<String, dynamic> content) => _$TalkTypeFromJson(content);
   Map<String, dynamic> toJson() => _$TalkTypeToJson(this);
@@ -31,13 +45,13 @@ class TalkType {
 @JsonSerializable()
 class Talk {
   @JsonKey(name: 'speaker_id')
-  final int speakerId;
+  final String speakerId;
 
   @JsonKey(name: 'track_id')
-  final int trackId;
+  final String trackId;
 
   @JsonKey(name: 'talk_type_id')
-  final int talkTypeId;
+  final String talkTypeId;
 
   final String title;
   final String description;
@@ -45,8 +59,14 @@ class Talk {
   Talk(this.speakerId, this.trackId, this.talkTypeId, this.title, this.description);
 
   createAugmented(speakers, tracks, talkTypes) {
-    return new AugmentedTalk(title, description, speakers[this.speakerId],
-        tracks[this.trackId], talkTypes[this.talkTypeId]);
+    return new AugmentedTalk(title, description, findItemById(speakers, this.speakerId),
+        findItemById(tracks, this.trackId), findItemById(talkTypes, this.talkTypeId));
+  }
+
+  findItemById(List l, id) {
+    for (final i in l) {
+      if (i.id == id) return i;
+    }
   }
 
   factory Talk.fromJson(Map<String, dynamic> content) => _$TalkFromJson(content);
@@ -80,10 +100,10 @@ class AugmentedTalk {
   final String title;
   final String description;
   final Speaker speaker;
-  final String trackName;
+  final Track track;
   final TalkType talkType;
 
-  AugmentedTalk(this.title, this.description, this.speaker, this.trackName,
+  AugmentedTalk(this.title, this.description, this.speaker, this.track,
       this.talkType);
 }
 

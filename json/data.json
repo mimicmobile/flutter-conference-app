@@ -1,26 +1,42 @@
 {
   "speakers": [
     {
+      "id": "dougie",
       "name": "Doug Ford",
       "bio": "Lieutenant commanders wobble with nuclear flux!",
       "image_url": ""
     }
   ],
   "tracks": [
-    "Main",
-    "Track 1",
-    "Track 2"
+    {
+      "id": "main",
+      "name": "Main",
+      "color": "#333"
+    },
+    {
+      "id": "track1",
+      "name": "Track 1",
+      "color": "#666"
+    },
+    {
+      "id": "track2",
+      "name": "Track 2",
+      "color": "#888"
+    }
   ],
   "talk_types": [
     {
+      "id": "technical",
       "name": "Technical",
       "material_icon": "grade"
     },
     {
+      "id": "room",
       "name": "Whole Room",
       "material_icon": "meeting_room"
     },
     {
+      "id": "fun",
       "name": "Fun",
       "material_icon": "tag_faces"
     }
@@ -30,9 +46,9 @@
       "time": "8:00am",
       "talks": [
         {
-          "speaker_id": 0,
-          "track_id": 0,
-          "talk_type_id": 0,
+          "speaker_id": "dougie",
+          "track_id": "main",
+          "talk_type_id": "technical",
           "title": "Exist and you will be invented extraordinarilly.",
           "description": "Suns, moons, and apostolic winds will always protect them."
         }
@@ -42,16 +58,16 @@
       "time": "8:30am",
       "talks": [
         {
-          "speaker_id": 0,
-          "track_id": 1,
-          "talk_type_id": 1,
+          "speaker_id": "dougie",
+          "track_id": "track1",
+          "talk_type_id": "fun",
           "title": "Silence is not closest in order, the home, or paradise, but everywhere.",
           "description": "Samadhi is not one in chaos, the country of tantra, or paradise, but everywhere."
         },
         {
-          "speaker_id": 0,
-          "track_id": 2,
-          "talk_type_id": 2,
+          "speaker_id": "dougie",
+          "track_id": "track2",
+          "talk_type_id": "room",
           "title": "Heavens is not the holy freedom of the explosion of the conclusion.",
           "description": "In upstairs PLURALdie silently density."
         }
@@ -61,9 +77,9 @@
       "time": "9:00am",
       "talks": [
         {
-          "speaker_id": 0,
-          "track_id": 0,
-          "talk_type_id": 0,
+          "speaker_id": "dougie",
+          "track_id": "main",
+          "talk_type_id": "technical",
           "title": "Gabaliums ortum in quadrata!",
           "description": "If you travel or do with an eternal anger, control studies you."
         }
