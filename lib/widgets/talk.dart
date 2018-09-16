@@ -8,7 +8,7 @@ class TalkWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return  Container(
+    return Container(
       color: Color(0xFF330F3C),
       child: Stack(
         children: <Widget>[
@@ -25,7 +25,7 @@ class TalkWidget extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: <Widget>[
                     Container(
-                      padding: EdgeInsets.only(bottom: 30.0),
+                      padding: EdgeInsets.only(bottom: 22.0),
                       child: Text(
                         this.item.talk.title,
                         textAlign: TextAlign.center,
@@ -35,10 +35,15 @@ class TalkWidget extends StatelessWidget {
                     Container(
                         padding: EdgeInsets.only(bottom: 20.0),
                         child: Chip(
-                          backgroundColor: Color(int.parse(this.item.talk.track.color.replaceAll('#', ''), radix: 16)).withOpacity(1.0),
+                          backgroundColor: Color(
+                              int.parse(
+                                // HAXX
+                                  this.item.talk.track.color.replaceAll('#', ''),
+                                  radix: 16))
+                              .withOpacity(1.0),
                           label: Text(
                             this.item.talk.track.name,
-                            style: TextStyle(fontSize: 16.0),
+                            style: TextStyle(fontSize: 16.0, color: Colors.white),
                           )
                         )
                     ),
@@ -55,9 +60,9 @@ class TalkWidget extends StatelessWidget {
                             padding: EdgeInsets.only(right: 20.0, top: 16.0, bottom: 16.0),
                             child: CircleAvatar(
                               maxRadius: 30.0,
-                              child: this.item.talk.speaker.imageUrl != null ?
-                                  Image.network(this.item.talk.speaker.imageUrl) :
-                                  Icon(Icons.person)
+                              // TODO: Conditional lookup to replace with Icons.person
+                              // if no imageUrl exists
+                              backgroundImage: NetworkImage(this.item.talk.speaker.imageUrl),
                             )
                         ),
                         Text(
