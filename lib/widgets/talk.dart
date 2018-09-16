@@ -28,7 +28,7 @@ class TalkWidget extends StatelessWidget {
                       Container(
                         padding: EdgeInsets.only(top: 10.0, bottom: 22.0),
                         child: Text(
-                          this.item.talk.title,
+                          "${this.item.talk.title}",
                           textAlign: TextAlign.center,
                           style: TextStyle(fontSize: 32.0),
                         )
@@ -41,7 +41,7 @@ class TalkWidget extends StatelessWidget {
                             Chip(
                               backgroundColor: Colors.red[300],
                               label: Text(
-                                this.item.talk.time,
+                                "${this.item.talk.time}",
                                 style: TextStyle(fontSize: 16.0, color: Colors.white)
                               )
                             ),
@@ -53,14 +53,17 @@ class TalkWidget extends StatelessWidget {
                                       radix: 16))
                                   .withOpacity(1.0),
                               label: Text(
-                                this.item.talk.track.name,
+                                "${this.item.talk.track.name}",
                                 style: TextStyle(fontSize: 16.0, color: Colors.white),
                               )
                             )
                           ]
                         )
                       ),
-                      Text(this.item.talk.talkType.description),
+                      Text(
+                        "${this.item.talk.talkType.description}",
+                        style: TextStyle(color: Theme.of(context).textTheme.caption.color),
+                      ),
                       Padding(
                         padding: EdgeInsets.all(10.0),
                         child: Divider(
@@ -85,12 +88,16 @@ class TalkWidget extends StatelessWidget {
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: <Widget>[
                                 Text(
-                                  this.item.talk.speaker.name,
+                                  "${this.item.talk.speaker.name}",
                                   style: TextStyle(fontSize: 18.0),
                                 ),
                                 Text(
-                                  this.item.talk.speaker.company,
-                                  style: TextStyle(fontSize: 14.0, height: 1.4),
+                                  "${this.item.talk.speaker.company}",
+                                  style: TextStyle(
+                                      fontSize: 14.0,
+                                      height: 1.4,
+                                      color: Theme.of(context).textTheme.caption.color
+                                  ),
                                 ),
                               ],
                             )
@@ -109,7 +116,7 @@ class TalkWidget extends StatelessWidget {
                           alignment: AlignmentDirectional.centerStart,
                           padding: EdgeInsets.only(top: 4.0, bottom: 14.0),
                           child: Text(
-                            this.item.talk.description,
+                            "${this.item.talk.description}",
                             style: TextStyle(fontSize: 15.0, height: 1.2),
                           )
                       ),
