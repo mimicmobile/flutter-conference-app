@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:icons_helper/icons_helper.dart';
 
 abstract class ListItem {
-  ListTile getWidget(context);
+  ListTile getWidget(context, {Function onTapCallback});
 }
 
 class TimeItem implements ListItem {
@@ -12,7 +12,7 @@ class TimeItem implements ListItem {
   TimeItem(this.time);
 
   @override
-  ListTile getWidget(context) {
+  ListTile getWidget(context, {onTapCallback}) {
     return ListTile(
       title: Text(
         this.time,
@@ -27,11 +27,12 @@ class TalkItem implements ListItem {
   TalkItem(this.talk);
 
   @override
-  ListTile getWidget(context) {
+  ListTile getWidget(context, {Function onTapCallback}) {
     return ListTile(
       leading: Icon(getIconGuessFavorMaterial(name: this.talk.talkType.materialIcon)),
       title: Text(this.talk.title),
       subtitle: Text(this.talk.speaker.name),
+      onTap: () { onTapCallback(context, this); }
     );
   }
 }
@@ -41,7 +42,7 @@ class SpeakerItem implements ListItem {
   SpeakerItem(this.speaker);
 
   @override
-  ListTile getWidget(context) {
+  ListTile getWidget(context, {onTapCallback}) {
     return ListTile(
       title: Text(
         this.speaker.name,

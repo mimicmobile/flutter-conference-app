@@ -64,9 +64,10 @@ class Talk {
 
   Talk(this.speakerId, this.trackId, this.talkTypeId, this.title, this.description);
 
-  createAugmented(speakers, tracks, talkTypes) {
+  createAugmented(speakers, tracks, talkTypes, time) {
     return new AugmentedTalk(title, description, findItemById(speakers, this.speakerId),
-        findItemById(tracks, this.trackId), findItemById(talkTypes, this.talkTypeId));
+        findItemById(tracks, this.trackId), findItemById(talkTypes, this.talkTypeId),
+        time);
   }
 
   findItemById(List l, id) {
@@ -108,8 +109,9 @@ class AugmentedTalk {
   final Speaker speaker;
   final Track track;
   final TalkType talkType;
+  final String time;
 
   AugmentedTalk(this.title, this.description, this.speaker, this.track,
-      this.talkType);
+      this.talkType, this.time);
 }
 

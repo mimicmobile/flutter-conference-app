@@ -19,3 +19,7 @@ abstract class IHomePresenter {
 
   void refreshState({bool showSnackBar=false});
 }
+
+abstract class ISchedulePresenter {
+  scheduleTap(BuildContext context, ListItem item);
+}

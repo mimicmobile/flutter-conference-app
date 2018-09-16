@@ -156,7 +156,8 @@ class ConferenceData implements IHomeModel {
     this.schedule.forEach((f) {
       _scheduleList.add(new TimeItem(f.time));  // Add time item
       f.talks.forEach((talk) {                  // Add talk items
-        var _augmentedTalk = talk.createAugmented(speakers, tracks, talkTypes);
+        var _augmentedTalk = talk.createAugmented(speakers, tracks, talkTypes,
+            f.time);
         _scheduleList.add(new TalkItem(_augmentedTalk));
       });
     });
