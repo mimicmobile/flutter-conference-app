@@ -4,24 +4,24 @@
       "id": "dougie",
       "name": "Doug Ford",
       "bio": "Lieutenant commanders wobble with nuclear flux!",
-      "image_url": ""
+      "image_url": "http://jeff.mimic.ca/p/androidto/doog.jpg"
     }
   ],
   "tracks": [
     {
       "id": "main",
       "name": "Main",
-      "color": "#333"
+      "color": "#F0C674"
     },
     {
       "id": "track1",
       "name": "Track 1",
-      "color": "#666"
+      "color": "#CC6666"
     },
     {
       "id": "track2",
       "name": "Track 2",
-      "color": "#888"
+      "color": "#B5BD68"
     }
   ],
   "talk_types": [
