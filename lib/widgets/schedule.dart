@@ -22,7 +22,7 @@ class ScheduleWidgetState extends State<ScheduleWidget> implements IScheduleView
 
   @override
   void initState() {
-    _presenter = new SchedulePresenter(this);
+    _presenter = SchedulePresenter(this);
     super.initState();
   }
 

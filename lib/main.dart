@@ -4,15 +4,15 @@ import 'package:flutter/material.dart';
 
 void main() {
   MaterialPageRoute.debugEnableFadingRoutes = true;
-  runApp(new MyApp());
+  runApp(MyApp());
 }
 
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return new MaterialApp(
+    return MaterialApp(
       title: Config.title,
-      theme: new ThemeData(
+      theme: ThemeData(
         primaryColor: Colors.orange,
         accentColor: Colors.orangeAccent,
       ),

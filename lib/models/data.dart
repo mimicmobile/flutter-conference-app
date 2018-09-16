@@ -67,7 +67,7 @@ class Talk {
   Talk(this.speakerId, this.trackId, this.talkTypeId, this.title, this.description);
 
   createAugmented(speakers, tracks, talkTypes, time) {
-    return new AugmentedTalk(title, description, findItemById(speakers, this.speakerId),
+    return AugmentedTalk(title, description, findItemById(speakers, this.speakerId),
         findItemById(tracks, this.trackId), findItemById(talkTypes, this.talkTypeId),
         time);
   }

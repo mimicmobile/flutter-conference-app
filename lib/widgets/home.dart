@@ -22,7 +22,7 @@ class _HomeState extends State<Home> implements IHomeView {
 
   @override
   void initState() {
-    _presenter = new HomePresenter(this);
+    _presenter = HomePresenter(this);
     _presenter.init();
 
     super.initState();
@@ -54,7 +54,7 @@ class _HomeState extends State<Home> implements IHomeView {
       appBar: AppBar(
         title: Text(Config.title),
       ),
-      body: new Builder(
+      body: Builder(
           builder: (BuildContext context) {
             _buildContext = context;
             return PageStorage(
@@ -68,12 +68,12 @@ class _HomeState extends State<Home> implements IHomeView {
         currentIndex: _presenter.currentIndex,
         items: [
           BottomNavigationBarItem(
-            icon: new Icon(Icons.schedule),
-            title: new Text('Schedule'),
+            icon: Icon(Icons.schedule),
+            title: Text('Schedule'),
           ),
           BottomNavigationBarItem(
-            icon: new Icon(Icons.person),
-            title: new Text('Speakers'),
+            icon: Icon(Icons.person),
+            title: Text('Speakers'),
           ),
           BottomNavigationBarItem(
               icon: Icon(Icons.help_outline),
@@ -93,8 +93,8 @@ class _HomeState extends State<Home> implements IHomeView {
 
   @override
   void showSnackBar(String text) {
-    new Future.delayed(Duration.zero, () {
-      Scaffold.of(_buildContext).showSnackBar(new SnackBar(
+    Future.delayed(Duration.zero, () {
+      Scaffold.of(_buildContext).showSnackBar(SnackBar(
           content: Text(text),
           backgroundColor: Colors.orangeAccent
       ));

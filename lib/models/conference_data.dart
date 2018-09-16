@@ -154,11 +154,11 @@ class ConferenceData implements IHomeModel {
     var _scheduleList = <ListItem>[];
 
     this.schedule.forEach((f) {
-      _scheduleList.add(new TimeItem(f.time));  // Add time item
+      _scheduleList.add(TimeItem(f.time));  // Add time item
       f.talks.forEach((talk) {                  // Add talk items
         var _augmentedTalk = talk.createAugmented(speakers, tracks, talkTypes,
             f.time);
-        _scheduleList.add(new TalkItem(_augmentedTalk));
+        _scheduleList.add(TalkItem(_augmentedTalk));
       });
     });
 
@@ -171,7 +171,7 @@ class ConferenceData implements IHomeModel {
     var _speakerList = <ListItem>[];
 
     this.speakers.forEach((f) {
-      _speakerList.add(new SpeakerItem(f));
+      _speakerList.add(SpeakerItem(f));
     });
 
     _presenter.speakerList = _speakerList;
