@@ -89,7 +89,7 @@ class TalkWidget extends StatelessWidget {
                                   style: TextStyle(fontSize: 18.0),
                                 ),
                                 Text(
-                                  'Company name',
+                                  this.item.talk.speaker.company,
                                   style: TextStyle(fontSize: 14.0, height: 1.4),
                                 ),
                               ],
