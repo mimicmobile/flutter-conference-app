@@ -22,6 +22,7 @@ dependencies:
   path_provider: ^0.4.1
   shared_preferences: ^0.4.2
   json_annotation: ^1.0.0
+  icons_helper: ^0.0.8
 
 dev_dependencies:
   flutter_test:

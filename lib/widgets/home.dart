@@ -76,7 +76,7 @@ class _HomeState extends State<Home> implements IHomeView {
             title: new Text('Speakers'),
           ),
           BottomNavigationBarItem(
-              icon: Icon(Icons.help),
+              icon: Icon(Icons.help_outline),
               title: Text('About')
           )
         ],

@@ -1,6 +1,8 @@
 import 'package:flutter_conference_app/models/data.dart';
 import 'package:flutter/material.dart';
 
+import 'package:icons_helper/icons_helper.dart';
+
 abstract class ListItem {
   ListTile getWidget(context);
 }
@@ -27,6 +29,7 @@ class TalkItem implements ListItem {
   @override
   ListTile getWidget(context) {
     return ListTile(
+      leading: Icon(getIconGuessFavorMaterial(name: this.talk.talkType.materialIcon)),
       title: Text(this.talk.title),
       subtitle: Text(this.talk.speaker.name),
     );
