@@ -4,7 +4,11 @@
       "id": "dougie",
       "name": "Doug Ford",
       "bio": "Lieutenant commanders wobble with nuclear flux!",
-      "image_url": "http://jeff.mimic.ca/p/androidto/doog.jpg"
+      "image_url": "http://jeff.mimic.ca/p/androidto/doog.jpg",
+      "company": "PC Ontario",
+      "twitter": "https://twitter.com/fordnation",
+      "linked_in": "",
+      "github": ""
     }
   ],
   "tracks": [

@@ -6,11 +6,17 @@ class Speaker {
   final String id;
   final String name;
   final String bio;
+  final String company;
+  final String twitter;
+  final String github;
+
+  @JsonKey(name: "linked_in")
+  final String linkedIn;
 
   @JsonKey(name: 'image_url')
   final String imageUrl;
 
-  Speaker(this.id, this.name, this.bio, this.imageUrl);
+  Speaker(this.id, this.name, this.bio, this.imageUrl, this.company, this.twitter, this.linkedIn, this.github);
 
   factory Speaker.fromJson(Map<String, dynamic> content) => _$SpeakerFromJson(content);
   Map<String, dynamic> toJson() => _$SpeakerToJson(this);

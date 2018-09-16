@@ -8,14 +8,20 @@ part of 'data.dart';
 
 Speaker _$SpeakerFromJson(Map<String, dynamic> json) {
   return Speaker(json['id'] as String, json['name'] as String,
-      json['bio'] as String, json['image_url'] as String);
+      json['bio'] as String, json['image_url'] as String,
+      json['company'] as String, json['twitter'] as String,
+      json['linked_in'] as String, json['github'] as String);
 }
 
 Map<String, dynamic> _$SpeakerToJson(Speaker instance) => <String, dynamic>{
       'id': instance.id,
       'name': instance.name,
       'bio': instance.bio,
-      'image_url': instance.imageUrl
+      'image_url': instance.imageUrl,
+      'company': instance.company,
+      'twitter': instance.twitter,
+      'linked_in': instance.linkedIn,
+      'github': instance.github,
     };
 
 Track _$TrackFromJson(Map<String, dynamic> json) {
