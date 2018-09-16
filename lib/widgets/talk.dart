@@ -60,7 +60,7 @@ class TalkWidget extends StatelessWidget {
                           ]
                         )
                       ),
-                      Text('This talk can be enjoyed by everyone'),
+                      Text(this.item.talk.talkType.description),
                       Padding(
                         padding: EdgeInsets.all(10.0),
                         child: Divider(

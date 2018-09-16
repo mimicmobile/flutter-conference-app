@@ -32,17 +32,20 @@
     {
       "id": "technical",
       "name": "Technical",
-      "material_icon": "grade"
+      "material_icon": "grade",
+      "description": "This talk is considered technical"
     },
     {
       "id": "room",
       "name": "Whole Room",
-      "material_icon": "people"
+      "material_icon": "people",
+      "description": "This talk is can be enjoyed by everyone"
     },
     {
       "id": "fun",
       "name": "Fun",
-      "material_icon": "tag_faces"
+      "material_icon": "tag_faces",
+      "description": "This talk is for fun"
     }
   ],
   "schedule": [

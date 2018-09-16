@@ -42,7 +42,9 @@ class TalkType {
   @JsonKey(name: 'material_icon')
   final String materialIcon;
 
-  TalkType(this.id, this.name, this.materialIcon);
+  final String description;
+
+  TalkType(this.id, this.name, this.materialIcon, this.description);
 
   factory TalkType.fromJson(Map<String, dynamic> content) => _$TalkTypeFromJson(content);
   Map<String, dynamic> toJson() => _$TalkTypeToJson(this);

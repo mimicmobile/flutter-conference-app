@@ -37,13 +37,14 @@ Map<String, dynamic> _$TrackToJson(Track instance) => <String, dynamic>{
 
 TalkType _$TalkTypeFromJson(Map<String, dynamic> json) {
   return TalkType(json['id'] as String, json['name'] as String,
-      json['material_icon'] as String);
+      json['material_icon'] as String, json['description'] as String);
 }
 
 Map<String, dynamic> _$TalkTypeToJson(TalkType instance) => <String, dynamic>{
       'id': instance.id,
       'name': instance.name,
-      'material_icon': instance.materialIcon
+      'material_icon': instance.materialIcon,
+      'description': instance.description
     };
 
 Talk _$TalkFromJson(Map<String, dynamic> json) {
