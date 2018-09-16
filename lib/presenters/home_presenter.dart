@@ -1,3 +1,4 @@
+import 'package:flutter_conference_app/models/conference_data.dart';
 import 'package:flutter_conference_app/models/list_items.dart';
 import 'package:flutter_conference_app/interfaces/models.dart';
 import 'package:flutter_conference_app/interfaces/presenters.dart';
@@ -18,10 +19,10 @@ class HomePresenter implements IHomePresenter {
   List<ListItem> scheduleList;
   List<ListItem> speakerList;
 
-  IHomeModel _model;
+  IHomeModel _model = ConferenceData();
   IHomeView _view;
 
-  HomePresenter(this._model, this._view);
+  HomePresenter(this._view);
 
   @override
   void init() {

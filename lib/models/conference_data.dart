@@ -37,43 +37,48 @@ class ConferenceData implements IHomeModel {
   @override
   Future init(IHomePresenter presenter) async {
     _presenter = presenter;
-    bool exists = await _cacheExists;
+    bool exists = await cacheExists;
 
     if (exists) {
       print("Cache exists, loading from disk");
-      await _loadDataFromCache;
-      _staleCacheCheck.then((isStale) async {
+      await loadDataFromCache;
+      staleCacheCheck.then((isStale) async {
         if (isStale) {
           print("Cache outdated, fetching new data..");
-          await _fetchAndSaveData;
+          await fetchAndSaveData;
         }
       });
     } else {
       print("Cache unavailable, fetching new data..");
-      await _fetchAndSaveData;
+      await fetchAndSaveData;
     }
   }
 
-  String _cacheFileName(String path) {
+  @override
+  String cacheFileName(String path) {
     return join(path, 'data.json');
   }
 
-  Future<String> get _cachePath async {
+  @override
+  Future<String> get cachePath async {
     final directory = await getApplicationDocumentsDirectory();
     return directory.path;
   }
 
-  Future<File> get _cachedFile async {
-    final path = await _cachePath;
-    return File(_cacheFileName(path));
+  @override
+  Future<File> get cachedFile async {
+    final path = await cachePath;
+    return File(cacheFileName(path));
   }
 
-  Future<bool> get _cacheExists async {
-    final file = await _cachedFile;
+  @override
+  Future<bool> get cacheExists async {
+    final file = await cachedFile;
     return await file.exists();
   }
 
-  Future<bool> get _staleCacheCheck async {
+  @override
+  Future<bool> get staleCacheCheck async {
     return await http.head(this.jsonUrl).then((response) async {
       SharedPreferences sharedPrefs = await SharedPreferences.getInstance();
 
@@ -96,10 +101,11 @@ class ConferenceData implements IHomeModel {
     });
   }
 
-  get _loadDataFromCache async {
-    return await _cachedFile.then((file) {
+  @override
+  Future get loadDataFromCache async {
+    return await cachedFile.then((file) {
       try {
-        _populateData(
+        populateData(
             ConferenceData.fromJson(json.decode(file.readAsStringSync())));
       } catch (e) {
         print("Cache file has invalid JSON!\n" + e.toString());
@@ -107,15 +113,17 @@ class ConferenceData implements IHomeModel {
     });
   }
 
-  Future get _fetchAndSaveData async {
+  @override
+  Future get fetchAndSaveData async {
     return http.get(this.jsonUrl).then((response) async {
-      await _saveData(response);
-      await _loadDataFromCache;
+      await saveData(response);
+      await loadDataFromCache;
     }).catchError((e) => print("fetchAndSaveData failed $e"));
   }
 
-  _saveData(resource) async {
-    await _cachedFile.then((file) {
+  @override
+  Future saveData(resource) async {
+    await cachedFile.then((file) {
       try {
         json.decode(resource.body);
         file.writeAsString(resource.body);
@@ -125,22 +133,24 @@ class ConferenceData implements IHomeModel {
     });
   }
 
-  _populateData(ConferenceData conferenceData) {
-    this.speakers = conferenceData.speakers;
-    this.tracks = conferenceData.tracks;
-    this.schedule  = conferenceData.schedule;
-    this.talkTypes = conferenceData.talkTypes;
+  @override
+  void populateData(IHomeModel model) {
+    this.speakers = model.speakers;
+    this.tracks = model.tracks;
+    this.schedule  = model.schedule;
+    this.talkTypes = model.talkTypes;
 
-    _generateScheduleList;
-    _generateSpeakerList;
+    generateScheduleList;
+    generateSpeakerList;
 
-    var wasLoaded = _presenter.loaded;
+    var _wasLoaded = _presenter.loaded;
 
     _presenter.loaded = true;
-    _presenter.refreshState(showSnackBar: wasLoaded);
+    _presenter.refreshState(showSnackBar: _wasLoaded);
   }
 
-  get _generateScheduleList {
+  @override
+  void get generateScheduleList {
     var _scheduleList = <ListItem>[];
 
     this.schedule.forEach((f) {
@@ -155,7 +165,8 @@ class ConferenceData implements IHomeModel {
     print("Schedule parsed and flattened | ${_scheduleList.length} items");
   }
 
-  get _generateSpeakerList {
+  @override
+  void get generateSpeakerList {
     var _speakerList = <ListItem>[];
 
     this.speakers.forEach((f) {

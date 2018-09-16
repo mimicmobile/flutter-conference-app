@@ -1,7 +1,6 @@
 import 'dart:async';
 
 import 'package:flutter_conference_app/config.dart';
-import 'package:flutter_conference_app/models/conference_data.dart';
 import 'package:flutter_conference_app/interfaces/views.dart';
 import 'package:flutter_conference_app/presenters/home_presenter.dart';
 import 'package:flutter_conference_app/widgets/about.dart';
@@ -17,15 +16,15 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> implements IHomeView {
-  final ConferenceData _conferenceData = ConferenceData();
   HomePresenter _presenter;
 
   BuildContext _buildContext;
 
   @override
   void initState() {
-    _presenter = new HomePresenter(_conferenceData, this);
+    _presenter = new HomePresenter(this);
     _presenter.init();
+
     super.initState();
   }
 
@@ -84,6 +83,8 @@ class _HomeState extends State<Home> implements IHomeView {
       ),
     );
   }
+
+  @override
   void onTabTapped(int index) {
     setState(() {
       _presenter.currentIndex = index;
