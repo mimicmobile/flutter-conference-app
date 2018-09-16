@@ -34,10 +34,12 @@ class TalkWidget extends StatelessWidget {
                     ),
                     Container(
                         padding: EdgeInsets.only(bottom: 20.0),
-                        child: Text(
-                          this.item.talk.track.name,
-                          textAlign: TextAlign.center,
-                          style: TextStyle(fontSize: 16.0),
+                        child: Chip(
+                          backgroundColor: Color(int.parse(this.item.talk.track.color.replaceAll('#', ''), radix: 16)).withOpacity(1.0),
+                          label: Text(
+                            this.item.talk.track.name,
+                            style: TextStyle(fontSize: 16.0),
+                          )
                         )
                     ),
                     Text('This talk can be enjoyed by everyone'),
