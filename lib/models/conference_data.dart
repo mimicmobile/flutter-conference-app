@@ -168,6 +168,8 @@ class ConferenceData implements IHomeModel {
   void get generateSpeakerList {
     var _speakerList = <ListItem>[HeaderItem(), TitleItem('Speakers')];
 
+    this.speakers.shuffle();
+
     this.speakers.forEach((f) {
       _speakerList.add(SpeakerItem(f));
     });
