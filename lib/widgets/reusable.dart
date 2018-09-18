@@ -3,8 +3,14 @@ import 'package:flutter_conference_app/config.dart';
 
 class Reusable {
   static get header {
-    return Image.asset(
-      Config.listBackground,
+    return Container(
+      decoration: BoxDecoration(
+        image: DecorationImage(
+            image: AssetImage(Config.listBackground),
+            alignment: AlignmentDirectional.topCenter,
+            fit: BoxFit.fitWidth
+        )
+      ),
     );
   }
 
