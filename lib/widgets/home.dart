@@ -101,7 +101,7 @@ class _HomeState extends State<Home> implements IHomeView {
     Future.delayed(Duration.zero, () {
       Scaffold.of(_buildContext).showSnackBar(SnackBar(
           content: Text(text),
-          backgroundColor: Colors.orangeAccent
+          backgroundColor: Theme.of(_buildContext).dialogBackgroundColor
       ));
     });
   }
