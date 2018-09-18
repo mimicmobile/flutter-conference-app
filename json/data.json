@@ -1,12 +1,32 @@
 {
   "speakers": [
     {
-      "id": "dougie",
-      "name": "Doug Ford",
-      "bio": "Lieutenant commanders wobble with nuclear flux!",
-      "image_url": "http://jeff.mimic.ca/p/androidto/doog.jpg",
-      "company": "PC Ontario",
-      "twitter": "https://twitter.com/fordnation",
+      "id": "bojack",
+      "name": "BoJack Horseman",
+      "bio": "BoJack Horseman is a self-loathing 52-year-old alcoholic horse whose acting career peaked when he starred in a successful family sitcom called Horsin' Around in the late 1980s and later 'The Bojack Horseman Show' which was cancelled after one season, in 2007. Though he began as a young bright-eyed actor, he has since grown bitter, deeply depressed, and jaded towards Hollywood and who he has become post-fame. BoJack has been shown to be caring and insightful, but his insecurities, loneliness, and desperate need for approval often result in self-destructive actions that devastate those around him. Many of his issues stem from his childhood and issues with his unhappy parents, which the audience is shown through flashbacks.",
+      "image_url": "http://jeff.mimic.ca/p/androidto/bojack.jpg",
+      "company": "Horsin' Around",
+      "twitter": "https://twitter.com/bojack",
+      "linked_in": "",
+      "github": ""
+    },
+    {
+      "id": "diane",
+      "name": "Diane Nguyen",
+      "bio": "Diane Nguyen is a human ghostwriter, a nice, well-reasoned, misunderstood intellectual, and a Vietnamese-American third-wave feminist from Boston who lives with her rich and famous boyfriend (and later husband), former sitcom star Mr. Peanutbutter. While writing BoJack's memoir, he and Diane initially develop a strong friendship that becomes increasingly awkward and strained after BoJack develops romantic feelings for her. Diane travels to the war-torn Republic of Cordovia to make a difference, but discovers that this life is not for her. Ashamed of returning to her husband, she develops a severe bout of depression, during which she drinks heavily and sleeps disheveled on BoJack's patio furniture. She is able to reconcile her feelings with Mr. Peanutbutter and gets a job at VIM ghostwriting tweets for celebrities. She is subsequently fired from VIM, and is hired to write for a feminist blog. During and after Mr. Peanutbutter's run for Governor of California their marriage begins to deteriorate and, at the beginning of Season 5, they divorce.",
+      "image_url": "http://jeff.mimic.ca/p/androidto/diane.jpg",
+      "company": "VIM",
+      "twitter": "https://twitter.com/bojack",
+      "linked_in": "",
+      "github": ""
+    },
+    {
+      "id": "peanutbutter",
+      "name": "Mr. Peanutbutter",
+      "bio": "Mr. Peanutbutter is an energetic and cheerful yellow Labrador Retriever who is BoJack's former sitcom rival and Diane's boyfriend (and later husband). Mr. Peanutbutter was the star of Mr. Peanutbutter's House, which, according to BoJack, \"borrowed the premise\" from Horsin' Around. He portrays many characteristics of a actual labrador yet portrayed as a human like character being sweet, loyal, kind, playful, and considerate. He had a stint at filming a celebrity reality show called Peanutbutter and Jelly. Despite their rivalry, Mr. Peanutbutter cares a great deal about BoJack's opinion and admires him for his work on Horsin' Around. He has an especially good relationship with Todd, and his positive attitude and financial resources combined with Todd's outlandish schemes and plans often result in the two starting questionable business ventures, such as a Halloween store that is exclusively open in January. In the episode \"Let's Find Out\", Mr. Peanutbutter starts hosting his own televised game show after his film company enters bankruptcy due to his and Todd's extensive expenditures on useless products. In \"Hank After Dark\", it is revealed that Mr. Peanutbutter was formerly married to a woman named Katrina who was emotionally abusive. His second wife was famous actress Jessica Biel, who is portrayed as being obsessed with her celebrity status and people recognizing her. He grew up in the Labrador Peninsula, which is depicted as being populated entirely by Labrador Retrievers. \"Mr.\" is his actual first name. He often shouts to an offscreen, but implicatively outlandish, presence only known as \"Erica\". He is a graduate of Northwestern University. After his divorce with Diane, he started dating a pug named Pickles who is much younger than him but shares a lot of the same characteristics. At the end of the season 5 finale, he proposes to her.",
+      "image_url": "http://jeff.mimic.ca/p/androidto/mr_peanutbutter.jpg",
+      "company": "Peanutbutter and Jelly",
+      "twitter": "https://twitter.com/bojack",
       "linked_in": "",
       "github": ""
     }
@@ -53,7 +73,7 @@
       "time": "8:00am",
       "talks": [
         {
-          "speaker_id": "dougie",
+          "speaker_id": "bojack",
           "track_id": "main",
           "talk_type_id": "technical",
           "title": "Exist and you will be invented extraordinarilly.",
@@ -65,14 +85,14 @@
       "time": "8:30am",
       "talks": [
         {
-          "speaker_id": "dougie",
+          "speaker_id": "diane",
           "track_id": "track1",
           "talk_type_id": "fun",
           "title": "Silence is not closest in order, the home, or paradise, but everywhere.",
           "description": "Samadhi is not one in chaos, the country of tantra, or paradise, but everywhere."
         },
         {
-          "speaker_id": "dougie",
+          "speaker_id": "peanutbutter",
           "track_id": "track2",
           "talk_type_id": "room",
           "title": "Heavens is not the holy freedom of the explosion of the conclusion.",
@@ -84,7 +104,7 @@
       "time": "9:00am",
       "talks": [
         {
-          "speaker_id": "dougie",
+          "speaker_id": "bojack",
           "track_id": "main",
           "talk_type_id": "technical",
           "title": "Gabaliums ortum in quadrata!",
