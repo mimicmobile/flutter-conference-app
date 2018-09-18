@@ -144,61 +144,64 @@ class SpeakerItem implements ListItem {
 
   @override
   Widget getWidget(context, {onTapCallback}) {
-    return Stack(
-      alignment: AlignmentDirectional.centerStart,
-      children: <Widget>[
-        Card(
-          elevation: 12.0,
-          margin: EdgeInsets.only(left: 66.0, right: 26.0, bottom: 26.0),
-          child: Padding(
-            padding: EdgeInsets.only(left: 80.0, top: 26.0, right: 26.0, bottom: 26.0),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
-              children: <Widget>[
-                Text(
-                  '${speaker.name}',
-                  style: TextStyle(fontSize: 22.0),
-                ),
-                Text(
-                  '${speaker.company}',
-                  style: TextStyle(fontSize: 16.0, color: Theme.of(context).textTheme.caption.color),
-                ),
-                Padding(
-                    padding: EdgeInsets.all(10.0),
-                    child: Divider(
-                      indent: 10.0,
-                    )
-                ),
-                Row(
+    return GestureDetector(
+        onTap: () { onTapCallback(context, speaker); },
+        child: Stack(
+          alignment: AlignmentDirectional.centerStart,
+          children: <Widget>[
+            Card(
+              elevation: 12.0,
+              margin: EdgeInsets.only(left: 66.0, right: 26.0, bottom: 26.0),
+              child: Padding(
+                padding: EdgeInsets.only(left: 80.0, top: 26.0, right: 26.0, bottom: 26.0),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   mainAxisAlignment: MainAxisAlignment.spaceAround,
                   children: <Widget>[
-                    Icon(
-                        getIconGuessFavorFA(name: "twitter"),
-                        color: Colors.blue[300],
+                    Text(
+                      '${speaker.name}',
+                      style: TextStyle(fontSize: 22.0),
                     ),
-                    Icon(
-                      getIconGuessFavorFA(name: "github"),
-                      color: Colors.black,
+                    Text(
+                      '${speaker.company}',
+                      style: TextStyle(fontSize: 16.0, color: Theme.of(context).textTheme.caption.color),
                     ),
-                    Icon(
-                      getIconGuessFavorFA(name: "linkedin"),
-                      color: Colors.green,
+                    Padding(
+                        padding: EdgeInsets.all(10.0),
+                        child: Divider(
+                          indent: 10.0,
+                        )
                     ),
-                  ]
-                )
-              ],
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceAround,
+                      children: <Widget>[
+                        Icon(
+                            getIconGuessFavorFA(name: "twitter"),
+                            color: Colors.blue[300],
+                        ),
+                        Icon(
+                          getIconGuessFavorFA(name: "github"),
+                          color: Colors.black,
+                        ),
+                        Icon(
+                          getIconGuessFavorFA(name: "linkedin"),
+                          color: Colors.green,
+                        ),
+                      ]
+                    )
+                  ],
+                ),
+              )
             ),
-          )
-        ),
-        Padding(
-            padding: EdgeInsets.only(left: 22.0, bottom: 26.0),
-            child: CircleAvatar(
-              backgroundImage: NetworkImage(this.speaker.imageUrl),
-              maxRadius: 46.0,
+            Padding(
+                padding: EdgeInsets.only(left: 22.0, bottom: 26.0),
+                child: CircleAvatar(
+                  backgroundImage: NetworkImage(this.speaker.imageUrl),
+                  maxRadius: 46.0,
+                )
             )
+          ]
         )
-      ]
     );
   }
 }

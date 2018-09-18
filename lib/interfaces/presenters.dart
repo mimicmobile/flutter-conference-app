@@ -25,5 +25,5 @@ abstract class ISchedulePresenter {
 }
 
 abstract class ISpeakersPresenter {
-  speakerTap(BuildContext context, SpeakerItem speakerItem);
+  speakerTap(BuildContext context, Speaker speaker);
 }
