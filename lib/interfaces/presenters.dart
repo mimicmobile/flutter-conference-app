@@ -1,4 +1,4 @@
-
+import 'package:flutter_conference_app/models/data.dart';
 import 'package:flutter_conference_app/models/list_items.dart';
 import 'package:flutter/widgets.dart';
 
@@ -21,5 +21,5 @@ abstract class IHomePresenter {
 }
 
 abstract class ISchedulePresenter {
-  scheduleTap(BuildContext context, ListItem item);
+  scheduleTap(BuildContext context, AugmentedTalk talk);
 }

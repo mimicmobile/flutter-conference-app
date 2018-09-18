@@ -1,6 +1,5 @@
 import 'dart:async';
 
-import 'package:flutter_conference_app/config.dart';
 import 'package:flutter_conference_app/interfaces/views.dart';
 import 'package:flutter_conference_app/presenters/home_presenter.dart';
 import 'package:flutter_conference_app/widgets/about.dart';
@@ -51,9 +50,6 @@ class _HomeState extends State<Home> implements IHomeView {
     ];
 
     return Scaffold(
-      appBar: AppBar(
-        title: Text(Config.title),
-      ),
       body: Builder(
           builder: (BuildContext context) {
             _buildContext = context;
@@ -63,23 +59,32 @@ class _HomeState extends State<Home> implements IHomeView {
             );
           }
       ),
-      bottomNavigationBar: BottomNavigationBar(
-        onTap: onTabTapped,
-        currentIndex: _presenter.currentIndex,
-        items: [
-          BottomNavigationBarItem(
-            icon: Icon(Icons.schedule),
-            title: Text('Schedule'),
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.person),
-            title: Text('Speakers'),
-          ),
-          BottomNavigationBarItem(
-              icon: Icon(Icons.help_outline),
-              title: Text('About')
-          )
-        ],
+      bottomNavigationBar: Theme(
+        data: Theme.of(context).copyWith(
+          canvasColor: Color(0xFF5B1B6B),
+          primaryColor: Colors.white,
+          textTheme: Theme
+              .of(context)
+              .textTheme
+              .copyWith(caption: new TextStyle(color: Colors.grey[500]))), // sets the inactive color of the `BottomNavigationBar`
+        child: BottomNavigationBar(
+          onTap: onTabTapped,
+          currentIndex: _presenter.currentIndex,
+          items: [
+            BottomNavigationBarItem(
+              icon: Icon(Icons.schedule),
+              title: Text('Schedule'),
+            ),
+            BottomNavigationBarItem(
+              icon: Icon(Icons.person),
+              title: Text('Speakers'),
+            ),
+            BottomNavigationBarItem(
+                icon: Icon(Icons.help_outline),
+                title: Text('About')
+            )
+          ],
+        )
       ),
     );
   }

@@ -83,8 +83,8 @@ class ConferenceData implements IHomeModel {
       SharedPreferences sharedPrefs = await SharedPreferences.getInstance();
 
       String etag = sharedPrefs.getString('etag') ?? null;
-      String serverEtag = response.headers.containsKey('etag') ?
-      response.headers['etag'] : null;
+      String serverEtag = response.headers.containsKey('etag')
+          ? response.headers['etag'] : null;
 
       if (etag == serverEtag) {
         print("Cache file not changed, keeping cache");
@@ -151,15 +151,13 @@ class ConferenceData implements IHomeModel {
 
   @override
   void get generateScheduleList {
-    var _scheduleList = <ListItem>[];
+    var _scheduleList = <ListItem>[HeaderItem()];
 
     this.schedule.forEach((f) {
       _scheduleList.add(TimeItem(f.time));  // Add time item
-      f.talks.forEach((talk) {                  // Add talk items
-        var _augmentedTalk = talk.createAugmented(speakers, tracks, talkTypes,
-            f.time);
-        _scheduleList.add(TalkItem(_augmentedTalk));
-      });
+      _scheduleList.add(TalkItem(
+          f.talks.map((talk) => talk.createAugmented(speakers, tracks, talkTypes, f.time)).toList())
+      );
     });
 
     _presenter.scheduleList = _scheduleList;
