@@ -29,4 +29,18 @@ class Reusable {
       )
     );
   }
+
+  static InkWell backArrow(BuildContext context) {
+    return InkWell(
+      borderRadius: BorderRadius.circular(20.0),
+      highlightColor: Theme.of(context).accentColor,
+      onTap: () {
+        Navigator.pop(context);
+      },
+      child: Container(
+        margin: EdgeInsets.only(top: 60.0, left: 26.0),
+        child: Icon(Icons.arrow_back, color: Colors.white)
+      )
+    );
+  }
 }

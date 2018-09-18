@@ -17,10 +17,6 @@ class TalkWidget extends StatelessWidget {
                 child: Stack(
                     children: <Widget>[
                       Reusable.header,
-                      AppBar(
-                        backgroundColor: Colors.transparent,
-                        elevation: 0.0,
-                      ),
                       Center(
                           child: SingleChildScrollView(
                               padding: EdgeInsets.only(top: 70.0, right: 20.0, left: 20.0, bottom: 40.0),
@@ -127,7 +123,9 @@ class TalkWidget extends StatelessWidget {
                                   )
                               )
                           )
-                      )
+                      ),
+                      Reusable.statusBarTopShadow,
+                      Reusable.backArrow(context)
                     ]
                 )
             )

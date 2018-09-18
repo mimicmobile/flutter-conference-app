@@ -153,7 +153,7 @@ class SpeakerItem implements ListItem {
               elevation: 12.0,
               margin: EdgeInsets.only(left: 66.0, right: 26.0, bottom: 26.0),
               child: Padding(
-                padding: EdgeInsets.only(left: 80.0, top: 26.0, right: 26.0, bottom: 26.0),
+                padding: EdgeInsets.only(left: 70.0, top: 26.0, right: 26.0, bottom: 26.0),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   mainAxisAlignment: MainAxisAlignment.spaceAround,

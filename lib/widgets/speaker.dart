@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_conference_app/models/data.dart';
+import 'package:flutter_conference_app/utils.dart';
 import 'package:flutter_conference_app/widgets/reusable.dart';
 import 'package:icons_helper/icons_helper.dart';
 
@@ -17,10 +18,6 @@ class SpeakerWidget extends StatelessWidget {
                 child: Stack(
                     children: <Widget>[
                       Reusable.header,
-                      AppBar(
-                        backgroundColor: Colors.transparent,
-                        elevation: 0.0,
-                      ),
                       Center(
                           child: SingleChildScrollView(
                               padding: EdgeInsets.only(top: 70.0, bottom: 40.0, right: 26.0, left: 26.0),
@@ -105,8 +102,10 @@ class SpeakerWidget extends StatelessWidget {
                               ]
                             )
                           )
-                        )
-                      ]
+                        ),
+                      Reusable.statusBarTopShadow,
+                      Reusable.backArrow(context)
+                    ]
                 )
             )
         )
