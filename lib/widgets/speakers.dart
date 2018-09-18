@@ -1,7 +1,11 @@
+import 'package:flutter_conference_app/interfaces/presenters.dart';
+import 'package:flutter_conference_app/interfaces/views.dart';
 import 'package:flutter_conference_app/models/list_items.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_conference_app/presenters/speakers_presenter.dart';
+import 'package:flutter_conference_app/widgets/reusable.dart';
 
-class SpeakersWidget extends StatelessWidget {
+class SpeakersWidget extends StatefulWidget implements ISpeakersView {
   final List<ListItem> speakerList;
   final bool loaded;
 
@@ -12,16 +16,38 @@ class SpeakersWidget extends StatelessWidget {
   }) : super(key: key);
 
   @override
+  State<StatefulWidget> createState() => SpeakersWidgetState();
+}
+
+class SpeakersWidgetState extends State<SpeakersWidget> implements ISpeakersView {
+  ISpeakersPresenter _presenter;
+
+  @override
+  void initState() {
+    _presenter = SpeakersPresenter(this);
+
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Container(
-      child: !loaded ?
-      Center(child: CircularProgressIndicator()) :
-      ListView.builder(
-          itemCount: speakerList.length,
-          itemBuilder: (context, index) {
-            return speakerList[index].getWidget(context);
-          }
-      ),
+        color: Theme.of(context).backgroundColor,
+        child: Stack(
+            children: <Widget>[
+              Reusable.header,
+              !widget.loaded ? Reusable.loadingProgress :
+              ListView.builder(
+                  itemCount: widget.speakerList.length,
+                  itemBuilder: (context, index) {
+                    return widget.speakerList[index].getWidget(context,
+                        onTapCallback: _presenter.speakerTap);
+                  }
+              ),
+              Reusable.statusBarTopShadow,
+            ]
+        )
     );
-  }
+ }
 }
+

@@ -20,6 +20,8 @@ class MyApp extends StatelessWidget {
         primaryColor: Colors.orange,
         accentColor: Colors.orangeAccent,
         dividerColor: Colors.black54,
+        backgroundColor: Color(0xFF330F3C),
+        dialogBackgroundColor: Color(0xFF5B1B6B)
       ),
       home: Home(),
     );

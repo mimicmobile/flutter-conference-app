@@ -1,7 +1,9 @@
+import 'package:flutter_conference_app/interfaces/presenters.dart';
 import 'package:flutter_conference_app/interfaces/views.dart';
 import 'package:flutter_conference_app/models/list_items.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_conference_app/presenters/schedule_presenter.dart';
+import 'package:flutter_conference_app/widgets/reusable.dart';
 
 class ScheduleWidget extends StatefulWidget {
   final List<ListItem> scheduleList;
@@ -18,7 +20,7 @@ class ScheduleWidget extends StatefulWidget {
 }
 
 class ScheduleWidgetState extends State<ScheduleWidget> implements IScheduleView {
-  SchedulePresenter _presenter;
+  ISchedulePresenter _presenter;
 
   @override
   void initState() {
@@ -30,18 +32,11 @@ class ScheduleWidgetState extends State<ScheduleWidget> implements IScheduleView
   @override
   Widget build(BuildContext buildContext) {
     return Container(
-        color: Color(0xFF330F3C),
+        color: Theme.of(context).backgroundColor,
         child: Stack(
           children: <Widget>[
-            Image.asset(
-              'images/speaker-bg.png',
-            ),
-            !widget.loaded ?  Padding(
-                  padding: EdgeInsets.only(top: 100.0, right: 20.0, left: 20.0, bottom: 40.0),
-                  child:  Center(
-                      child: CircularProgressIndicator()
-                  )
-                ) :
+            Reusable.header,
+            !widget.loaded ? Reusable.loadingProgress :
                 ListView.builder(
                   itemCount: widget.scheduleList.length,
                   itemBuilder: (context, index) {
@@ -49,16 +44,7 @@ class ScheduleWidgetState extends State<ScheduleWidget> implements IScheduleView
                         onTapCallback: _presenter.scheduleTap);
                   }
               ),
-            Container(
-              height: 90.0,
-              decoration: BoxDecoration(
-                gradient: LinearGradient(
-                  begin: Alignment.topCenter,
-                  end: Alignment(0.0, 0.5),
-                  colors: [const Color(0x77000000), const Color(0x00000000)],
-                ),
-              ),
-            ),
+            Reusable.statusBarTopShadow,
           ]
         )
     );

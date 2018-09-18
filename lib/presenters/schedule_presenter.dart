@@ -5,7 +5,7 @@ import 'package:flutter_conference_app/models/data.dart';
 import 'package:flutter_conference_app/widgets/talk.dart';
 
 class SchedulePresenter implements ISchedulePresenter {
-  IScheduleView _view;
+  final IScheduleView _view;
 
   SchedulePresenter(this._view);
 

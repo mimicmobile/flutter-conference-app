@@ -7,3 +7,7 @@ abstract class IHomeView {
 abstract class IScheduleView {
 
 }
+
+abstract class ISpeakersView {
+
+}

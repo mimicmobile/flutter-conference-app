@@ -61,7 +61,7 @@ class _HomeState extends State<Home> implements IHomeView {
       ),
       bottomNavigationBar: Theme(
         data: Theme.of(context).copyWith(
-          canvasColor: Color(0xFF5B1B6B),
+          canvasColor: Theme.of(context).dialogBackgroundColor,
           primaryColor: Colors.white,
           textTheme: Theme
               .of(context)

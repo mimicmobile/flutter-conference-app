@@ -23,3 +23,7 @@ abstract class IHomePresenter {
 abstract class ISchedulePresenter {
   scheduleTap(BuildContext context, AugmentedTalk talk);
 }
+
+abstract class ISpeakersPresenter {
+  speakerTap(BuildContext context, SpeakerItem speakerItem);
+}

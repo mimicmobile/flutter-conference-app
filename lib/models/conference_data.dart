@@ -154,7 +154,7 @@ class ConferenceData implements IHomeModel {
     var _scheduleList = <ListItem>[HeaderItem()];
 
     this.schedule.forEach((f) {
-      _scheduleList.add(TimeItem(f.time));  // Add time item
+      _scheduleList.add(TitleItem(f.time));  // Add time item
       _scheduleList.add(TalkItem(
           f.talks.map((talk) => talk.createAugmented(speakers, tracks, talkTypes, f.time)).toList())
       );
@@ -166,7 +166,7 @@ class ConferenceData implements IHomeModel {
 
   @override
   void get generateSpeakerList {
-    var _speakerList = <ListItem>[];
+    var _speakerList = <ListItem>[HeaderItem(), TitleItem('Speakers')];
 
     this.speakers.forEach((f) {
       _speakerList.add(SpeakerItem(f));
