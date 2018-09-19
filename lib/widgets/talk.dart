@@ -27,7 +27,7 @@ class TalkWidget extends StatelessWidget {
                       Reusable.header,
                       Center(
                           child: SingleChildScrollView(
-                              padding: EdgeInsets.only(top: 70.0, right: 26.0, left: 26.0, bottom: 26.0),
+                              padding: EdgeInsets.only(top: 30.0, right: 26.0, left: 26.0, bottom: 26.0),
                               child: Column(
                                 children: <Widget>[
                                   Card(
