@@ -34,4 +34,16 @@ class HomePresenter implements IHomePresenter {
     _view.refreshState(showSnackBar);
   }
 
+  @override
+  void showNetworkError() {
+    if (!loaded) {
+      _view.showNetworkError();
+    }
+  }
+
+  @override
+  void fetchData() {
+    _model.checkAndLoadCache;
+  }
+
 }

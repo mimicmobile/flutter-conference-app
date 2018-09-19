@@ -18,6 +18,8 @@ abstract class IHomePresenter {
   void init();
 
   void refreshState({bool showSnackBar=false});
+  void showNetworkError();
+  void fetchData();
 }
 
 abstract class ISchedulePresenter {

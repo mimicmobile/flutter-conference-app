@@ -84,13 +84,25 @@ class Reusable {
     return linkIcons;
   }
 
-  static showSnackBar(BuildContext context, String text, [duration = 1400]) {
+  static showSnackBar(BuildContext context, String text,
+      {duration:  1400, String actionText, Function actionCallback}) {
     Future.delayed(Duration.zero, () {
-      Scaffold.of(context).showSnackBar(SnackBar(
+      var snackBarAction;
+      if (actionText != null && actionCallback != null) {
+        snackBarAction = SnackBarAction(
+            label: actionText,
+            onPressed: () {
+              actionCallback();
+            });
+      }
+
+      var snackBar = SnackBar(
+          action: snackBarAction,
           duration: Duration(milliseconds: duration),
           content: Text(text),
           backgroundColor: Theme.of(context).dialogBackgroundColor
-      ));
+      );
+      Scaffold.of(context).showSnackBar(snackBar);
     });
   }
 }

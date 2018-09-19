@@ -35,8 +35,13 @@ class ConferenceData implements IHomeModel {
   Map<String, dynamic> toJson() => _$ConferenceDataToJson(this);
 
   @override
-  Future init(IHomePresenter presenter) async {
+  void init(IHomePresenter presenter) async {
     _presenter = presenter;
+    await checkAndLoadCache;
+  }
+
+  @override
+  Future get checkAndLoadCache async {
     bool exists = await cacheExists;
 
     if (exists) {
@@ -53,6 +58,7 @@ class ConferenceData implements IHomeModel {
       await fetchAndSaveData;
     }
   }
+
 
   @override
   String cacheFileName(String path) {
@@ -97,6 +103,7 @@ class ConferenceData implements IHomeModel {
 
     }).catchError((e) {
       print("staleCacheCheck failed: $e");
+      _presenter.showNetworkError();
       return false;
     });
   }
@@ -118,7 +125,10 @@ class ConferenceData implements IHomeModel {
     return http.get(this.jsonUrl).then((response) async {
       await saveData(response);
       await loadDataFromCache;
-    }).catchError((e) => print("fetchAndSaveData failed $e"));
+    }).catchError((e) {
+      print("fetchAndSaveData failed $e");
+      _presenter.showNetworkError();
+    });
   }
 
   @override

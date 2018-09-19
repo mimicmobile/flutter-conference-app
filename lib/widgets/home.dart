@@ -32,7 +32,8 @@ class _HomeState extends State<Home> implements IHomeView {
   void refreshState(bool shouldShow) {
     setState(() {});
     if (shouldShow) {
-      Reusable.showSnackBar(_buildContext, 'Conference Schedule data updated!', 4000);
+      Reusable.showSnackBar(_buildContext, 'Conference Schedule data updated!',
+          duration: 4000);
     }
   }
 
@@ -96,4 +97,12 @@ class _HomeState extends State<Home> implements IHomeView {
       _presenter.currentIndex = index;
     });
   }
+
+  @override
+  void showNetworkError() {
+    Reusable.showSnackBar(_buildContext, "Network request error 😟",
+        actionText: 'Retry', actionCallback: _presenter.fetchData,
+        duration: 1000 * 60 * 5);
+  }
+
 }

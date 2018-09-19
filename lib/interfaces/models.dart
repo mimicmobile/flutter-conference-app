@@ -10,7 +10,7 @@ abstract class IHomeModel {
   List<Schedule> schedule;
   List<TalkType> talkTypes;
 
-  Future init(IHomePresenter presenter);
+  void init(IHomePresenter presenter);
   String cacheFileName(String path);
   Future<String> get cachePath;
   Future<File> get cachedFile;
@@ -22,4 +22,5 @@ abstract class IHomeModel {
   void populateData(IHomeModel model);
   void get generateScheduleList;
   void get generateSpeakerList;
+  Future get checkAndLoadCache;
 }
