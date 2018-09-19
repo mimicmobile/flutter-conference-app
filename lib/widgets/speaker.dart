@@ -29,7 +29,7 @@ class SpeakerWidget extends StatelessWidget {
                                         elevation: 12.0,
                                         margin: EdgeInsets.only(top: 82.0, bottom: 20.0),
                                         child: Padding(
-                                            padding: EdgeInsets.all(20.0),
+                                            padding: EdgeInsets.all(18.0),
                                             child: Column(
                                               crossAxisAlignment: CrossAxisAlignment.center,
                                               children: <Widget>[

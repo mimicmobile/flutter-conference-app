@@ -87,7 +87,18 @@ class TalkItem implements ListItem {
                               Text(
                                 '${talky.speaker.company}',
                                 style: TextStyle(fontSize: 16.0, color: Theme.of(context).textTheme.caption.color),
-                              )
+                              ),
+                              talk.length > 1 ?
+                              Container(
+                                margin: EdgeInsets.only(top: 2.0),
+                                child:
+                                  Text(
+                                    '${talky.track.name}',
+                                    style: TextStyle(fontSize: 14.0,
+                                        fontWeight: FontWeight.bold,
+                                        color: Utils.convertIntColor(talky.track.color)),
+                                  )
+                              ) : Container()
                             ],
                           ),
                           Spacer(),
@@ -101,23 +112,8 @@ class TalkItem implements ListItem {
                         ],
                       )
                   ),
-                  talk.length > 1 ?
-                    Padding(
-                      padding: EdgeInsets.only(top: 8.0),
-                      child:
-                        Chip(
-                            backgroundColor: Utils.convertIntColor(talky.track.color),
-                            label: Text(
-                              "${talky.track.name}",
-                              style: TextStyle(fontSize: 16.0, color: Colors.white),
-                            )
-                        )
-                    ) : Container(),
                   talk.length > 1 && talk.last != talky ?
-                    Padding(
-                      padding: EdgeInsets.only(top: 8.0, bottom: 15.0),
-                      child: Divider(indent: 10.0)
-                    ): Container(),
+                    Divider(height: 40.0) : Container(),
                   ]
                 )
               )
