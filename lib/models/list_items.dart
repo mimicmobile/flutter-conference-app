@@ -67,11 +67,14 @@ class TalkItem implements ListItem {
                         children: <Widget>[
                           Padding(
                               padding: EdgeInsets.only(right: 20.0),
-                              child: CircleAvatar(
-                                maxRadius: 30.0,
-                                // TODO: Conditional lookup to replace with Icons.person
-                                // if no imageUrl exists
-                                backgroundImage: NetworkImage(talky.speaker.imageUrl),
+                              child: Hero(
+                                  tag: "avatar${talky.speaker.id}",
+                                  child: CircleAvatar(
+                                    maxRadius: 30.0,
+                                    // TODO: Conditional lookup to replace with Icons.person
+                                    // if no imageUrl exists
+                                    backgroundImage: NetworkImage(talky.speaker.imageUrl),
+                                  )
                               )
                           ),
                           Column(
@@ -158,9 +161,12 @@ class SpeakerItem implements ListItem {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   mainAxisAlignment: MainAxisAlignment.spaceAround,
                   children: <Widget>[
-                    Text(
-                      '${speaker.name}',
-                      style: TextStyle(fontSize: 22.0),
+                    Hero(
+                        tag: "name${speaker.id}",
+                        child: Text(
+                          '${speaker.name}',
+                          style: TextStyle(fontSize: 22.0),
+                        )
                     ),
                     Text(
                       '${speaker.company}',
@@ -195,9 +201,12 @@ class SpeakerItem implements ListItem {
             ),
             Padding(
                 padding: EdgeInsets.only(left: 22.0, bottom: 26.0),
-                child: CircleAvatar(
-                  backgroundImage: NetworkImage(this.speaker.imageUrl),
-                  maxRadius: 46.0,
+                child: Hero(
+                    tag: "avatar${speaker.id}",
+                    child: CircleAvatar(
+                      backgroundImage: NetworkImage(this.speaker.imageUrl),
+                      maxRadius: 46.0,
+                    )
                 )
             )
           ]

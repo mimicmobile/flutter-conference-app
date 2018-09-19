@@ -2,11 +2,19 @@ import 'package:flutter/material.dart';
 import 'package:flutter_conference_app/models/data.dart';
 import 'package:flutter_conference_app/widgets/reusable.dart';
 import 'package:flutter_conference_app/utils.dart';
+import 'package:flutter_conference_app/widgets/speaker.dart';
 
 class TalkWidget extends StatelessWidget {
   final AugmentedTalk talk;
 
   TalkWidget(this.talk);
+
+  void _goToSpeaker(context, Speaker speaker) {
+    Navigator.push(
+        context,
+        MaterialPageRoute(
+            builder: (context) => (SpeakerWidget(speaker))));
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -70,37 +78,45 @@ class TalkWidget extends StatelessWidget {
                                           ),
                                           Padding(
                                               padding: EdgeInsets.only(top: 4.0, bottom: 16.0),
-                                              child: Row(
-                                                  crossAxisAlignment: CrossAxisAlignment.center,
-                                                  children: <Widget>[
-                                                    Padding(
-                                                        padding: EdgeInsets.only(right: 20.0),
-                                                        child: CircleAvatar(
-                                                          maxRadius: 30.0,
-                                                          // TODO: Conditional lookup to replace with Icons.person
-                                                          // if no imageUrl exists
-                                                          backgroundImage: NetworkImage(talk.speaker.imageUrl),
-                                                        )
-                                                    ),
-                                                    Column(
-                                                      crossAxisAlignment: CrossAxisAlignment.start,
+                                              child: InkWell(
+                                                  onTap: () {
+                                                    _goToSpeaker(context, talk.speaker);
+                                                  },
+                                                  child: Row(
+                                                      crossAxisAlignment: CrossAxisAlignment.center,
                                                       children: <Widget>[
-                                                        Text(
-                                                          "${talk.speaker.name}",
-                                                          style: TextStyle(fontSize: 18.0),
+                                                        Padding(
+                                                            padding: EdgeInsets.only(right: 20.0),
+                                                            child: Hero(
+                                                                tag: "avatar${talk.speaker.id}",
+                                                                child: CircleAvatar(
+                                                                  maxRadius: 30.0,
+                                                                  // TODO: Conditional lookup to replace with Icons.person
+                                                                  // if no imageUrl exists
+                                                                  backgroundImage: NetworkImage(talk.speaker.imageUrl),
+                                                                )
+                                                            )
                                                         ),
-                                                        Text(
-                                                          "${talk.speaker.company}",
-                                                          style: TextStyle(
-                                                              fontSize: 14.0,
-                                                              height: 1.4,
-                                                              color: Theme.of(context).textTheme.caption.color
-                                                          ),
-                                                        ),
-                                                      ],
-                                                    )
-                                                  ]
-                                              )
+                                                        Column(
+                                                          crossAxisAlignment: CrossAxisAlignment.start,
+                                                          children: <Widget>[
+                                                            Text(
+                                                              "${talk.speaker.name}",
+                                                              style: TextStyle(fontSize: 18.0),
+                                                            ),
+                                                            Text(
+                                                              "${talk.speaker.company}",
+                                                              style: TextStyle(
+                                                                  fontSize: 14.0,
+                                                                  height: 1.4,
+                                                                  color: Theme.of(context).textTheme.caption.color
+                                                              ),
+                                                            ),
+                                                          ],
+                                                        )
+                                                      ]
+                                                  )
+                                            )
                                           ),
                                           Container(
                                               alignment: AlignmentDirectional.centerStart,
