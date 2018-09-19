@@ -53,20 +53,7 @@ class SpeakerWidget extends StatelessWidget {
                                                 ),
                                                 Row(
                                                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                                                    children: <Widget>[
-                                                      Icon(
-                                                        getIconGuessFavorFA(name: "twitter"),
-                                                        color: Colors.blue[300],
-                                                      ),
-                                                      Icon(
-                                                        getIconGuessFavorFA(name: "github"),
-                                                        color: Colors.black,
-                                                      ),
-                                                      Icon(
-                                                        getIconGuessFavorFA(name: "linkedin"),
-                                                        color: Colors.green,
-                                                      ),
-                                                    ]
+                                                    children: Reusable.getLinkIcons(speaker)
                                                 )
                                               ],
                                             )

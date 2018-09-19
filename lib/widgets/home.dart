@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:flutter_conference_app/interfaces/views.dart';
 import 'package:flutter_conference_app/presenters/home_presenter.dart';
 import 'package:flutter_conference_app/widgets/about.dart';
+import 'package:flutter_conference_app/widgets/reusable.dart';
 import 'package:flutter_conference_app/widgets/schedule.dart';
 import 'package:flutter_conference_app/widgets/speakers.dart';
 import 'package:flutter/material.dart';
@@ -31,7 +32,7 @@ class _HomeState extends State<Home> implements IHomeView {
   void refreshState(bool shouldShow) {
     setState(() {});
     if (shouldShow) {
-      showSnackBar('Schedule updated!');
+      Reusable.showSnackBar(_buildContext, 'Conference Schedule data updated!', 4000);
     }
   }
 
@@ -95,15 +96,4 @@ class _HomeState extends State<Home> implements IHomeView {
       _presenter.currentIndex = index;
     });
   }
-
-  @override
-  void showSnackBar(String text) {
-    Future.delayed(Duration.zero, () {
-      Scaffold.of(_buildContext).showSnackBar(SnackBar(
-          content: Text(text),
-          backgroundColor: Theme.of(_buildContext).dialogBackgroundColor
-      ));
-    });
-  }
-
 }

@@ -23,6 +23,7 @@ dependencies:
   shared_preferences: ^0.4.2
   json_annotation: ^1.0.0
   icons_helper: ^0.0.8
+  url_launcher: ^3.0.3
 
 dev_dependencies:
   flutter_test:

@@ -1,5 +1,9 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_conference_app/config.dart';
+import 'package:icons_helper/icons_helper.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class Reusable {
   static get header {
@@ -48,5 +52,45 @@ class Reusable {
         child: Icon(Icons.arrow_back, color: Colors.white)
       )
     );
+  }
+
+  static Widget _getLinkIcon(String iconName, Color color, String url) {
+    return InkWell(
+      onTap: () async {
+        if (await canLaunch(url)) {
+          launch(url);
+        }
+      },
+      child: Icon(
+        getIconGuessFavorFA(name: iconName),
+        color: color,
+      )
+    );
+  }
+
+  static List<Widget> getLinkIcons(speaker) {
+    var linkIcons = <Widget>[];
+
+    if (speaker.twitter != "") {
+      linkIcons.add(_getLinkIcon("twitter", Colors.blue[300], speaker.twitter));
+    }
+    if (speaker.github != "") {
+      linkIcons.add(_getLinkIcon("github", Colors.black, speaker.github));
+    }
+    if (speaker.linkedIn != "") {
+      linkIcons.add(_getLinkIcon("linkedin", Colors.blue[700], speaker.linkedIn));
+    }
+
+    return linkIcons;
+  }
+
+  static showSnackBar(BuildContext context, String text, [duration = 1400]) {
+    Future.delayed(Duration.zero, () {
+      Scaffold.of(context).showSnackBar(SnackBar(
+          duration: Duration(milliseconds: duration),
+          content: Text(text),
+          backgroundColor: Theme.of(context).dialogBackgroundColor
+      ));
+    });
   }
 }

@@ -1,6 +1,7 @@
 import 'package:flutter_conference_app/models/data.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_conference_app/utils.dart';
+import 'package:flutter_conference_app/widgets/reusable.dart';
 
 import 'package:icons_helper/icons_helper.dart';
 
@@ -50,8 +51,7 @@ class TalkItem implements ListItem {
 
   Container _createTalk(context, AugmentedTalk talky, Function onTapCallback) {
     return Container(
-        child: GestureDetector(
-            behavior: HitTestBehavior.translucent,
+        child: InkWell(
             onTap: () { onTapCallback(context, talky); },
             child: Column(
               children: <Widget>[
@@ -102,11 +102,16 @@ class TalkItem implements ListItem {
                             ],
                           ),
                           Spacer(),
-                          CircleAvatar(
-                            backgroundColor: Theme.of(context).accentColor,
-                            child: Icon(
-                              getMaterialIcon(name: talky.talkType.materialIcon),
-                              color: Colors.white,
+                          InkWell(
+                            onTap: () {
+                              Reusable.showSnackBar(context, talky.talkType.description);
+                            },
+                            child: CircleAvatar(
+                                backgroundColor: Theme.of(context).accentColor,
+                                child: Icon(
+                                  getMaterialIcon(name: talky.talkType.materialIcon),
+                                  color: Colors.white,
+                                )
                             )
                           )
                         ],
@@ -175,21 +180,8 @@ class SpeakerItem implements ListItem {
                         )
                     ),
                     Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceAround,
-                      children: <Widget>[
-                        Icon(
-                            getIconGuessFavorFA(name: "twitter"),
-                            color: Colors.blue[300],
-                        ),
-                        Icon(
-                          getIconGuessFavorFA(name: "github"),
-                          color: Colors.black,
-                        ),
-                        Icon(
-                          getIconGuessFavorFA(name: "linkedin"),
-                          color: Colors.green,
-                        ),
-                      ]
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: Reusable.getLinkIcons(speaker)
                     )
                   ],
                 ),
