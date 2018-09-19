@@ -157,7 +157,7 @@ class SpeakerItem implements ListItem {
               elevation: 12.0,
               margin: EdgeInsets.only(left: 66.0, right: 26.0, bottom: 26.0),
               child: Padding(
-                padding: EdgeInsets.only(left: 70.0, top: 26.0, right: 26.0, bottom: 26.0),
+                padding: EdgeInsets.only(left: 70.0, top: 20.0, right: 20.0, bottom: 20.0),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   mainAxisAlignment: MainAxisAlignment.spaceAround,
@@ -173,11 +173,8 @@ class SpeakerItem implements ListItem {
                       '${speaker.company}',
                       style: TextStyle(fontSize: 16.0, color: Theme.of(context).textTheme.caption.color),
                     ),
-                    Padding(
-                        padding: EdgeInsets.all(10.0),
-                        child: Divider(
-                          indent: 10.0,
-                        )
+                    Divider(
+                      height: 40.0,
                     ),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
