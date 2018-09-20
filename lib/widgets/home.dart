@@ -68,7 +68,7 @@ class _HomeState extends State<Home> implements IHomeView {
           textTheme: Theme
               .of(context)
               .textTheme
-              .copyWith(caption: new TextStyle(color: Colors.grey[500]))), // sets the inactive color of the `BottomNavigationBar`
+              .copyWith(caption: TextStyle(color: Colors.grey[500]))), // sets the inactive color of the `BottomNavigationBar`
         child: BottomNavigationBar(
           onTap: onTabTapped,
           currentIndex: _presenter.currentIndex,

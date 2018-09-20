@@ -1,3 +1,4 @@
+import 'package:flutter_conference_app/config.dart';
 import 'package:flutter_conference_app/models/data.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_conference_app/utils.dart';
@@ -16,7 +17,7 @@ class HeaderItem implements ListItem {
   Padding getWidget(context, {onTapCallback}) {
     return Padding(
       padding: EdgeInsets.only(top: 24.0, bottom: 24.0, right: 20.0, left: 20.0),
-      child: Image.asset('images/ato-logo.png')
+      child: Image.asset(Config.logo)
     );
   }
 }
