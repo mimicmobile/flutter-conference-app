@@ -1,5 +1,3 @@
-import 'dart:async';
-
 import 'package:flutter_conference_app/interfaces/views.dart';
 import 'package:flutter_conference_app/presenters/home_presenter.dart';
 import 'package:flutter_conference_app/widgets/about.dart';

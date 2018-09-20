@@ -14,13 +14,17 @@ abstract class IHomeModel {
   String cacheFileName(String path);
   Future<String> get cachePath;
   Future<File> get cachedFile;
-  Future<bool> get cacheExists;
-  Future<bool> get staleCacheCheck;
-  void get loadDataFromCache;
-  Future get fetchAndSaveData;
+  Future<bool> cacheExists();
+  Future<bool> isCacheStale();
+  void loadDataFromCache();
+  Future fetchAndSaveData();
   Future saveData(resource);
   void populateData(IHomeModel model);
-  void get generateScheduleList;
-  void get generateSpeakerList;
-  Future get checkAndLoadCache;
+  int getTalkIndex(List<AugmentedTalk> speakerTalks, int hashCode);
+  TalkBoss createTalkBoss(String speakerId, [Talk talk]);
+  void generateScheduleList();
+  void generateSpeakerList();
+  Future checkAndLoadCache();
+  List<AugmentedTalk> getTalksForSpeaker(String speakerId);
+  AugmentedSpeaker getSpeaker(String speakerId);
 }

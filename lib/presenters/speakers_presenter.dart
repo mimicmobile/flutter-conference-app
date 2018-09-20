@@ -10,11 +10,10 @@ class SpeakersPresenter implements ISpeakersPresenter {
   SpeakersPresenter(this._view);
 
   @override
-  speakerTap(BuildContext context, Speaker speaker) {
+  speakerTap(BuildContext context, TalkBoss boss) {
     Navigator.push(
         context,
         MaterialPageRoute(
-            builder: (context) => (SpeakerWidget(speaker))));
+            builder: (context) => (SpeakerWidget(boss))));
   }
-
 }

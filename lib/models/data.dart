@@ -1,3 +1,4 @@
+import 'package:flutter_conference_app/utils.dart';
 import 'package:json_annotation/json_annotation.dart';
 part 'data.g.dart';
 
@@ -17,6 +18,11 @@ class Speaker {
   final String imageUrl;
 
   Speaker(this.id, this.name, this.bio, this.imageUrl, this.company, this.twitter, this.linkedIn, this.github);
+
+  AugmentedSpeaker createAugmented() {
+    return AugmentedSpeaker(this.id, this.name, this.bio, this.imageUrl, this.company,
+      this.twitter, this.linkedIn, this.github);
+  }
 
   factory Speaker.fromJson(Map<String, dynamic> content) => _$SpeakerFromJson(content);
   Map<String, dynamic> toJson() => _$SpeakerToJson(this);
@@ -66,16 +72,10 @@ class Talk {
 
   Talk(this.speakerId, this.trackId, this.talkTypeId, this.title, this.description);
 
-  createAugmented(speakers, tracks, talkTypes, time) {
-    return AugmentedTalk(title, description, findItemById(speakers, this.speakerId),
-        findItemById(tracks, this.trackId), findItemById(talkTypes, this.talkTypeId),
-        time);
-  }
-
-  findItemById(List l, id) {
-    for (final i in l) {
-      if (i.id == id) return i;
-    }
+  AugmentedTalk createAugmented(tracks, talkTypes, time, talkHash) {
+    return AugmentedTalk(title, description, speakerId,
+        Utils.findItemById(tracks, trackId), Utils.findItemById(talkTypes, talkTypeId),
+        time, talkHash);
   }
 
   factory Talk.fromJson(Map<String, dynamic> content) => _$TalkFromJson(content);
@@ -108,12 +108,39 @@ class Schedule {
 class AugmentedTalk {
   final String title;
   final String description;
-  final Speaker speaker;
+  final String speakerId;
   final Track track;
   final TalkType talkType;
   final String time;
+  final int talkHash;
 
-  AugmentedTalk(this.title, this.description, this.speaker, this.track,
-      this.talkType, this.time);
+  AugmentedTalk(this.title, this.description, this.speakerId, this.track,
+      this.talkType, this.time, this.talkHash);
+}
+
+class AugmentedSpeaker {
+  final String id;
+  final String name;
+  final String bio;
+  final String company;
+  final String twitter;
+  final String github;
+  final String linkedIn;
+  final String imageUrl;
+
+  AugmentedSpeaker(this.id, this.name, this.bio, this.imageUrl, this.company,
+      this.twitter, this.linkedIn, this.github);
+}
+
+class TalkBoss {
+  final List<AugmentedTalk> talks;
+  final AugmentedSpeaker speaker;
+  int index = 0;
+
+  AugmentedTalk get currentTalk {
+    return talks[index];
+  }
+
+  TalkBoss(this.talks, this.speaker, [this.index]);
 }
 

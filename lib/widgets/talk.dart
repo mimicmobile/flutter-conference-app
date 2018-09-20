@@ -5,15 +5,15 @@ import 'package:flutter_conference_app/utils.dart';
 import 'package:flutter_conference_app/widgets/speaker.dart';
 
 class TalkWidget extends StatelessWidget {
-  final AugmentedTalk talk;
+  final TalkBoss boss;
 
-  TalkWidget(this.talk);
+  TalkWidget(this.boss);
 
-  void _goToSpeaker(context, Speaker speaker) {
+  void _goToSpeaker(context) {
     Navigator.push(
         context,
         MaterialPageRoute(
-            builder: (context) => (SpeakerWidget(speaker))));
+            builder: (context) => (SpeakerWidget(boss))));
   }
 
   @override
@@ -41,7 +41,7 @@ class TalkWidget extends StatelessWidget {
                                             Container(
                                                 padding: EdgeInsets.only(top: 10.0, bottom: 8.0),
                                                 child: Text(
-                                                  "${talk.title}",
+                                                  "${boss.currentTalk.title}",
                                                   textAlign: TextAlign.center,
                                                   style: TextStyle(fontSize: 32.0),
                                                 )
@@ -54,14 +54,14 @@ class TalkWidget extends StatelessWidget {
                                                       Chip(
                                                           backgroundColor: Colors.red[300],
                                                           label: Text(
-                                                              "${talk.time}",
+                                                              "${boss.currentTalk.time}",
                                                               style: TextStyle(fontSize: 16.0, color: Colors.white)
                                                           )
                                                       ),
                                                       Chip(
-                                                          backgroundColor: Utils.convertIntColor(talk.track.color),
+                                                          backgroundColor: Utils.convertIntColor(boss.currentTalk.track.color),
                                                           label: Text(
-                                                            "${talk.track.name}",
+                                                            "${boss.currentTalk.track.name}",
                                                             style: TextStyle(fontSize: 16.0, color: Colors.white),
                                                           )
                                                       )
@@ -69,7 +69,7 @@ class TalkWidget extends StatelessWidget {
                                                 )
                                             ),
                                             Text(
-                                              "${talk.talkType.description}",
+                                              "${boss.currentTalk.talkType.description}",
                                               style: TextStyle(color: Theme.of(context).textTheme.caption.color),
                                             ),
                                             Divider(
@@ -80,7 +80,7 @@ class TalkWidget extends StatelessWidget {
                                                 padding: EdgeInsets.only(top: 4.0),
                                                 child: InkWell(
                                                     onTap: () {
-                                                      _goToSpeaker(context, talk.speaker);
+                                                      _goToSpeaker(context);
                                                     },
                                                     child: Row(
                                                         crossAxisAlignment: CrossAxisAlignment.center,
@@ -88,12 +88,12 @@ class TalkWidget extends StatelessWidget {
                                                           Padding(
                                                               padding: EdgeInsets.only(right: 20.0),
                                                               child: Hero(
-                                                                  tag: "avatar${talk.speaker.id}",
+                                                                  tag: "avatar${boss.speaker.id}",
                                                                   child: CircleAvatar(
                                                                     maxRadius: 30.0,
                                                                     // TODO: Conditional lookup to replace with Icons.person
                                                                     // if no imageUrl exists
-                                                                    backgroundImage: NetworkImage(talk.speaker.imageUrl),
+                                                                    backgroundImage: NetworkImage(boss.speaker.imageUrl),
                                                                   )
                                                               )
                                                           ),
@@ -101,11 +101,11 @@ class TalkWidget extends StatelessWidget {
                                                             crossAxisAlignment: CrossAxisAlignment.start,
                                                             children: <Widget>[
                                                               Text(
-                                                                "${talk.speaker.name}",
+                                                                "${boss.speaker.name}",
                                                                 style: TextStyle(fontSize: 18.0),
                                                               ),
                                                               Text(
-                                                                "${talk.speaker.company}",
+                                                                "${boss.speaker.company}",
                                                                 style: TextStyle(
                                                                     fontSize: 14.0,
                                                                     height: 1.4,
@@ -134,7 +134,7 @@ class TalkWidget extends StatelessWidget {
                                     alignment: AlignmentDirectional.centerStart,
                                     padding: EdgeInsets.only(top: 4.0, bottom: 14.0, right: 6.0, left: 6.0),
                                     child: Text(
-                                      "${talk.description}",
+                                      "${boss.currentTalk.description}",
                                       textAlign: TextAlign.justify,
                                       style: TextStyle(fontSize: 16.0, height: 1.2, color: Colors.grey[300]),
                                     )

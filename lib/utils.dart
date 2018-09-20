@@ -9,4 +9,18 @@ class Utils {
           radix: 16))
       .withOpacity(1.0);
   }
+
+  static findItemsById(List l, id) {
+    List list = List();
+
+    for (final i in l) {
+      if (i.id == id) list.add(i);
+    }
+
+    return list;
+  }
+
+  static findItemById(List l, id) {
+    return findItemsById(l, id)[0];
+  }
 }

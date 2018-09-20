@@ -47,17 +47,17 @@ class TitleItem implements ListItem {
 }
 
 class TalkItem implements ListItem {
-  final List<dynamic> talk;
-  TalkItem(this.talk);
+  final List<TalkBoss> talks;
+  TalkItem(this.talks);
 
-  Container _createTalk(context, AugmentedTalk talky, Function onTapCallback) {
+  Container _createTalk(context, TalkBoss boss, Function onTapCallback) {
     return Container(
         child: InkWell(
-            onTap: () { onTapCallback(context, talky); },
+            onTap: () { onTapCallback(context, boss); },
             child: Column(
               children: <Widget>[
                   Text(
-                    '${talky.title}',
+                    '${boss.currentTalk.title}',
                     textAlign: TextAlign.start,
                     style: TextStyle(fontSize: 22.0),
                   ),
@@ -69,12 +69,12 @@ class TalkItem implements ListItem {
                           Padding(
                               padding: EdgeInsets.only(right: 20.0),
                               child: Hero(
-                                  tag: "avatar${talky.speaker.id}",
+                                  tag: "avatar${boss.speaker.id}",
                                   child: CircleAvatar(
                                     maxRadius: 30.0,
                                     // TODO: Conditional lookup to replace with Icons.person
                                     // if no imageUrl exists
-                                    backgroundImage: NetworkImage(talky.speaker.imageUrl),
+                                    backgroundImage: NetworkImage(boss.speaker.imageUrl),
                                   )
                               )
                           ),
@@ -82,22 +82,22 @@ class TalkItem implements ListItem {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: <Widget>[
                               Text(
-                                '${talky.speaker.name}',
+                                '${boss.speaker.name}',
                                 style: TextStyle(fontSize: 18.0),
                               ),
                               Text(
-                                '${talky.speaker.company}',
+                                '${boss.speaker.company}',
                                 style: TextStyle(fontSize: 16.0, color: Theme.of(context).textTheme.caption.color),
                               ),
-                              talk.length > 1 ?
+                              talks.length > 1 ?
                               Container(
                                 margin: EdgeInsets.only(top: 2.0),
                                 child:
                                   Text(
-                                    '${talky.track.name}',
+                                    '${boss.currentTalk.track.name}',
                                     style: TextStyle(fontSize: 14.0,
                                         fontWeight: FontWeight.bold,
-                                        color: Utils.convertIntColor(talky.track.color)),
+                                        color: Utils.convertIntColor(boss.currentTalk.track.color)),
                                   )
                               ) : Container()
                             ],
@@ -105,12 +105,12 @@ class TalkItem implements ListItem {
                           Spacer(),
                           InkWell(
                             onTap: () {
-                              Reusable.showSnackBar(context, talky.talkType.description);
+                              Reusable.showSnackBar(context, boss.currentTalk.talkType.description);
                             },
                             child: CircleAvatar(
                                 backgroundColor: Theme.of(context).accentColor,
                                 child: Icon(
-                                  getMaterialIcon(name: talky.talkType.materialIcon),
+                                  getMaterialIcon(name: boss.currentTalk.talkType.materialIcon),
                                   color: Colors.white,
                                 )
                             )
@@ -118,7 +118,7 @@ class TalkItem implements ListItem {
                         ],
                       )
                   ),
-                  talk.length > 1 && talk.last != talky ?
+                  talks.length > 1 && talks.last != boss ?
                     Divider(height: 40.0) : Container(),
                   ]
                 )
@@ -136,7 +136,7 @@ class TalkItem implements ListItem {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.center,
               children:
-                talk.map((t) => _createTalk(context, t, onTapCallback)).toList()
+                talks.map((t) => _createTalk(context, t, onTapCallback)).toList()
         )
       )
     );
@@ -144,13 +144,13 @@ class TalkItem implements ListItem {
 }
 
 class SpeakerItem implements ListItem {
-  final Speaker speaker;
-  SpeakerItem(this.speaker);
+  final TalkBoss boss;
+  SpeakerItem(this.boss);
 
   @override
   Widget getWidget(context, {onTapCallback}) {
     return GestureDetector(
-        onTap: () { onTapCallback(context, speaker); },
+        onTap: () { onTapCallback(context, boss); },
         child: Stack(
           alignment: AlignmentDirectional.centerStart,
           children: <Widget>[
@@ -164,14 +164,14 @@ class SpeakerItem implements ListItem {
                   mainAxisAlignment: MainAxisAlignment.spaceAround,
                   children: <Widget>[
                     Hero(
-                        tag: "name${speaker.id}",
+                        tag: "name${boss.speaker.id}",
                         child: Text(
-                          '${speaker.name}',
+                          '${boss.speaker.name}',
                           style: TextStyle(fontSize: 22.0),
                         )
                     ),
                     Text(
-                      '${speaker.company}',
+                      '${boss.speaker.company}',
                       style: TextStyle(fontSize: 16.0, color: Theme.of(context).textTheme.caption.color),
                     ),
                     Divider(
@@ -179,7 +179,7 @@ class SpeakerItem implements ListItem {
                     ),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      children: Reusable.getLinkIcons(speaker)
+                      children: Reusable.getLinkIcons(boss.speaker)
                     )
                   ],
                 ),
@@ -188,9 +188,9 @@ class SpeakerItem implements ListItem {
             Padding(
                 padding: EdgeInsets.only(left: 22.0, bottom: 26.0),
                 child: Hero(
-                    tag: "avatar${speaker.id}",
+                    tag: "avatar${boss.speaker.id}",
                     child: CircleAvatar(
-                      backgroundImage: NetworkImage(this.speaker.imageUrl),
+                      backgroundImage: NetworkImage(boss.speaker.imageUrl),
                       maxRadius: 46.0,
                     )
                 )

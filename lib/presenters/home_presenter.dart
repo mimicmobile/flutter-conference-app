@@ -43,7 +43,7 @@ class HomePresenter implements IHomePresenter {
 
   @override
   void fetchData() {
-    _model.checkAndLoadCache;
+    _model.checkAndLoadCache();
   }
 
 }

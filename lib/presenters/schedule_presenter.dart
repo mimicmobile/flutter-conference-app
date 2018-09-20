@@ -10,11 +10,11 @@ class SchedulePresenter implements ISchedulePresenter {
   SchedulePresenter(this._view);
 
   @override
-  scheduleTap(BuildContext context, AugmentedTalk talk) {
+  scheduleTap(BuildContext context, TalkBoss boss) {
       Navigator.push(
           context,
           MaterialPageRoute(
-              builder: (context) => (TalkWidget(talk))));
+              builder: (context) => (TalkWidget(boss))));
   }
 
 

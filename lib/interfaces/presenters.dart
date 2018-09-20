@@ -23,9 +23,9 @@ abstract class IHomePresenter {
 }
 
 abstract class ISchedulePresenter {
-  scheduleTap(BuildContext context, AugmentedTalk talk);
+  scheduleTap(BuildContext context, TalkBoss boss);
 }
 
 abstract class ISpeakersPresenter {
-  speakerTap(BuildContext context, Speaker speaker);
+  speakerTap(BuildContext context, TalkBoss boss);
 }

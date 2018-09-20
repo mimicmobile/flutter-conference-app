@@ -7,6 +7,7 @@ import 'package:flutter_conference_app/models/list_items.dart';
 import 'package:flutter_conference_app/models/data.dart';
 import 'package:flutter_conference_app/interfaces/models.dart';
 import 'package:flutter_conference_app/interfaces/presenters.dart';
+import 'package:flutter_conference_app/utils.dart';
 import 'package:http/http.dart' as http;
 import 'package:path/path.dart';
 import 'package:path_provider/path_provider.dart';
@@ -37,25 +38,25 @@ class ConferenceData implements IHomeModel {
   @override
   void init(IHomePresenter presenter) async {
     _presenter = presenter;
-    await checkAndLoadCache;
+    await checkAndLoadCache();
   }
 
   @override
-  Future get checkAndLoadCache async {
-    bool exists = await cacheExists;
+  Future checkAndLoadCache() async {
+    bool exists = await cacheExists();
 
     if (exists) {
       print("Cache exists, loading from disk");
-      await loadDataFromCache;
-      staleCacheCheck.then((isStale) async {
+      await loadDataFromCache();
+      isCacheStale().then((isStale) async {
         if (isStale) {
           print("Cache outdated, fetching new data..");
-          await fetchAndSaveData;
+          await fetchAndSaveData();
         }
       });
     } else {
       print("Cache unavailable, fetching new data..");
-      await fetchAndSaveData;
+      await fetchAndSaveData();
     }
   }
 
@@ -78,13 +79,13 @@ class ConferenceData implements IHomeModel {
   }
 
   @override
-  Future<bool> get cacheExists async {
+  Future<bool> cacheExists() async {
     final file = await cachedFile;
     return await file.exists();
   }
 
   @override
-  Future<bool> get staleCacheCheck async {
+  Future<bool> isCacheStale() async {
     return await http.head(this.jsonUrl).then((response) async {
       SharedPreferences sharedPrefs = await SharedPreferences.getInstance();
 
@@ -109,7 +110,7 @@ class ConferenceData implements IHomeModel {
   }
 
   @override
-  Future get loadDataFromCache async {
+  Future loadDataFromCache() async {
     return await cachedFile.then((file) {
       try {
         populateData(
@@ -121,10 +122,10 @@ class ConferenceData implements IHomeModel {
   }
 
   @override
-  Future get fetchAndSaveData async {
+  Future fetchAndSaveData() async {
     return http.get(this.jsonUrl).then((response) async {
       await saveData(response);
-      await loadDataFromCache;
+      await loadDataFromCache();
     }).catchError((e) {
       print("fetchAndSaveData failed $e");
       _presenter.showNetworkError();
@@ -150,8 +151,8 @@ class ConferenceData implements IHomeModel {
     this.schedule  = model.schedule;
     this.talkTypes = model.talkTypes;
 
-    generateScheduleList;
-    generateSpeakerList;
+    generateScheduleList();
+    generateSpeakerList();
 
     var _wasLoaded = _presenter.loaded;
 
@@ -160,14 +161,33 @@ class ConferenceData implements IHomeModel {
   }
 
   @override
-  void get generateScheduleList {
+  int getTalkIndex(List<AugmentedTalk> speakerTalks, int hashCode) {
+    int index = 0;
+    for (final i in speakerTalks) {
+      if (i.talkHash == hashCode) return index;
+      index++;
+    }
+    return null;
+  }
+
+  @override
+  TalkBoss createTalkBoss(String speakerId, [Talk talk]) {
+    AugmentedSpeaker _speaker = getSpeaker(speakerId);
+    List<AugmentedTalk> _speakerTalks = getTalksForSpeaker(speakerId);
+    int _index = talk == null ? 0 : getTalkIndex(_speakerTalks, talk.hashCode);
+
+    return TalkBoss(_speakerTalks, _speaker, _index);
+  }
+
+  @override
+  void generateScheduleList() {
     var _scheduleList = <ListItem>[HeaderItem()];
 
     this.schedule.forEach((f) {
       _scheduleList.add(TitleItem(f.time));  // Add time item
       _scheduleList.add(TalkItem(
-          f.talks.map((talk) => talk.createAugmented(speakers, tracks, talkTypes, f.time)).toList())
-      );
+          f.talks.map((talk) => createTalkBoss(talk.speakerId, talk)).toList()
+      ));
     });
 
     _presenter.scheduleList = _scheduleList;
@@ -175,16 +195,30 @@ class ConferenceData implements IHomeModel {
   }
 
   @override
-  void get generateSpeakerList {
+  void generateSpeakerList() {
     var _speakerList = <ListItem>[HeaderItem(), TitleItem('Speakers')];
 
     this.speakers.shuffle();
 
-    this.speakers.forEach((f) {
-      _speakerList.add(SpeakerItem(f));
-    });
+    this.speakers.forEach((Speaker f) =>
+        _speakerList.add(SpeakerItem(createTalkBoss(f.id)))
+    );
 
     _presenter.speakerList = _speakerList;
     print("Speakers parsed | ${_speakerList.length} items");
   }
+
+  @override
+  List<AugmentedTalk> getTalksForSpeaker(String speakerId) {
+    return this.schedule.map((s) =>
+        s.talks.where((t) => t.speakerId == speakerId)
+            .map((t) => t.createAugmented(tracks, talkTypes, s.time, t.hashCode)))
+        .expand((i) => i).toList();
+  }
+
+  @override
+  AugmentedSpeaker getSpeaker(String speakerId) {
+    return (Utils.findItemById(speakers, speakerId) as Speaker).createAugmented();
+  }
+
 }
