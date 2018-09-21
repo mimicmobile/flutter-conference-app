@@ -14,11 +14,12 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: Config.title,
       theme: ThemeData(
-          primaryColor: Colors.orange,
-          accentColor: Color(0xFFFFA544),
-          dividerColor: Colors.black54,
-          backgroundColor: Color(0xFF330F3C),
-          dialogBackgroundColor: Color(0xFF5B1B6B)),
+        primaryColor: Config.primaryColor,
+        accentColor: Config.accentColor,
+        dividerColor: Config.dividerColor,
+        backgroundColor: Config.backgroundColor,
+        dialogBackgroundColor: Config.bottomNavBarColor
+      ),
       home: Home(),
     );
   }
