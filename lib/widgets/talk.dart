@@ -6,12 +6,17 @@ import 'package:flutter_conference_app/widgets/speaker.dart';
 
 class TalkWidget extends StatelessWidget {
   final TalkBoss boss;
+  final bool popBack;
 
-  TalkWidget(this.boss);
+  TalkWidget(this.boss, {this.popBack = false});
 
   void _goToSpeaker(context) {
-    Navigator.push(context,
-        MaterialPageRoute(builder: (context) => (SpeakerWidget(boss))));
+    if (popBack) {
+      Navigator.pop(context);
+    } else {
+      Navigator.push(context,
+          MaterialPageRoute(builder: (context) => (SpeakerWidget(boss))));
+    }
   }
 
   @override
