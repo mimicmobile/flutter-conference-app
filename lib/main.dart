@@ -3,10 +3,7 @@ import 'package:flutter_conference_app/config.dart';
 import 'package:flutter_conference_app/widgets/home.dart';
 import 'package:flutter/material.dart';
 
-void main() {
-  MaterialPageRoute.debugEnableFadingRoutes = true;
-  runApp(MyApp());
-}
+void main() => runApp(MyApp());
 
 class MyApp extends StatelessWidget {
   @override
