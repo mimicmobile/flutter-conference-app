@@ -9,17 +9,15 @@ class SpeakersWidget extends StatefulWidget implements ISpeakersView {
   final List<ListItem> speakerList;
   final bool loaded;
 
-  SpeakersWidget({
-    Key key,
-    @required this.speakerList,
-    @required this.loaded
-  }) : super(key: key);
+  SpeakersWidget({Key key, @required this.speakerList, @required this.loaded})
+      : super(key: key);
 
   @override
   State<StatefulWidget> createState() => SpeakersWidgetState();
 }
 
-class SpeakersWidgetState extends State<SpeakersWidget> implements ISpeakersView {
+class SpeakersWidgetState extends State<SpeakersWidget>
+    implements ISpeakersView {
   ISpeakersPresenter _presenter;
 
   @override
@@ -33,21 +31,17 @@ class SpeakersWidgetState extends State<SpeakersWidget> implements ISpeakersView
   Widget build(BuildContext context) {
     return Container(
         color: Theme.of(context).backgroundColor,
-        child: Stack(
-            children: <Widget>[
-              Reusable.header,
-              !widget.loaded ? Reusable.loadingProgress :
-              ListView.builder(
+        child: Stack(children: <Widget>[
+          Reusable.header,
+          !widget.loaded
+              ? Reusable.loadingProgress
+              : ListView.builder(
                   itemCount: widget.speakerList.length,
                   itemBuilder: (context, index) {
                     return widget.speakerList[index].getWidget(context,
                         onTapCallback: _presenter.speakerTap);
-                  }
-              ),
-              Reusable.statusBarTopShadow,
-            ]
-        )
-    );
- }
+                  }),
+          Reusable.statusBarTopShadow,
+        ]));
+  }
 }
-

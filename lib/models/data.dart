@@ -1,5 +1,6 @@
 import 'package:flutter_conference_app/utils.dart';
 import 'package:json_annotation/json_annotation.dart';
+
 part 'data.g.dart';
 
 @JsonSerializable()
@@ -17,14 +18,17 @@ class Speaker {
   @JsonKey(name: 'image_url')
   final String imageUrl;
 
-  Speaker(this.id, this.name, this.bio, this.imageUrl, this.company, this.twitter, this.linkedIn, this.github);
+  Speaker(this.id, this.name, this.bio, this.imageUrl, this.company,
+      this.twitter, this.linkedIn, this.github);
 
   AugmentedSpeaker createAugmented() {
-    return AugmentedSpeaker(this.id, this.name, this.bio, this.imageUrl, this.company,
-      this.twitter, this.linkedIn, this.github);
+    return AugmentedSpeaker(this.id, this.name, this.bio, this.imageUrl,
+        this.company, this.twitter, this.linkedIn, this.github);
   }
 
-  factory Speaker.fromJson(Map<String, dynamic> content) => _$SpeakerFromJson(content);
+  factory Speaker.fromJson(Map<String, dynamic> content) =>
+      _$SpeakerFromJson(content);
+
   Map<String, dynamic> toJson() => _$SpeakerToJson(this);
 }
 
@@ -36,7 +40,9 @@ class Track {
 
   Track(this.id, this.name, this.color);
 
-  factory Track.fromJson(Map<String, dynamic> content) => _$TrackFromJson(content);
+  factory Track.fromJson(Map<String, dynamic> content) =>
+      _$TrackFromJson(content);
+
   Map<String, dynamic> toJson() => _$TrackToJson(this);
 }
 
@@ -52,7 +58,9 @@ class TalkType {
 
   TalkType(this.id, this.name, this.materialIcon, this.description);
 
-  factory TalkType.fromJson(Map<String, dynamic> content) => _$TalkTypeFromJson(content);
+  factory TalkType.fromJson(Map<String, dynamic> content) =>
+      _$TalkTypeFromJson(content);
+
   Map<String, dynamic> toJson() => _$TalkTypeToJson(this);
 }
 
@@ -70,15 +78,23 @@ class Talk {
   final String title;
   final String description;
 
-  Talk(this.speakerId, this.trackId, this.talkTypeId, this.title, this.description);
+  Talk(this.speakerId, this.trackId, this.talkTypeId, this.title,
+      this.description);
 
   AugmentedTalk createAugmented(tracks, talkTypes, time, talkHash) {
-    return AugmentedTalk(title, description, speakerId,
-        Utils.findItemById(tracks, trackId), Utils.findItemById(talkTypes, talkTypeId),
-        time, talkHash);
+    return AugmentedTalk(
+        title,
+        description,
+        speakerId,
+        Utils.findItemById(tracks, trackId),
+        Utils.findItemById(talkTypes, talkTypeId),
+        time,
+        talkHash);
   }
 
-  factory Talk.fromJson(Map<String, dynamic> content) => _$TalkFromJson(content);
+  factory Talk.fromJson(Map<String, dynamic> content) =>
+      _$TalkFromJson(content);
+
   Map<String, dynamic> toJson() => _$TalkToJson(this);
 
   @override
@@ -94,7 +110,9 @@ class Schedule {
 
   Schedule(this.time, this.talks);
 
-  factory Schedule.fromJson(Map<String, dynamic> content) => _$ScheduleFromJson(content);
+  factory Schedule.fromJson(Map<String, dynamic> content) =>
+      _$ScheduleFromJson(content);
+
   Map<String, dynamic> toJson() => _$ScheduleToJson(this);
 
   @override
@@ -143,4 +161,3 @@ class TalkBoss {
 
   TalkBoss(this.talks, this.speaker, [this.index]);
 }
-

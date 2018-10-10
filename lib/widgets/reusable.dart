@@ -9,12 +9,10 @@ class Reusable {
   static get header {
     return Container(
       decoration: BoxDecoration(
-        image: DecorationImage(
-            image: AssetImage(Config.listBackground),
-            alignment: AlignmentDirectional.topCenter,
-            fit: BoxFit.fitWidth
-        )
-      ),
+          image: DecorationImage(
+              image: AssetImage(Config.listBackground),
+              alignment: AlignmentDirectional.topCenter,
+              fit: BoxFit.fitWidth)),
     );
   }
 
@@ -33,11 +31,9 @@ class Reusable {
 
   static get loadingProgress {
     return Padding(
-      padding: EdgeInsets.only(top: 100.0, right: 20.0, left: 20.0, bottom: 40.0),
-      child:  Center(
-          child: CircularProgressIndicator()
-      )
-    );
+        padding:
+            EdgeInsets.only(top: 100.0, right: 20.0, left: 20.0, bottom: 40.0),
+        child: Center(child: CircularProgressIndicator()));
   }
 
   static Widget backArrow(BuildContext context) {
@@ -47,25 +43,22 @@ class Reusable {
           Navigator.pop(context);
         },
         child: Container(
-          padding: EdgeInsets.all(26.0),
-          margin: EdgeInsets.only(top: 34.0),
-          child: Icon(Icons.arrow_back, color: Colors.white)
-        )
-    );
+            padding: EdgeInsets.all(26.0),
+            margin: EdgeInsets.only(top: 34.0),
+            child: Icon(Icons.arrow_back, color: Colors.white)));
   }
 
   static Widget _getLinkIcon(String iconName, Color color, String url) {
     return InkWell(
-      onTap: () async {
-        if (await canLaunch(url)) {
-          launch(url);
-        }
-      },
-      child: Icon(
-        getIconGuessFavorFA(name: iconName),
-        color: color,
-      )
-    );
+        onTap: () async {
+          if (await canLaunch(url)) {
+            launch(url);
+          }
+        },
+        child: Icon(
+          getIconGuessFavorFA(name: iconName),
+          color: color,
+        ));
   }
 
   static List<Widget> getLinkIcons(speaker) {
@@ -78,14 +71,15 @@ class Reusable {
       linkIcons.add(_getLinkIcon("github", Colors.black, speaker.github));
     }
     if (speaker.linkedIn != "") {
-      linkIcons.add(_getLinkIcon("linkedin", Colors.blue[700], speaker.linkedIn));
+      linkIcons
+          .add(_getLinkIcon("linkedin", Colors.blue[700], speaker.linkedIn));
     }
 
     return linkIcons;
   }
 
   static showSnackBar(BuildContext context, String text,
-      {duration:  1400, String actionText, Function actionCallback}) {
+      {duration: 1400, String actionText, Function actionCallback}) {
     Future.delayed(Duration.zero, () {
       var snackBarAction;
       if (actionText != null && actionCallback != null) {
@@ -100,8 +94,7 @@ class Reusable {
           action: snackBarAction,
           duration: Duration(milliseconds: duration),
           content: Text(text),
-          backgroundColor: Theme.of(context).dialogBackgroundColor
-      );
+          backgroundColor: Theme.of(context).dialogBackgroundColor);
       Scaffold.of(context).showSnackBar(snackBar);
     });
   }

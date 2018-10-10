@@ -7,10 +7,15 @@ part of 'data.dart';
 // **************************************************************************
 
 Speaker _$SpeakerFromJson(Map<String, dynamic> json) {
-  return Speaker(json['id'] as String, json['name'] as String,
-      json['bio'] as String, json['image_url'] as String,
-      json['company'] as String, json['twitter'] as String,
-      json['linked_in'] as String, json['github'] as String);
+  return Speaker(
+      json['id'] as String,
+      json['name'] as String,
+      json['bio'] as String,
+      json['image_url'] as String,
+      json['company'] as String,
+      json['twitter'] as String,
+      json['linked_in'] as String,
+      json['github'] as String);
 }
 
 Map<String, dynamic> _$SpeakerToJson(Speaker instance) => <String, dynamic>{

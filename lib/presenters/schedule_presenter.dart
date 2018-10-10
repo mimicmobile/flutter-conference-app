@@ -11,11 +11,7 @@ class SchedulePresenter implements ISchedulePresenter {
 
   @override
   scheduleTap(BuildContext context, TalkBoss boss) {
-      Navigator.push(
-          context,
-          MaterialPageRoute(
-              builder: (context) => (TalkWidget(boss))));
+    Navigator.push(
+        context, MaterialPageRoute(builder: (context) => (TalkWidget(boss))));
   }
-
-
 }

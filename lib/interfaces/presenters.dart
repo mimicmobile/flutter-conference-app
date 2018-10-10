@@ -8,8 +8,11 @@ abstract class IHomePresenter {
   List<ListItem> speakerList;
 
   PageStorageBucket get bucket;
+
   PageStorageKey get scheduleKey;
+
   PageStorageKey get speakersKey;
+
   PageStorageKey get aboutKey;
 
   int currentIndex;
@@ -17,8 +20,10 @@ abstract class IHomePresenter {
 
   void init();
 
-  void refreshState({bool showSnackBar=false});
+  void refreshState({bool showSnackBar = false});
+
   void showNetworkError();
+
   void fetchData();
 }
 

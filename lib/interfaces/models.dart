@@ -11,20 +11,36 @@ abstract class IHomeModel {
   List<TalkType> talkTypes;
 
   void init(IHomePresenter presenter);
+
   String cacheFileName(String path);
+
   Future<String> get cachePath;
+
   Future<File> get cachedFile;
+
   Future<bool> cacheExists();
+
   Future<bool> isCacheStale();
+
   void loadDataFromCache();
+
   Future fetchAndSaveData();
+
   Future saveData(resource);
+
   void populateData(IHomeModel model);
+
   int getTalkIndex(List<AugmentedTalk> speakerTalks, int hashCode);
+
   TalkBoss createTalkBoss(String speakerId, [Talk talk]);
+
   void generateScheduleList();
+
   void generateSpeakerList();
+
   Future checkAndLoadCache();
+
   List<AugmentedTalk> getTalksForSpeaker(String speakerId);
+
   AugmentedSpeaker getSpeaker(String speakerId);
 }

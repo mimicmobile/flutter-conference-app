@@ -9,17 +9,16 @@ class ScheduleWidget extends StatefulWidget {
   final List<ListItem> scheduleList;
   final bool loaded;
 
-  const ScheduleWidget({
-    Key key,
-    @required this.scheduleList,
-    @required this.loaded}) :
-        super(key: key);
+  const ScheduleWidget(
+      {Key key, @required this.scheduleList, @required this.loaded})
+      : super(key: key);
 
   @override
   State<StatefulWidget> createState() => ScheduleWidgetState();
 }
 
-class ScheduleWidgetState extends State<ScheduleWidget> implements IScheduleView {
+class ScheduleWidgetState extends State<ScheduleWidget>
+    implements IScheduleView {
   ISchedulePresenter _presenter;
 
   @override
@@ -33,20 +32,17 @@ class ScheduleWidgetState extends State<ScheduleWidget> implements IScheduleView
   Widget build(BuildContext buildContext) {
     return Container(
         color: Theme.of(context).backgroundColor,
-        child: Stack(
-          children: <Widget>[
-            Reusable.header,
-            !widget.loaded ? Reusable.loadingProgress :
-                ListView.builder(
+        child: Stack(children: <Widget>[
+          Reusable.header,
+          !widget.loaded
+              ? Reusable.loadingProgress
+              : ListView.builder(
                   itemCount: widget.scheduleList.length,
                   itemBuilder: (context, index) {
                     return widget.scheduleList[index].getWidget(context,
                         onTapCallback: _presenter.scheduleTap);
-                  }
-              ),
-            Reusable.statusBarTopShadow,
-          ]
-        )
-    );
+                  }),
+          Reusable.statusBarTopShadow,
+        ]));
   }
 }

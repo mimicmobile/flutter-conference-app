@@ -50,42 +50,37 @@ class _HomeState extends State<Home> implements IHomeView {
     ];
 
     return Scaffold(
-      body: Builder(
-          builder: (BuildContext context) {
-            _buildContext = context;
-            return PageStorage(
-              child: _presenter.pages[_presenter.currentIndex],
-              bucket: _presenter.bucket,
-            );
-          }
-      ),
+      body: Builder(builder: (BuildContext context) {
+        _buildContext = context;
+        return PageStorage(
+          child: _presenter.pages[_presenter.currentIndex],
+          bucket: _presenter.bucket,
+        );
+      }),
       bottomNavigationBar: Theme(
-        data: Theme.of(context).copyWith(
-          canvasColor: Theme.of(context).dialogBackgroundColor,
-          primaryColor: Colors.white,
-          textTheme: Theme
-              .of(context)
-              .textTheme
-              .copyWith(caption: TextStyle(color: Colors.grey[500]))), // sets the inactive color of the `BottomNavigationBar`
-        child: BottomNavigationBar(
-          onTap: onTabTapped,
-          currentIndex: _presenter.currentIndex,
-          items: [
-            BottomNavigationBarItem(
-              icon: Icon(Icons.schedule),
-              title: Text('Schedule'),
-            ),
-            BottomNavigationBarItem(
-              icon: Icon(Icons.person),
-              title: Text('Speakers'),
-            ),
-            BottomNavigationBarItem(
-                icon: Icon(Icons.help_outline),
-                title: Text('About')
-            )
-          ],
-        )
-      ),
+          data: Theme.of(context).copyWith(
+              canvasColor: Theme.of(context).dialogBackgroundColor,
+              primaryColor: Colors.white,
+              textTheme: Theme.of(context)
+                  .textTheme
+                  .copyWith(caption: TextStyle(color: Colors.grey[500]))),
+          // sets the inactive color of the `BottomNavigationBar`
+          child: BottomNavigationBar(
+            onTap: onTabTapped,
+            currentIndex: _presenter.currentIndex,
+            items: [
+              BottomNavigationBarItem(
+                icon: Icon(Icons.schedule),
+                title: Text('Schedule'),
+              ),
+              BottomNavigationBarItem(
+                icon: Icon(Icons.person),
+                title: Text('Speakers'),
+              ),
+              BottomNavigationBarItem(
+                  icon: Icon(Icons.help_outline), title: Text('About'))
+            ],
+          )),
     );
   }
 
@@ -99,8 +94,8 @@ class _HomeState extends State<Home> implements IHomeView {
   @override
   void showNetworkError() {
     Reusable.showSnackBar(_buildContext, "Network request error 😟",
-        actionText: 'Retry', actionCallback: _presenter.fetchData,
+        actionText: 'Retry',
+        actionCallback: _presenter.fetchData,
         duration: 1000 * 60 * 5);
   }
-
 }

@@ -14,6 +14,7 @@ import 'package:path_provider/path_provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import 'package:json_annotation/json_annotation.dart';
+
 part 'conference_data.g.dart';
 
 @JsonSerializable()
@@ -32,7 +33,9 @@ class ConferenceData implements IHomeModel {
 
   ConferenceData();
 
-  factory ConferenceData.fromJson(Map<String, dynamic> content) => _$ConferenceDataFromJson(content);
+  factory ConferenceData.fromJson(Map<String, dynamic> content) =>
+      _$ConferenceDataFromJson(content);
+
   Map<String, dynamic> toJson() => _$ConferenceDataToJson(this);
 
   @override
@@ -59,7 +62,6 @@ class ConferenceData implements IHomeModel {
       await fetchAndSaveData();
     }
   }
-
 
   @override
   String cacheFileName(String path) {
@@ -91,7 +93,8 @@ class ConferenceData implements IHomeModel {
 
       String etag = sharedPrefs.getString('etag') ?? null;
       String serverEtag = response.headers.containsKey('etag')
-          ? response.headers['etag'] : null;
+          ? response.headers['etag']
+          : null;
 
       if (etag == serverEtag) {
         print("Cache file not changed, keeping cache");
@@ -101,7 +104,6 @@ class ConferenceData implements IHomeModel {
         print("Cache file changed!");
         return true;
       }
-
     }).catchError((e) {
       print("staleCacheCheck failed: $e");
       _presenter.showNetworkError();
@@ -148,7 +150,7 @@ class ConferenceData implements IHomeModel {
   void populateData(IHomeModel model) {
     this.speakers = model.speakers;
     this.tracks = model.tracks;
-    this.schedule  = model.schedule;
+    this.schedule = model.schedule;
     this.talkTypes = model.talkTypes;
 
     generateScheduleList();
@@ -184,10 +186,10 @@ class ConferenceData implements IHomeModel {
     var _scheduleList = <ListItem>[HeaderItem()];
 
     this.schedule.forEach((f) {
-      _scheduleList.add(TitleItem(f.time));  // Add time item
-      _scheduleList.add(TalkItem(
-          f.talks.map((talk) => createTalkBoss(talk.speakerId, talk)).toList()
-      ));
+      _scheduleList.add(TitleItem(f.time)); // Add time item
+      _scheduleList.add(TalkItem(f.talks
+          .map((talk) => createTalkBoss(talk.speakerId, talk))
+          .toList()));
     });
 
     _presenter.scheduleList = _scheduleList;
@@ -200,9 +202,8 @@ class ConferenceData implements IHomeModel {
 
     this.speakers.shuffle();
 
-    this.speakers.forEach((Speaker f) =>
-        _speakerList.add(SpeakerItem(createTalkBoss(f.id)))
-    );
+    this.speakers.forEach(
+        (Speaker f) => _speakerList.add(SpeakerItem(createTalkBoss(f.id))));
 
     _presenter.speakerList = _speakerList;
     print("Speakers parsed | ${_speakerList.length} items");
@@ -210,15 +211,17 @@ class ConferenceData implements IHomeModel {
 
   @override
   List<AugmentedTalk> getTalksForSpeaker(String speakerId) {
-    return this.schedule.map((s) =>
-        s.talks.where((t) => t.speakerId == speakerId)
-            .map((t) => t.createAugmented(tracks, talkTypes, s.time, t.hashCode)))
-        .expand((i) => i).toList();
+    return this
+        .schedule
+        .map((s) => s.talks.where((t) => t.speakerId == speakerId).map(
+            (t) => t.createAugmented(tracks, talkTypes, s.time, t.hashCode)))
+        .expand((i) => i)
+        .toList();
   }
 
   @override
   AugmentedSpeaker getSpeaker(String speakerId) {
-    return (Utils.findItemById(speakers, speakerId) as Speaker).createAugmented();
+    return (Utils.findItemById(speakers, speakerId) as Speaker)
+        .createAugmented();
   }
-
 }

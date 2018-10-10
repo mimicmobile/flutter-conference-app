@@ -45,5 +45,4 @@ class HomePresenter implements IHomePresenter {
   void fetchData() {
     _model.checkAndLoadCache();
   }
-
 }
