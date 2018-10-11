@@ -68,7 +68,7 @@
     {
       "id": "room",
       "name": "Whole Room",
-      "material_icon": "people",
+      "material_icon": "all_inclusive",
       "description": "This talk is can be enjoyed by everyone"
     },
     {
@@ -76,6 +76,12 @@
       "name": "Fun",
       "material_icon": "tag_faces",
       "description": "This talk is for fun"
+    },
+    {
+      "id": "break",
+      "name": "Break",
+      "material_icon": "free_breakfast",
+      "description": "Time for a break!"
     }
   ],
   "schedule": [
@@ -119,6 +125,16 @@
           "talk_type_id": "technical",
           "title": "Gabaliums ortum in quadrata!",
           "description": "If you travel or do with an eternal anger, control studies you."
+        }
+      ]
+    },
+    {
+      "time": "10:00am",
+      "talks": [
+        {
+          "talk_type_id": "break",
+          "title": "Time for a break!",
+          "description": "Go grab an ice cold coke and chill.."
         }
       ]
     }

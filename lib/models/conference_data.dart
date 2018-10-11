@@ -221,6 +221,7 @@ class ConferenceData implements IHomeModel {
 
   @override
   AugmentedSpeaker getSpeaker(String speakerId) {
+    if (speakerId == null) return null;
     return (Utils.findItemById(speakers, speakerId) as Speaker)
         .createAugmented();
   }

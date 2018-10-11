@@ -18,6 +18,10 @@ class Utils {
   }
 
   static findItemById(List l, id) {
-    return findItemsById(l, id)[0];
+    try {
+      return findItemsById(l, id)[0];
+    } catch (e) {
+      return null;
+    }
   }
 }

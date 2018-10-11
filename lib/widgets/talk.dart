@@ -16,6 +16,95 @@ class TalkWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    List<Widget> _getChips() {
+      var widgets = <Widget>[
+        Chip(
+            backgroundColor: Colors.red[300],
+            label: Text("${boss.currentTalk.time}",
+                style: TextStyle(fontSize: 16.0, color: Colors.white)))
+      ];
+
+      if (boss.currentTalk.track != null) {
+        widgets.add(Chip(
+            backgroundColor:
+                Utils.convertIntColor(boss.currentTalk.track.color),
+            label: Text(
+              "${boss.currentTalk.track.name}",
+              style: TextStyle(fontSize: 16.0, color: Colors.white),
+            )));
+      }
+      return widgets;
+    }
+
+    Widget _getSpeakerContainer() {
+      return Padding(
+          padding: EdgeInsets.only(top: 4.0),
+          child: InkWell(
+              onTap: () {
+                _goToSpeaker(context);
+              },
+              child: Row(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: <Widget>[
+                    Padding(
+                        padding: EdgeInsets.only(right: 20.0),
+                        child: Hero(
+                            tag: "avatar${boss.speaker.id}",
+                            child: CircleAvatar(
+                              maxRadius: 30.0,
+                              // TODO: Conditional lookup to replace with Icons.person
+                              // if no imageUrl exists
+                              backgroundImage:
+                                  NetworkImage(boss.speaker.imageUrl),
+                            ))),
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: <Widget>[
+                        Text(
+                          "${boss.speaker.name}",
+                          style: TextStyle(fontSize: 18.0),
+                        ),
+                        Text(
+                          "${boss.speaker.company}",
+                          style: TextStyle(
+                              fontSize: 14.0,
+                              height: 1.4,
+                              color: Theme.of(context).textTheme.caption.color),
+                        ),
+                      ],
+                    )
+                  ])));
+    }
+
+    List<Widget> _getCardWidgets() {
+      var widgets = <Widget>[
+        Container(
+            padding: EdgeInsets.only(top: 10.0, bottom: 8.0),
+            child: Text(
+              "${boss.currentTalk.title}",
+              textAlign: TextAlign.center,
+              style: TextStyle(fontSize: 32.0),
+            )),
+        Container(
+            padding: EdgeInsets.only(bottom: 8.0),
+            child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: _getChips()))
+      ];
+      if (boss.currentTalk.talkType != null) {
+        widgets.add(Text(
+          "${boss.currentTalk.talkType.description}",
+          style: TextStyle(color: Theme.of(context).textTheme.caption.color),
+        ));
+      }
+
+      if (boss.speaker != null) {
+        widgets.add(Divider(height: 40.0));
+        widgets.add(_getSpeakerContainer());
+      }
+      return widgets;
+    }
+
     return Scaffold(
         body: Builder(
             builder: (context) => Container(
@@ -35,107 +124,7 @@ class TalkWidget extends StatelessWidget {
                                     child: Column(
                                       crossAxisAlignment:
                                           CrossAxisAlignment.center,
-                                      children: <Widget>[
-                                        Container(
-                                            padding: EdgeInsets.only(
-                                                top: 10.0, bottom: 8.0),
-                                            child: Text(
-                                              "${boss.currentTalk.title}",
-                                              textAlign: TextAlign.center,
-                                              style: TextStyle(fontSize: 32.0),
-                                            )),
-                                        Container(
-                                            padding:
-                                                EdgeInsets.only(bottom: 8.0),
-                                            child: Row(
-                                                mainAxisAlignment:
-                                                    MainAxisAlignment
-                                                        .spaceEvenly,
-                                                children: <Widget>[
-                                                  Chip(
-                                                      backgroundColor:
-                                                          Colors.red[300],
-                                                      label: Text(
-                                                          "${boss.currentTalk.time}",
-                                                          style: TextStyle(
-                                                              fontSize: 16.0,
-                                                              color: Colors
-                                                                  .white))),
-                                                  Chip(
-                                                      backgroundColor:
-                                                          Utils.convertIntColor(
-                                                              boss.currentTalk
-                                                                  .track.color),
-                                                      label: Text(
-                                                        "${boss.currentTalk.track.name}",
-                                                        style: TextStyle(
-                                                            fontSize: 16.0,
-                                                            color:
-                                                                Colors.white),
-                                                      ))
-                                                ])),
-                                        Text(
-                                          "${boss.currentTalk.talkType.description}",
-                                          style: TextStyle(
-                                              color: Theme.of(context)
-                                                  .textTheme
-                                                  .caption
-                                                  .color),
-                                        ),
-                                        Divider(indent: 10.0, height: 40.0),
-                                        Padding(
-                                            padding: EdgeInsets.only(top: 4.0),
-                                            child: InkWell(
-                                                onTap: () {
-                                                  _goToSpeaker(context);
-                                                },
-                                                child: Row(
-                                                    crossAxisAlignment:
-                                                        CrossAxisAlignment
-                                                            .center,
-                                                    children: <Widget>[
-                                                      Padding(
-                                                          padding:
-                                                              EdgeInsets.only(
-                                                                  right: 20.0),
-                                                          child: Hero(
-                                                              tag:
-                                                                  "avatar${boss.speaker.id}",
-                                                              child:
-                                                                  CircleAvatar(
-                                                                maxRadius: 30.0,
-                                                                // TODO: Conditional lookup to replace with Icons.person
-                                                                // if no imageUrl exists
-                                                                backgroundImage:
-                                                                    NetworkImage(boss
-                                                                        .speaker
-                                                                        .imageUrl),
-                                                              ))),
-                                                      Column(
-                                                        crossAxisAlignment:
-                                                            CrossAxisAlignment
-                                                                .start,
-                                                        children: <Widget>[
-                                                          Text(
-                                                            "${boss.speaker.name}",
-                                                            style: TextStyle(
-                                                                fontSize: 18.0),
-                                                          ),
-                                                          Text(
-                                                            "${boss.speaker.company}",
-                                                            style: TextStyle(
-                                                                fontSize: 14.0,
-                                                                height: 1.4,
-                                                                color: Theme.of(
-                                                                        context)
-                                                                    .textTheme
-                                                                    .caption
-                                                                    .color),
-                                                          ),
-                                                        ],
-                                                      )
-                                                    ]))),
-                                      ],
+                                      children: _getCardWidgets(),
                                     ))),
                             Container(
                                 alignment: AlignmentDirectional.centerStart,

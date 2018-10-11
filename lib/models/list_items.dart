@@ -47,81 +47,123 @@ class TalkItem implements ListItem {
 
   TalkItem(this.talks);
 
+  List<Widget> _getNonSpeakerRow(context, boss) {
+    var widgets = <Widget>[
+      Expanded(
+        child: Text(
+          '${boss.currentTalk.title}',
+          textAlign: TextAlign.start,
+          style: TextStyle(fontSize: 22.0),
+        ),
+      )
+    ];
+    if (boss.currentTalk.talkType != null)
+      widgets.add(InkWell(
+          onTap: () {
+            Reusable.showSnackBar(
+                context, boss.currentTalk.talkType.description);
+          },
+          child: CircleAvatar(
+              backgroundColor: Theme.of(context).accentColor,
+              child: Icon(
+                getMaterialIcon(name: boss.currentTalk.talkType.materialIcon),
+                color: Colors.white,
+              ))));
+    return widgets;
+  }
+
   Container _createTalk(context, TalkBoss boss, Function onTapCallback) {
-    return Container(
-        child: InkWell(
-            onTap: () {
-              onTapCallback(context, boss);
-            },
-            child: Column(children: <Widget>[
-              Text(
-                '${boss.currentTalk.title}',
-                textAlign: TextAlign.start,
-                style: TextStyle(fontSize: 22.0),
-              ),
-              Padding(
-                  padding: EdgeInsets.only(top: 16.0),
-                  child: Row(
-                    children: <Widget>[
-                      Padding(
-                          padding: EdgeInsets.only(right: 20.0),
-                          child: Hero(
-                              tag: "avatar${boss.speaker.id}",
-                              child: CircleAvatar(
-                                maxRadius: 30.0,
-                                // TODO: Conditional lookup to replace with Icons.person
-                                // if no imageUrl exists
-                                backgroundImage:
-                                    NetworkImage(boss.speaker.imageUrl),
-                              ))),
-                      Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: <Widget>[
-                          Text(
-                            '${boss.speaker.name}',
-                            style: TextStyle(fontSize: 18.0),
-                          ),
-                          Text(
-                            '${boss.speaker.company}',
-                            style: TextStyle(
-                                fontSize: 16.0,
-                                color:
-                                    Theme.of(context).textTheme.caption.color),
-                          ),
-                          talks.length > 1
-                              ? Container(
-                                  margin: EdgeInsets.only(top: 2.0),
-                                  child: Text(
-                                    '${boss.currentTalk.track.name}',
-                                    style: TextStyle(
-                                        fontSize: 14.0,
-                                        fontWeight: FontWeight.bold,
-                                        color: Utils.convertIntColor(
-                                            boss.currentTalk.track.color)),
-                                  ))
-                              : Container()
-                        ],
-                      ),
-                      Spacer(),
-                      InkWell(
-                          onTap: () {
-                            Reusable.showSnackBar(
-                                context, boss.currentTalk.talkType.description);
-                          },
-                          child: CircleAvatar(
-                              backgroundColor: Theme.of(context).accentColor,
-                              child: Icon(
-                                getMaterialIcon(
-                                    name:
-                                        boss.currentTalk.talkType.materialIcon),
-                                color: Colors.white,
-                              )))
-                    ],
-                  )),
-              talks.length > 1 && talks.last != boss
-                  ? Divider(height: 40.0)
-                  : Container(),
-            ])));
+    if (boss.speaker != null) {
+      return Container(
+          child: InkWell(
+              onTap: () {
+                onTapCallback(context, boss);
+              },
+              child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: <Widget>[
+                    Text(
+                      '${boss.currentTalk.title}',
+                      textAlign: TextAlign.start,
+                      style: TextStyle(fontSize: 22.0),
+                    ),
+                    Padding(
+                        padding: EdgeInsets.only(top: 16.0),
+                        child: Row(
+                          children: <Widget>[
+                            Padding(
+                                padding: EdgeInsets.only(right: 20.0),
+                                child: Hero(
+                                    tag: "avatar${boss.speaker.id}",
+                                    child: CircleAvatar(
+                                      maxRadius: 30.0,
+                                      // TODO: Conditional lookup to replace with Icons.person
+                                      // if no imageUrl exists
+                                      backgroundImage:
+                                          NetworkImage(boss.speaker.imageUrl),
+                                    ))),
+                            Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: <Widget>[
+                                Text(
+                                  '${boss.speaker.name}',
+                                  style: TextStyle(fontSize: 18.0),
+                                ),
+                                Text(
+                                  '${boss.speaker.company}',
+                                  style: TextStyle(
+                                      fontSize: 16.0,
+                                      color: Theme.of(context)
+                                          .textTheme
+                                          .caption
+                                          .color),
+                                ),
+                                talks.length > 1
+                                    ? Container(
+                                        margin: EdgeInsets.only(top: 2.0),
+                                        child: Text(
+                                          '${boss.currentTalk.track.name}',
+                                          style: TextStyle(
+                                              fontSize: 14.0,
+                                              fontWeight: FontWeight.bold,
+                                              color: Utils.convertIntColor(boss
+                                                  .currentTalk.track.color)),
+                                        ))
+                                    : Container()
+                              ],
+                            ),
+                            Spacer(),
+                            InkWell(
+                                onTap: () {
+                                  Reusable.showSnackBar(context,
+                                      boss.currentTalk.talkType.description);
+                                },
+                                child: CircleAvatar(
+                                    backgroundColor:
+                                        Theme.of(context).accentColor,
+                                    child: Icon(
+                                      getMaterialIcon(
+                                          name: boss.currentTalk.talkType
+                                              .materialIcon),
+                                      color: Colors.white,
+                                    )))
+                          ],
+                        )),
+                    talks.length > 1 && talks.last != boss
+                        ? Divider(height: 40.0)
+                        : Container(),
+                  ])));
+    } else {
+      return Container(
+          child: InkWell(
+
+              onTap: () {
+                if (boss.currentTalk.description != null) {
+                  onTapCallback(context, boss);
+                }
+              },
+              child: Row(children: _getNonSpeakerRow(context, boss))));
+    }
   }
 
   @override
