@@ -20,6 +20,9 @@ ConferenceData _$ConferenceDataFromJson(Map<String, dynamic> json) {
         ?.map((e) =>
             e == null ? null : Schedule.fromJson(e as Map<String, dynamic>))
         ?.toList()
+    ..about = json['about'] == null
+        ? null
+        : About.fromJson(json['about'] as Map<String, dynamic>)
     ..talkTypes = (json['talk_types'] as List)
         ?.map((e) =>
             e == null ? null : TalkType.fromJson(e as Map<String, dynamic>))
@@ -31,5 +34,6 @@ Map<String, dynamic> _$ConferenceDataToJson(ConferenceData instance) =>
       'speakers': instance.speakers,
       'tracks': instance.tracks,
       'schedule': instance.schedule,
+      'about': instance.about,
       'talk_types': instance.talkTypes
     };

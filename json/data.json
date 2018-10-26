@@ -1,4 +1,27 @@
 {
+  "about": {
+    "venue": {
+      "name": "MaRS Discovery District",
+      "image_url": "https://image.maps.api.here.com/mia/1.6/mapview?app_id=KbWv7V5CrV26njPdZ99Z&app_code=OQqa0Y3DzHFrKV-Wf-aaeA&lat=43.659810&lon=-79.388790&vt=0&z=14&style=fleet&t=0&w=700&h=400",
+      "address": "101 College St, Toronto, ON M5G 1L7, Canada"
+    },
+    "description": "Ships are the transformators of the extraterrestrial attitude.",
+    "twitter": "@androidTO",
+    "website": "http://androidto.com",
+    "contact_email": "example@email.com",
+    "sponsors": [
+      {
+        "name": "Android Pub Night",
+        "image_url": "",
+        "title": "Sponsor"
+      },
+      {
+        "name": "Kotlin Toronto",
+        "image_url": "",
+        "title": "Sponsor"
+      }
+    ]
+  },
   "speakers": [
     {
       "id": "bojack",

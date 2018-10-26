@@ -22,11 +22,11 @@ Map<String, dynamic> _$SpeakerToJson(Speaker instance) => <String, dynamic>{
       'id': instance.id,
       'name': instance.name,
       'bio': instance.bio,
-      'image_url': instance.imageUrl,
       'company': instance.company,
       'twitter': instance.twitter,
-      'linked_in': instance.linkedIn,
       'github': instance.github,
+      'linked_in': instance.linkedIn,
+      'image_url': instance.imageUrl
     };
 
 Track _$TrackFromJson(Map<String, dynamic> json) {
@@ -80,3 +80,49 @@ Schedule _$ScheduleFromJson(Map<String, dynamic> json) {
 
 Map<String, dynamic> _$ScheduleToJson(Schedule instance) =>
     <String, dynamic>{'time': instance.time, 'talks': instance.talks};
+
+About _$AboutFromJson(Map<String, dynamic> json) {
+  return About(
+      json['venue'] == null
+          ? null
+          : Venue.fromJson(json['venue'] as Map<String, dynamic>),
+      json['description'] as String,
+      json['twitter'] as String,
+      json['website'] as String,
+      json['contact_email'] as String,
+      (json['sponsors'] as List)
+          ?.map((e) =>
+              e == null ? null : Sponsor.fromJson(e as Map<String, dynamic>))
+          ?.toList());
+}
+
+Map<String, dynamic> _$AboutToJson(About instance) => <String, dynamic>{
+      'venue': instance.venue,
+      'description': instance.description,
+      'twitter': instance.twitter,
+      'website': instance.website,
+      'contact_email': instance.contactEmail,
+      'sponsors': instance.sponsors
+    };
+
+Sponsor _$SponsorFromJson(Map<String, dynamic> json) {
+  return Sponsor(json['name'] as String, json['image_url'] as String,
+      json['title'] as String);
+}
+
+Map<String, dynamic> _$SponsorToJson(Sponsor instance) => <String, dynamic>{
+      'name': instance.name,
+      'image_url': instance.imageUrl,
+      'title': instance.title
+    };
+
+Venue _$VenueFromJson(Map<String, dynamic> json) {
+  return Venue(json['name'] as String, json['image_url'] as String,
+      json['address'] as String);
+}
+
+Map<String, dynamic> _$VenueToJson(Venue instance) => <String, dynamic>{
+      'name': instance.name,
+      'image_url': instance.imageUrl,
+      'address': instance.address
+    };

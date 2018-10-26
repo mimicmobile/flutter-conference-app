@@ -24,6 +24,7 @@ class ConferenceData implements IHomeModel {
   List<Speaker> speakers;
   List<Track> tracks;
   List<Schedule> schedule;
+  About about;
 
   @JsonKey(name: 'talk_types')
   List<TalkType> talkTypes;

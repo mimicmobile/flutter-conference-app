@@ -123,6 +123,51 @@ class Schedule {
   }
 }
 
+@JsonSerializable()
+class About {
+  final Venue venue;
+  final String description;
+  final String twitter;
+  final String website;
+  @JsonKey(name: 'contact_email')
+  final String contactEmail;
+  final List<Sponsor> sponsors;
+
+  About(this.venue, this.description, this.twitter, this.website, this.contactEmail, this.sponsors);
+
+  factory About.fromJson(Map<String, dynamic> content) => _$AboutFromJson(content);
+
+  Map<String, dynamic> toJson() => _$AboutToJson(this);
+}
+
+@JsonSerializable()
+class Sponsor {
+  final String name;
+  @JsonKey(name: 'image_url')
+  final String imageUrl;
+  final String title;
+
+  Sponsor(this.name, this.imageUrl, this.title);
+
+  factory Sponsor.fromJson(Map<String, dynamic> content) => _$SponsorFromJson(content);
+
+  Map<String, dynamic> toJson() => _$SponsorToJson(this);
+}
+
+@JsonSerializable()
+class Venue {
+  final String name;
+  @JsonKey(name: 'image_url')
+  final String imageUrl;
+  final String address;
+
+  Venue(this.name, this.imageUrl, this.address);
+
+  factory Venue.fromJson(Map<String, dynamic> content) => _$VenueFromJson(content);
+
+  Map<String, dynamic> toJson() => _$VenueToJson(this);
+}
+
 class AugmentedTalk {
   final String title;
   final String description;
