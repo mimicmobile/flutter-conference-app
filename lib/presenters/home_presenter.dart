@@ -18,6 +18,7 @@ class HomePresenter implements IHomePresenter {
   bool loaded = false;
   List<ListItem> scheduleList;
   List<ListItem> speakerList;
+  List<ListItem> aboutList;
 
   IHomeModel _model = ConferenceData();
   IHomeView _view;

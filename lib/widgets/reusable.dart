@@ -48,7 +48,7 @@ class Reusable {
             child: Icon(Icons.arrow_back, color: Colors.white)));
   }
 
-  static Widget _getLinkIcon(String iconName, Color color, String url) {
+  static Widget getLinkIcon(String iconName, Color color, String url) {
     return InkWell(
         onTap: () async {
           if (await canLaunch(url)) {
@@ -65,14 +65,14 @@ class Reusable {
     var linkIcons = <Widget>[];
 
     if (speaker.twitter != "") {
-      linkIcons.add(_getLinkIcon("twitter", Colors.blue[300], speaker.twitter));
+      linkIcons.add(getLinkIcon("twitter", Colors.blue[300], speaker.twitter));
     }
     if (speaker.github != "") {
-      linkIcons.add(_getLinkIcon("github", Colors.black, speaker.github));
+      linkIcons.add(getLinkIcon("github", Colors.black, speaker.github));
     }
     if (speaker.linkedIn != "") {
       linkIcons
-          .add(_getLinkIcon("linkedin", Colors.blue[700], speaker.linkedIn));
+          .add(getLinkIcon("linkedin", Colors.blue[700], speaker.linkedIn));
     }
 
     return linkIcons;

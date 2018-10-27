@@ -46,7 +46,10 @@ class _HomeState extends State<Home> implements IHomeView {
           key: _presenter.speakersKey,
           speakerList: _presenter.speakerList,
           loaded: _presenter.loaded),
-      AboutWidget(Colors.purple)
+      AboutWidget(
+          key: _presenter.aboutKey,
+          aboutList: _presenter.aboutList,
+          loaded: _presenter.loaded),
     ];
 
     return Scaffold(
@@ -78,7 +81,8 @@ class _HomeState extends State<Home> implements IHomeView {
                 title: Text('Speakers'),
               ),
               BottomNavigationBarItem(
-                  icon: Icon(Icons.help_outline), title: Text('About'))
+                  icon: Icon(Icons.help_outline),
+                  title: Text('About'))
             ],
           )),
     );

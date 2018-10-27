@@ -123,6 +123,13 @@ class Schedule {
   }
 }
 
+enum AboutAction {
+  Twitter,
+  Website,
+  Email,
+  Map
+}
+
 @JsonSerializable()
 class About {
   final Venue venue;
@@ -146,8 +153,9 @@ class Sponsor {
   @JsonKey(name: 'image_url')
   final String imageUrl;
   final String title;
+  final String website;
 
-  Sponsor(this.name, this.imageUrl, this.title);
+  Sponsor(this.name, this.imageUrl, this.title, this.website);
 
   factory Sponsor.fromJson(Map<String, dynamic> content) => _$SponsorFromJson(content);
 

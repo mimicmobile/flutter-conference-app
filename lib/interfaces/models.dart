@@ -9,6 +9,7 @@ abstract class IHomeModel {
   List<Track> tracks;
   List<Schedule> schedule;
   List<TalkType> talkTypes;
+  About about;
 
   void init(IHomePresenter presenter);
 
@@ -37,6 +38,8 @@ abstract class IHomeModel {
   void generateScheduleList();
 
   void generateSpeakerList();
+
+  void generateAboutList();
 
   Future checkAndLoadCache();
 

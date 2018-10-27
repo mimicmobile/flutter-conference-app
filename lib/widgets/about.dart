@@ -1,14 +1,46 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_conference_app/interfaces/presenters.dart';
+import 'package:flutter_conference_app/interfaces/views.dart';
+import 'package:flutter_conference_app/models/list_items.dart';
+import 'package:flutter_conference_app/presenters/about_presenter.dart';
+import 'package:flutter_conference_app/widgets/reusable.dart';
 
-class AboutWidget extends StatelessWidget {
-  final Color color;
+class AboutWidget extends StatefulWidget {
+  final List<ListItem> aboutList;
+  final bool loaded;
 
-  AboutWidget(this.color);
+  const AboutWidget({Key key, @required this.aboutList, @required this.loaded})
+      : super(key: key);
+
+  @override
+  State<StatefulWidget> createState() => AboutWidgetState();
+}
+
+class AboutWidgetState extends State<AboutWidget> implements IAboutView {
+  IAboutPresenter _presenter;
+
+  @override
+  void initState() {
+    _presenter = AboutPresenter(this);
+
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      color: color,
-    );
+        color: Theme.of(context).backgroundColor,
+        child: Stack(children: <Widget>[
+          Reusable.header,
+          !widget.loaded
+              ? Reusable.loadingProgress
+              : ListView.builder(
+                  itemCount: widget.aboutList.length,
+                  itemBuilder: (context, index) {
+                    return widget.aboutList[index]
+                        .getWidget(context, onTapCallback: _presenter.aboutTap);
+                  }),
+          Reusable.statusBarTopShadow,
+        ]));
   }
 }

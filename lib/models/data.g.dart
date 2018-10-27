@@ -107,13 +107,14 @@ Map<String, dynamic> _$AboutToJson(About instance) => <String, dynamic>{
 
 Sponsor _$SponsorFromJson(Map<String, dynamic> json) {
   return Sponsor(json['name'] as String, json['image_url'] as String,
-      json['title'] as String);
+      json['title'] as String, json['website'] as String);
 }
 
 Map<String, dynamic> _$SponsorToJson(Sponsor instance) => <String, dynamic>{
       'name': instance.name,
       'image_url': instance.imageUrl,
-      'title': instance.title
+      'title': instance.title,
+      'website': instance.website
     };
 
 Venue _$VenueFromJson(Map<String, dynamic> json) {

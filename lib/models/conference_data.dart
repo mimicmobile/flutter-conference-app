@@ -153,9 +153,11 @@ class ConferenceData implements IHomeModel {
     this.tracks = model.tracks;
     this.schedule = model.schedule;
     this.talkTypes = model.talkTypes;
+    this.about = model.about;
 
     generateScheduleList();
     generateSpeakerList();
+    generateAboutList();
 
     var _wasLoaded = _presenter.loaded;
 
@@ -180,6 +182,23 @@ class ConferenceData implements IHomeModel {
     int _index = talk == null ? 0 : getTalkIndex(_speakerTalks, talk.hashCode);
 
     return TalkBoss(_speakerTalks, _speaker, _index);
+  }
+
+  @override
+  void generateAboutList() {
+    var _aboutList = <ListItem>[HeaderItem()];
+    _aboutList.add(TitleItem('About'));
+    _aboutList.add(ConferenceItem(this.about.description, this.about.twitter,
+        this.about.website, this.about.contactEmail));
+    _aboutList.add(TitleItem('Venue'));
+    _aboutList.add(VenueItem(this.about.venue.name, this.about.venue.address,
+        this.about.venue.imageUrl));
+    if (this.about.sponsors.isNotEmpty) {
+      _aboutList.add(TitleItem('Sponsors'));
+      _aboutList.add(SponsorItem(this.about.sponsors));
+    }
+
+    _presenter.aboutList = _aboutList;
   }
 
   @override
