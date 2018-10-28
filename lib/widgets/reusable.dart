@@ -44,7 +44,7 @@ class Reusable {
         },
         child: Container(
             padding: EdgeInsets.all(26.0),
-            margin: EdgeInsets.only(top: 34.0),
+            margin: EdgeInsets.only(top: 20.0),
             child: Icon(Icons.arrow_back, color: Colors.white)));
   }
 

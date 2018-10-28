@@ -117,7 +117,7 @@ class TalkWidget extends StatelessWidget {
                   color: Theme.of(context).backgroundColor,
                   child: Stack(children: <Widget>[
                     Reusable.header,
-                    Align(
+                    Container(
                         child: SingleChildScrollView(
                             padding: EdgeInsets.only(
                                 top: Utils.getTalkOrientationTopMargin(orientation),

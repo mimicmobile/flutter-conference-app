@@ -50,6 +50,6 @@ class Utils {
   }
 
   static getTalkOrientationTopMargin(Orientation orientation) {
-    return orientation == Orientation.portrait ? 120.0 : 40.0;
+    return orientation == Orientation.portrait ? 96.0 : 40.0;
   }
 }
