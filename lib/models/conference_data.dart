@@ -33,6 +33,9 @@ class ConferenceData implements IHomeModel {
   @JsonKey(ignore: true)
   IHomePresenter _presenter;
 
+  @JsonKey(ignore: true)
+  int retryCounter;
+
   ConferenceData();
 
   factory ConferenceData.fromJson(Map<String, dynamic> content) =>
@@ -126,6 +129,12 @@ class ConferenceData implements IHomeModel {
         populateData(
             ConferenceData.fromJson(json.decode(file.readAsStringSync())));
       } catch (e) {
+        if (retryCounter <= 3) {
+          retryCounter++;
+          fetchAndSaveData();
+        } else {
+          _presenter.showNetworkError();
+        }
         print("Cache file has invalid JSON!\n" + e.toString());
       }
     });
