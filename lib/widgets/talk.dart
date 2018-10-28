@@ -60,7 +60,7 @@ class TalkWidget extends StatelessWidget {
                               // TODO: Conditional lookup to replace with Icons.person
                               // if no imageUrl exists
                               backgroundImage:
-                                  Utils.imageP(boss.speaker.imageUrl),
+                                  Utils.imageP(boss.speaker.imagePath),
                             ))),
                     Column(
                       crossAxisAlignment: CrossAxisAlignment.start,

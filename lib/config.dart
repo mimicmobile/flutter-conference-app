@@ -5,7 +5,6 @@ class Config {
   static String jsonUrl =
       "http://jeff.mimic.ca/p/androidto/data.json";
   static String listBackground = "images/list-bg.png";
-  static String venueImage = "images/map.png";
   static String logo = "images/ato-logo.png";
 
   // Colors

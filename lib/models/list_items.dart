@@ -98,9 +98,9 @@ class TalkItem implements ListItem {
                                     child: CircleAvatar(
                                       maxRadius: 30.0,
                                       // TODO: Conditional lookup to replace with Icons.person
-                                      // if no imageUrl exists
+                                      // if no imagePath exists
                                       backgroundImage:
-                                          Utils.imageP(boss.speaker.imageUrl),
+                                          Utils.imageP(boss.speaker.imagePath),
                                     ))),
                             Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
@@ -232,7 +232,7 @@ class SpeakerItem implements ListItem {
                   child: Hero(
                       tag: "avatar${boss.speaker.id}",
                       child: CircleAvatar(
-                        backgroundImage: Utils.imageP(boss.speaker.imageUrl),
+                        backgroundImage: Utils.imageP(boss.speaker.imagePath),
                         maxRadius: 46.0,
                       )))
             ]));
@@ -292,10 +292,10 @@ class ConferenceItem implements ListItem {
 
 class VenueItem implements ListItem {
   final String name;
-  final String imageUrl;
+  final String imagePath;
   final String address;
 
-  VenueItem(this.name, this.address, this.imageUrl);
+  VenueItem(this.name, this.address, this.imagePath);
 
   @override
   Widget getWidget(context, {Function onTapCallback}) {
@@ -317,7 +317,7 @@ class VenueItem implements ListItem {
                           padding: EdgeInsets.only(top: 10.0, bottom: 10.0),
                           child: Flex(
                             direction: Axis.vertical,
-                            children: <Widget>[Utils.image(imageUrl)],
+                            children: <Widget>[Utils.image(imagePath)],
                           )),
                       Text(address, style: TextStyle(fontSize: 14.0)),
                     ]))));
@@ -338,7 +338,7 @@ class SponsorItem implements ListItem {
             child: ClipRRect(
                 borderRadius: new BorderRadius.circular(4.0),
                 child: Utils.image(
-                  sponsor.imageUrl,
+                  sponsor.imagePath,
                   height: 100.0,
                   width: 100.0,
                   fit: BoxFit.cover,

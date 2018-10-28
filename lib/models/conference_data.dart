@@ -199,7 +199,7 @@ class ConferenceData implements IHomeModel {
         this.about.website, this.about.contactEmail));
     _aboutList.add(TitleItem('Venue'));
     _aboutList.add(VenueItem(this.about.venue.name, this.about.venue.address,
-        this.about.venue.imageUrl));
+        this.about.venue.imagePath));
     if (this.about.sponsors.isNotEmpty) {
       _aboutList.add(TitleItem('Sponsors'));
       _aboutList.add(SponsorItem(this.about.sponsors));

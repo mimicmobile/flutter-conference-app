@@ -26,7 +26,7 @@ Map<String, dynamic> _$SpeakerToJson(Speaker instance) => <String, dynamic>{
       'twitter': instance.twitter,
       'github': instance.github,
       'linked_in': instance.linkedIn,
-      'image_url': instance.imageUrl
+      'image_url': instance.imagePath
     };
 
 Track _$TrackFromJson(Map<String, dynamic> json) {
@@ -112,7 +112,7 @@ Sponsor _$SponsorFromJson(Map<String, dynamic> json) {
 
 Map<String, dynamic> _$SponsorToJson(Sponsor instance) => <String, dynamic>{
       'name': instance.name,
-      'image_url': instance.imageUrl,
+      'image_url': instance.imagePath,
       'title': instance.title,
       'website': instance.website
     };
@@ -124,6 +124,6 @@ Venue _$VenueFromJson(Map<String, dynamic> json) {
 
 Map<String, dynamic> _$VenueToJson(Venue instance) => <String, dynamic>{
       'name': instance.name,
-      'image_url': instance.imageUrl,
+      'image_url': instance.imagePath,
       'address': instance.address
     };

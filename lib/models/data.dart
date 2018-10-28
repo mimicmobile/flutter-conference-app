@@ -15,14 +15,14 @@ class Speaker {
   @JsonKey(name: "linked_in")
   final String linkedIn;
 
-  @JsonKey(name: 'image_url')
-  final String imageUrl;
+  @JsonKey(name: 'image_path')
+  final String imagePath;
 
-  Speaker(this.id, this.name, this.bio, this.imageUrl, this.company,
+  Speaker(this.id, this.name, this.bio, this.imagePath, this.company,
       this.twitter, this.linkedIn, this.github);
 
   AugmentedSpeaker createAugmented() {
-    return AugmentedSpeaker(this.id, this.name, this.bio, this.imageUrl,
+    return AugmentedSpeaker(this.id, this.name, this.bio, this.imagePath,
         this.company, this.twitter, this.linkedIn, this.github);
   }
 
@@ -150,12 +150,12 @@ class About {
 @JsonSerializable()
 class Sponsor {
   final String name;
-  @JsonKey(name: 'image_url')
-  final String imageUrl;
+  @JsonKey(name: 'image_path')
+  final String imagePath;
   final String title;
   final String website;
 
-  Sponsor(this.name, this.imageUrl, this.title, this.website);
+  Sponsor(this.name, this.imagePath, this.title, this.website);
 
   factory Sponsor.fromJson(Map<String, dynamic> content) => _$SponsorFromJson(content);
 
@@ -165,11 +165,11 @@ class Sponsor {
 @JsonSerializable()
 class Venue {
   final String name;
-  @JsonKey(name: 'image_url')
-  final String imageUrl;
+  @JsonKey(name: 'image_path')
+  final String imagePath;
   final String address;
 
-  Venue(this.name, this.imageUrl, this.address);
+  Venue(this.name, this.imagePath, this.address);
 
   factory Venue.fromJson(Map<String, dynamic> content) => _$VenueFromJson(content);
 
@@ -197,9 +197,9 @@ class AugmentedSpeaker {
   final String twitter;
   final String github;
   final String linkedIn;
-  final String imageUrl;
+  final String imagePath;
 
-  AugmentedSpeaker(this.id, this.name, this.bio, this.imageUrl, this.company,
+  AugmentedSpeaker(this.id, this.name, this.bio, this.imagePath, this.company,
       this.twitter, this.linkedIn, this.github);
 }
 

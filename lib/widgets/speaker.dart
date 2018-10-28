@@ -112,7 +112,7 @@ class SpeakerWidget extends StatelessWidget {
                                       tag: "avatar${boss.speaker.id}",
                                       child: CircleAvatar(
                                         backgroundImage:
-                                            Utils.imageP(boss.speaker.imageUrl),
+                                            Utils.imageP(boss.speaker.imagePath),
                                         maxRadius: 80.0,
                                       )),
                                 ]),
