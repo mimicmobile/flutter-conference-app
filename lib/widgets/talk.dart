@@ -116,10 +116,10 @@ class TalkWidget extends StatelessWidget {
                 color: Theme.of(context).backgroundColor,
                 child: Stack(children: <Widget>[
                   Reusable.header,
-                  Center(
+                  Align(
                       child: SingleChildScrollView(
                           padding: EdgeInsets.only(
-                              top: 30.0, right: 26.0, left: 26.0, bottom: 26.0),
+                              top: 120.0, right: 26.0, left: 26.0, bottom: 26.0),
                           child: Column(children: <Widget>[
                             Card(
                                 elevation: 12.0,
