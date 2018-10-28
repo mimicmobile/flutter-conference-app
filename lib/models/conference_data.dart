@@ -2,6 +2,7 @@ import 'dart:async';
 import 'dart:convert';
 import 'dart:io';
 
+import 'package:flutter/services.dart' show rootBundle;
 import 'package:flutter_conference_app/config.dart';
 import 'package:flutter_conference_app/models/list_items.dart';
 import 'package:flutter_conference_app/models/data.dart';
@@ -59,8 +60,14 @@ class ConferenceData implements IHomeModel {
         }
       });
     } else {
-      print("Cache unavailable, fetching new data..");
-      await fetchAndSaveData();
+      try {
+        String initialData = await rootBundle.loadString('json/data.json');
+        await saveData(initialData);
+        await loadDataFromCache();
+      } catch (e) {
+        print("Cache unavailable ($e), fetching new data..");
+        await fetchAndSaveData();
+      }
     }
   }
 
@@ -127,7 +134,7 @@ class ConferenceData implements IHomeModel {
   @override
   Future fetchAndSaveData() async {
     return http.get(this.jsonUrl).then((response) async {
-      await saveData(response);
+      await saveData(response.body);
       await loadDataFromCache();
     }).catchError((e) {
       print("fetchAndSaveData failed $e");
@@ -136,11 +143,11 @@ class ConferenceData implements IHomeModel {
   }
 
   @override
-  Future saveData(resource) async {
+  Future saveData(body) async {
     await cachedFile.then((file) {
       try {
-        json.decode(resource.body);
-        file.writeAsString(resource.body);
+        json.decode(body);
+        file.writeAsString(body);
       } catch (e) {
         print("File was not valid JSON!");
       }

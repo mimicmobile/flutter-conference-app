@@ -18,7 +18,7 @@ class HeaderItem implements ListItem {
     return Padding(
         padding:
             EdgeInsets.only(top: 24.0, bottom: 24.0, right: 20.0, left: 20.0),
-        child: Image.asset(Config.logo));
+        child: Utils.image(Config.logo));
   }
 }
 
@@ -100,7 +100,7 @@ class TalkItem implements ListItem {
                                       // TODO: Conditional lookup to replace with Icons.person
                                       // if no imageUrl exists
                                       backgroundImage:
-                                          NetworkImage(boss.speaker.imageUrl),
+                                          Utils.imageP(boss.speaker.imageUrl),
                                     ))),
                             Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
@@ -232,7 +232,7 @@ class SpeakerItem implements ListItem {
                   child: Hero(
                       tag: "avatar${boss.speaker.id}",
                       child: CircleAvatar(
-                        backgroundImage: NetworkImage(boss.speaker.imageUrl),
+                        backgroundImage: Utils.imageP(boss.speaker.imageUrl),
                         maxRadius: 46.0,
                       )))
             ]));
@@ -317,7 +317,7 @@ class VenueItem implements ListItem {
                           padding: EdgeInsets.only(top: 10.0, bottom: 10.0),
                           child: Flex(
                             direction: Axis.vertical,
-                            children: <Widget>[Image.asset(Config.venueMap)],
+                            children: <Widget>[Utils.image(imageUrl)],
                           )),
                       Text(address, style: TextStyle(fontSize: 14.0)),
                     ]))));
@@ -337,7 +337,7 @@ class SponsorItem implements ListItem {
             },
             child: ClipRRect(
                 borderRadius: new BorderRadius.circular(4.0),
-                child: Image.network(
+                child: Utils.image(
                   sponsor.imageUrl,
                   height: 100.0,
                   width: 100.0,

@@ -24,4 +24,20 @@ class Utils {
       return null;
     }
   }
+
+  static Image image(String src, {height, width, fit}) {
+    if (src.startsWith('http')) {
+      return Image.network(src, height: height, width: width, fit: fit);
+    } else {
+      return Image.asset(src, height: height, width: width, fit: fit);
+    }
+  }
+
+  static imageP(String src) {
+    if (src.startsWith('http')) {
+      return NetworkImage(src);
+    } else {
+      return AssetImage(src);
+    }
+  }
 }

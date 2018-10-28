@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_conference_app/models/data.dart';
+import 'package:flutter_conference_app/utils.dart';
 import 'package:flutter_conference_app/widgets/reusable.dart';
 import 'package:flutter_conference_app/widgets/talk.dart';
 
@@ -111,7 +112,7 @@ class SpeakerWidget extends StatelessWidget {
                                       tag: "avatar${boss.speaker.id}",
                                       child: CircleAvatar(
                                         backgroundImage:
-                                            NetworkImage(boss.speaker.imageUrl),
+                                            Utils.imageP(boss.speaker.imageUrl),
                                         maxRadius: 80.0,
                                       )),
                                 ]),
