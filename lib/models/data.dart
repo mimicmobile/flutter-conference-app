@@ -123,12 +123,7 @@ class Schedule {
   }
 }
 
-enum AboutAction {
-  Twitter,
-  Website,
-  Email,
-  Map
-}
+enum AboutAction { Twitter, Website, Email, Map }
 
 @JsonSerializable()
 class About {
@@ -138,28 +133,47 @@ class About {
   final String website;
   @JsonKey(name: 'contact_email')
   final String contactEmail;
-  final List<Sponsor> sponsors;
+  final List<AboutLink> links;
+  @JsonKey(name: 'link_types')
+  final List<AboutLinkTypes> linkTypes;
 
-  About(this.venue, this.description, this.twitter, this.website, this.contactEmail, this.sponsors);
+  About(this.venue, this.description, this.twitter, this.website,
+      this.contactEmail, this.links, this.linkTypes);
 
-  factory About.fromJson(Map<String, dynamic> content) => _$AboutFromJson(content);
+  factory About.fromJson(Map<String, dynamic> content) =>
+      _$AboutFromJson(content);
 
   Map<String, dynamic> toJson() => _$AboutToJson(this);
 }
 
 @JsonSerializable()
-class Sponsor {
+class AboutLinkTypes {
+  final String id;
+  final String name;
+
+  AboutLinkTypes(this.id, this.name);
+
+  factory AboutLinkTypes.fromJson(Map<String, dynamic> content) =>
+      _$AboutLinkTypesFromJson(content);
+
+  Map<String, dynamic> toJson() => _$AboutLinkTypesToJson(this);
+}
+
+@JsonSerializable()
+class AboutLink {
   final String name;
   @JsonKey(name: 'image_path')
   final String imagePath;
-  final String title;
   final String website;
+  @JsonKey(name: 'link_type_id')
+  final String linkTypeId;
 
-  Sponsor(this.name, this.imagePath, this.title, this.website);
+  AboutLink(this.name, this.imagePath, this.website, this.linkTypeId);
 
-  factory Sponsor.fromJson(Map<String, dynamic> content) => _$SponsorFromJson(content);
+  factory AboutLink.fromJson(Map<String, dynamic> content) =>
+      _$AboutLinkFromJson(content);
 
-  Map<String, dynamic> toJson() => _$SponsorToJson(this);
+  Map<String, dynamic> toJson() => _$AboutLinkToJson(this);
 }
 
 @JsonSerializable()
@@ -171,7 +185,8 @@ class Venue {
 
   Venue(this.name, this.imagePath, this.address);
 
-  factory Venue.fromJson(Map<String, dynamic> content) => _$VenueFromJson(content);
+  factory Venue.fromJson(Map<String, dynamic> content) =>
+      _$VenueFromJson(content);
 
   Map<String, dynamic> toJson() => _$VenueToJson(this);
 }

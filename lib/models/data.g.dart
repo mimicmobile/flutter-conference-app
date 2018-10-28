@@ -11,7 +11,7 @@ Speaker _$SpeakerFromJson(Map<String, dynamic> json) {
       json['id'] as String,
       json['name'] as String,
       json['bio'] as String,
-      json['image_url'] as String,
+      json['image_path'] as String,
       json['company'] as String,
       json['twitter'] as String,
       json['linked_in'] as String,
@@ -26,7 +26,7 @@ Map<String, dynamic> _$SpeakerToJson(Speaker instance) => <String, dynamic>{
       'twitter': instance.twitter,
       'github': instance.github,
       'linked_in': instance.linkedIn,
-      'image_url': instance.imagePath
+      'image_path': instance.imagePath
     };
 
 Track _$TrackFromJson(Map<String, dynamic> json) {
@@ -90,9 +90,14 @@ About _$AboutFromJson(Map<String, dynamic> json) {
       json['twitter'] as String,
       json['website'] as String,
       json['contact_email'] as String,
-      (json['sponsors'] as List)
+      (json['links'] as List)
           ?.map((e) =>
-              e == null ? null : Sponsor.fromJson(e as Map<String, dynamic>))
+              e == null ? null : AboutLink.fromJson(e as Map<String, dynamic>))
+          ?.toList(),
+      (json['link_types'] as List)
+          ?.map((e) => e == null
+              ? null
+              : AboutLinkTypes.fromJson(e as Map<String, dynamic>))
           ?.toList());
 }
 
@@ -102,28 +107,36 @@ Map<String, dynamic> _$AboutToJson(About instance) => <String, dynamic>{
       'twitter': instance.twitter,
       'website': instance.website,
       'contact_email': instance.contactEmail,
-      'sponsors': instance.sponsors
+      'links': instance.links,
+      'link_types': instance.linkTypes
     };
 
-Sponsor _$SponsorFromJson(Map<String, dynamic> json) {
-  return Sponsor(json['name'] as String, json['image_url'] as String,
-      json['title'] as String, json['website'] as String);
+AboutLinkTypes _$AboutLinkTypesFromJson(Map<String, dynamic> json) {
+  return AboutLinkTypes(json['id'] as String, json['name'] as String);
 }
 
-Map<String, dynamic> _$SponsorToJson(Sponsor instance) => <String, dynamic>{
+Map<String, dynamic> _$AboutLinkTypesToJson(AboutLinkTypes instance) =>
+    <String, dynamic>{'id': instance.id, 'name': instance.name};
+
+AboutLink _$AboutLinkFromJson(Map<String, dynamic> json) {
+  return AboutLink(json['name'] as String, json['image_path'] as String,
+      json['website'] as String, json['link_type_id'] as String);
+}
+
+Map<String, dynamic> _$AboutLinkToJson(AboutLink instance) => <String, dynamic>{
       'name': instance.name,
-      'image_url': instance.imagePath,
-      'title': instance.title,
-      'website': instance.website
+      'image_path': instance.imagePath,
+      'website': instance.website,
+      'link_type_id': instance.linkTypeId
     };
 
 Venue _$VenueFromJson(Map<String, dynamic> json) {
-  return Venue(json['name'] as String, json['image_url'] as String,
+  return Venue(json['name'] as String, json['image_path'] as String,
       json['address'] as String);
 }
 
 Map<String, dynamic> _$VenueToJson(Venue instance) => <String, dynamic>{
       'name': instance.name,
-      'image_url': instance.imagePath,
+      'image_path': instance.imagePath,
       'address': instance.address
     };

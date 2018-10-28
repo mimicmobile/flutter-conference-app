@@ -324,12 +324,12 @@ class VenueItem implements ListItem {
   }
 }
 
-class SponsorItem implements ListItem {
-  final List<Sponsor> sponsors;
+class AboutListItem implements ListItem {
+  final List<AboutLink> links;
 
-  SponsorItem(this.sponsors);
+  AboutListItem(this.links);
 
-  Container _createSponsor(context, Sponsor sponsor, Function onTapCallback) {
+  Container _createLink(context, AboutLink sponsor, Function onTapCallback) {
     return Container(
         child: InkWell(
             onTap: () {
@@ -354,8 +354,8 @@ class SponsorItem implements ListItem {
             spacing: 20.0,
             runSpacing: 20.0,
             alignment: WrapAlignment.spaceBetween,
-            children: sponsors
-                .map((s) => _createSponsor(context, s, onTapCallback))
+            children: links
+                .map((s) => _createLink(context, s, onTapCallback))
                 .toList()));
   }
 }

@@ -200,9 +200,13 @@ class ConferenceData implements IHomeModel {
     _aboutList.add(TitleItem('Venue'));
     _aboutList.add(VenueItem(this.about.venue.name, this.about.venue.address,
         this.about.venue.imagePath));
-    if (this.about.sponsors.isNotEmpty) {
-      _aboutList.add(TitleItem('Sponsors'));
-      _aboutList.add(SponsorItem(this.about.sponsors));
+
+    if (this.about.links != null) {
+      this.about.linkTypes.forEach((f) {
+        _aboutList.add(TitleItem(f.name));
+        _aboutList.add(
+            AboutListItem(this.about.links.where((l) => l.linkTypeId == f.id).toList()));
+      });
     }
 
     _presenter.aboutList = _aboutList;
