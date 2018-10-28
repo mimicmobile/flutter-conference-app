@@ -40,4 +40,16 @@ class Utils {
       return AssetImage(src);
     }
   }
+
+  static getOrientationSideMargin(Orientation orientation) {
+    return orientation == Orientation.portrait ? 26.0 : 96.0;
+  }
+
+  static getSpeakerOrientationTopMargin(Orientation orientation) {
+    return orientation == Orientation.portrait ? 50.0 : 30.0;
+  }
+
+  static getTalkOrientationTopMargin(Orientation orientation) {
+    return orientation == Orientation.portrait ? 120.0 : 40.0;
+  }
 }

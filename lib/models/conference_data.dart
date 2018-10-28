@@ -134,8 +134,8 @@ class ConferenceData implements IHomeModel {
   @override
   Future fetchAndSaveData() async {
     return http.get(this.jsonUrl).then((response) async {
-      await saveData(response.body);
-      await loadDataFromCache();
+      await saveData(utf8.decode(response.bodyBytes));
+      loadDataFromCache();
     }).catchError((e) {
       print("fetchAndSaveData failed $e");
       _presenter.showNetworkError();

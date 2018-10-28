@@ -81,7 +81,7 @@ class TalkWidget extends StatelessWidget {
                   ])));
     }
 
-    List<Widget> _getCardWidgets() {
+    List<Widget> _getCardWidgets(orientation) {
       var widgets = <Widget>[
         Container(
             padding: EdgeInsets.only(top: 10.0, bottom: 8.0),
@@ -110,57 +110,62 @@ class TalkWidget extends StatelessWidget {
       return widgets;
     }
 
-    return Scaffold(
-        body: Builder(
-            builder: (context) => Container(
-                color: Theme.of(context).backgroundColor,
-                child: Stack(children: <Widget>[
-                  Reusable.header,
-                  Align(
-                      child: SingleChildScrollView(
-                          padding: EdgeInsets.only(
-                              top: 120.0, right: 26.0, left: 26.0, bottom: 26.0),
-                          child: Column(children: <Widget>[
-                            Card(
-                                elevation: 12.0,
-                                margin: EdgeInsets.only(bottom: 20.0),
-                                child: Padding(
-                                    padding: EdgeInsets.all(18.0),
-                                    child: Column(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.center,
-                                      children: _getCardWidgets(),
-                                    ))),
-                            Container(
-                                alignment: AlignmentDirectional.centerStart,
-                                padding: EdgeInsets.only(
-                                    top: 10.0,
-                                    bottom: 4.0,
-                                    right: 6.0,
-                                    left: 6.0),
-                                child: Text(
-                                  'Overview',
-                                  style: TextStyle(
-                                      fontSize: 22.0, color: Colors.white),
-                                )),
-                            Container(
-                                alignment: AlignmentDirectional.centerStart,
-                                padding: EdgeInsets.only(
-                                    top: 4.0,
-                                    bottom: 14.0,
-                                    right: 6.0,
-                                    left: 6.0),
-                                child: Text(
-                                  "${boss.currentTalk.description}",
-                                  textAlign: TextAlign.justify,
-                                  style: TextStyle(
-                                      fontSize: 16.0,
-                                      height: 1.2,
-                                      color: Colors.grey[300]),
-                                )),
-                          ]))),
-                  Reusable.statusBarTopShadow,
-                  Reusable.backArrow(context)
-                ]))));
+    return OrientationBuilder(builder: (context, orientation) {
+      return Scaffold(
+          body: Builder(
+              builder: (context) => Container(
+                  color: Theme.of(context).backgroundColor,
+                  child: Stack(children: <Widget>[
+                    Reusable.header,
+                    Align(
+                        child: SingleChildScrollView(
+                            padding: EdgeInsets.only(
+                                top: Utils.getTalkOrientationTopMargin(orientation),
+                                left: Utils.getOrientationSideMargin(orientation),
+                                right: Utils.getOrientationSideMargin(orientation),
+                                bottom: 26.0),
+                            child: Column(children: <Widget>[
+                              Card(
+                                  elevation: 12.0,
+                                  margin: EdgeInsets.only(bottom: 20.0),
+                                  child: Padding(
+                                      padding: EdgeInsets.all(18.0),
+                                      child: Column(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.center,
+                                        children: _getCardWidgets(orientation),
+                                      ))),
+                              Container(
+                                  alignment: AlignmentDirectional.centerStart,
+                                  padding: EdgeInsets.only(
+                                      top: 10.0,
+                                      bottom: 4.0,
+                                      right: 6.0,
+                                      left: 6.0),
+                                  child: Text(
+                                    'Overview',
+                                    style: TextStyle(
+                                        fontSize: 22.0, color: Colors.white),
+                                  )),
+                              Container(
+                                  alignment: AlignmentDirectional.centerStart,
+                                  padding: EdgeInsets.only(
+                                      top: 4.0,
+                                      bottom: 14.0,
+                                      right: 6.0,
+                                      left: 6.0),
+                                  child: Text(
+                                    "${boss.currentTalk.description}",
+                                    textAlign: TextAlign.justify,
+                                    style: TextStyle(
+                                        fontSize: 16.0,
+                                        height: 1.2,
+                                        color: Colors.grey[300]),
+                                  )),
+                            ]))),
+                    Reusable.statusBarTopShadow,
+                    Reusable.backArrow(context)
+                  ]))));
+    });
   }
 }

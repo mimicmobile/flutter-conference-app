@@ -30,19 +30,22 @@ class ScheduleWidgetState extends State<ScheduleWidget>
 
   @override
   Widget build(BuildContext buildContext) {
-    return Container(
-        color: Theme.of(context).backgroundColor,
-        child: Stack(children: <Widget>[
-          Reusable.header,
-          !widget.loaded
-              ? Reusable.loadingProgress
-              : ListView.builder(
-                  itemCount: widget.scheduleList.length,
-                  itemBuilder: (context, index) {
-                    return widget.scheduleList[index].getWidget(context,
-                        onTapCallback: _presenter.scheduleTap);
-                  }),
-          Reusable.statusBarTopShadow,
-        ]));
+    return OrientationBuilder(builder: (context, orientation) {
+      return Container(
+          color: Theme.of(context).backgroundColor,
+          child: Stack(children: <Widget>[
+            Reusable.header,
+            !widget.loaded
+                ? Reusable.loadingProgress(orientation)
+                : ListView.builder(
+                    itemCount: widget.scheduleList.length,
+                    itemBuilder: (context, index) {
+                      return widget.scheduleList[index].getWidget(
+                          context, orientation,
+                          onTapCallback: _presenter.scheduleTap);
+                    }),
+            Reusable.statusBarTopShadow,
+          ]));
+    });
   }
 }

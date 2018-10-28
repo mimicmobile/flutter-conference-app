@@ -7,14 +7,14 @@ import 'package:flutter_conference_app/widgets/reusable.dart';
 import 'package:icons_helper/icons_helper.dart';
 
 abstract class ListItem {
-  Object getWidget(context, {Function onTapCallback});
+  Object getWidget(context, Orientation orientation, {Function onTapCallback});
 }
 
 class HeaderItem implements ListItem {
   HeaderItem();
 
   @override
-  Padding getWidget(context, {onTapCallback}) {
+  Padding getWidget(context, orientation, {onTapCallback}) {
     return Padding(
         padding:
             EdgeInsets.only(top: 24.0, bottom: 24.0, right: 20.0, left: 20.0),
@@ -28,10 +28,11 @@ class TitleItem implements ListItem {
   TitleItem(this.title);
 
   @override
-  Row getWidget(context, {onTapCallback}) {
+  Row getWidget(context, orientation, {onTapCallback}) {
     return Row(children: <Widget>[
       Padding(
-          padding: EdgeInsets.only(left: 26.0, bottom: 10.0),
+          padding: EdgeInsets.only(
+              left: Utils.getOrientationSideMargin(orientation), bottom: 10.0),
           child: Text("$title",
               style: TextStyle(
                   fontSize: 20.0,
@@ -166,11 +167,14 @@ class TalkItem implements ListItem {
   }
 
   @override
-  Card getWidget(context, {Function onTapCallback}) {
+  Card getWidget(context, orientation, {Function onTapCallback}) {
     return Card(
         elevation: 12.0,
-        margin:
-            EdgeInsets.only(left: 26.0, right: 26.0, top: 4.0, bottom: 26.0),
+        margin: EdgeInsets.only(
+            left: Utils.getOrientationSideMargin(orientation),
+            right: Utils.getOrientationSideMargin(orientation),
+            top: 4.0,
+            bottom: 26.0),
         child: Padding(
             padding: EdgeInsets.all(20.0),
             child: Column(
@@ -187,7 +191,7 @@ class SpeakerItem implements ListItem {
   SpeakerItem(this.boss);
 
   @override
-  Widget getWidget(context, {onTapCallback}) {
+  Widget getWidget(context, orientation, {onTapCallback}) {
     return GestureDetector(
         onTap: () {
           onTapCallback(context, boss);
@@ -197,8 +201,10 @@ class SpeakerItem implements ListItem {
             children: <Widget>[
               Card(
                   elevation: 12.0,
-                  margin:
-                      EdgeInsets.only(left: 66.0, right: 26.0, bottom: 26.0),
+                  margin: EdgeInsets.only(
+                      left: 46.0 + Utils.getOrientationSideMargin(orientation),
+                      right: Utils.getOrientationSideMargin(orientation),
+                      bottom: 26.0),
                   child: Padding(
                     padding: EdgeInsets.only(
                         left: 70.0, top: 20.0, right: 20.0, bottom: 20.0),
@@ -228,7 +234,9 @@ class SpeakerItem implements ListItem {
                     ),
                   )),
               Padding(
-                  padding: EdgeInsets.only(left: 22.0, bottom: 26.0),
+                  padding: EdgeInsets.only(
+                      left: Utils.getOrientationSideMargin(orientation),
+                      bottom: 26.0),
                   child: Hero(
                       tag: "avatar${boss.speaker.id}",
                       child: CircleAvatar(
@@ -257,7 +265,7 @@ class ConferenceItem implements ListItem {
     }
     if (this.website != "") {
       linkIcons
-          .add(Reusable.getLinkIcon("chrome", Colors.red[300], this.website));
+          .add(Reusable.getLinkIcon("link", Colors.red[300], this.website));
     }
     if (this.contactEmail != "") {
       linkIcons.add(
@@ -268,11 +276,14 @@ class ConferenceItem implements ListItem {
   }
 
   @override
-  Widget getWidget(context, {Function onTapCallback}) {
+  Widget getWidget(context, orientation, {Function onTapCallback}) {
     return Card(
         elevation: 12.0,
-        margin:
-            EdgeInsets.only(left: 26.0, right: 26.0, top: 4.0, bottom: 26.0),
+        margin: EdgeInsets.only(
+            left: Utils.getOrientationSideMargin(orientation),
+            right: Utils.getOrientationSideMargin(orientation),
+            top: 4.0,
+            bottom: 26.0),
         child: Padding(
             padding: EdgeInsets.all(20.0),
             child: Column(
@@ -298,7 +309,7 @@ class VenueItem implements ListItem {
   VenueItem(this.name, this.address, this.imagePath);
 
   @override
-  Widget getWidget(context, {Function onTapCallback}) {
+  Widget getWidget(context, orientation, {Function onTapCallback}) {
     return GestureDetector(
         onTap: () {
           onTapCallback(context, AboutAction.Map, address);
@@ -306,7 +317,10 @@ class VenueItem implements ListItem {
         child: Card(
             elevation: 12.0,
             margin: EdgeInsets.only(
-                left: 26.0, right: 26.0, top: 4.0, bottom: 26.0),
+                left: Utils.getOrientationSideMargin(orientation),
+                right: Utils.getOrientationSideMargin(orientation),
+                top: 4.0,
+                bottom: 26.0),
             child: Padding(
                 padding: EdgeInsets.all(20.0),
                 child: Column(
@@ -346,10 +360,13 @@ class AboutListItem implements ListItem {
   }
 
   @override
-  Widget getWidget(context, {Function onTapCallback}) {
+  Widget getWidget(context, orientation, {Function onTapCallback}) {
     return Container(
-        margin:
-            EdgeInsets.only(left: 26.0, right: 26.0, top: 8.0, bottom: 26.0),
+        margin: EdgeInsets.only(
+            left: Utils.getOrientationSideMargin(orientation),
+            right: Utils.getOrientationSideMargin(orientation),
+            top: 8.0,
+            bottom: 26.0),
         child: Wrap(
             spacing: 20.0,
             runSpacing: 20.0,

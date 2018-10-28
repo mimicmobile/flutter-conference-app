@@ -29,19 +29,22 @@ class SpeakersWidgetState extends State<SpeakersWidget>
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-        color: Theme.of(context).backgroundColor,
-        child: Stack(children: <Widget>[
-          Reusable.header,
-          !widget.loaded
-              ? Reusable.loadingProgress
-              : ListView.builder(
-                  itemCount: widget.speakerList.length,
-                  itemBuilder: (context, index) {
-                    return widget.speakerList[index].getWidget(context,
-                        onTapCallback: _presenter.speakerTap);
-                  }),
-          Reusable.statusBarTopShadow,
-        ]));
+    return OrientationBuilder(builder: (context, orientation) {
+      return Container(
+          color: Theme.of(context).backgroundColor,
+          child: Stack(children: <Widget>[
+            Reusable.header,
+            !widget.loaded
+                ? Reusable.loadingProgress
+                : ListView.builder(
+                    itemCount: widget.speakerList.length,
+                    itemBuilder: (context, index) {
+                      return widget.speakerList[index].getWidget(
+                          context, orientation,
+                          onTapCallback: _presenter.speakerTap);
+                    }),
+            Reusable.statusBarTopShadow,
+          ]));
+    });
   }
 }

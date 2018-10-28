@@ -2,7 +2,6 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_conference_app/config.dart';
-import 'package:flutter_conference_app/utils.dart';
 import 'package:icons_helper/icons_helper.dart';
 import 'package:url_launcher/url_launcher.dart';
 
@@ -30,7 +29,7 @@ class Reusable {
     );
   }
 
-  static get loadingProgress {
+  static loadingProgress(orientation) {
     return Padding(
         padding:
             EdgeInsets.only(top: 100.0, right: 20.0, left: 20.0, bottom: 40.0),

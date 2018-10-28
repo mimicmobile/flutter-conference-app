@@ -28,19 +28,22 @@ class AboutWidgetState extends State<AboutWidget> implements IAboutView {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-        color: Theme.of(context).backgroundColor,
-        child: Stack(children: <Widget>[
-          Reusable.header,
-          !widget.loaded
-              ? Reusable.loadingProgress
-              : ListView.builder(
-                  itemCount: widget.aboutList.length,
-                  itemBuilder: (context, index) {
-                    return widget.aboutList[index]
-                        .getWidget(context, onTapCallback: _presenter.aboutTap);
-                  }),
-          Reusable.statusBarTopShadow,
-        ]));
+    return OrientationBuilder(builder: (context, orientation) {
+      return Container(
+          color: Theme.of(context).backgroundColor,
+          child: Stack(children: <Widget>[
+            Reusable.header,
+            !widget.loaded
+                ? Reusable.loadingProgress(orientation)
+                : ListView.builder(
+                    itemCount: widget.aboutList.length,
+                    itemBuilder: (context, index) {
+                      return widget.aboutList[index].getWidget(
+                          context, orientation,
+                          onTapCallback: _presenter.aboutTap);
+                    }),
+            Reusable.statusBarTopShadow,
+          ]));
+    });
   }
 }
