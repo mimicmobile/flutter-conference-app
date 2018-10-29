@@ -45,11 +45,15 @@ class Utils {
     return orientation == Orientation.portrait ? 26.0 : 96.0;
   }
 
+  static getHeaderOrientationSideMargin(Orientation orientation) {
+    return orientation == Orientation.portrait ? 20.0 : 90.0;
+  }
+
   static getSpeakerOrientationTopMargin(Orientation orientation) {
-    return orientation == Orientation.portrait ? 50.0 : 30.0;
+    return orientation == Orientation.portrait ? 60.0 : 30.0;
   }
 
   static getTalkOrientationTopMargin(Orientation orientation) {
-    return orientation == Orientation.portrait ? 96.0 : 40.0;
+    return orientation == Orientation.portrait ? 106.0 : 40.0;
   }
 }

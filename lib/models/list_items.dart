@@ -16,8 +16,11 @@ class HeaderItem implements ListItem {
   @override
   Padding getWidget(context, orientation, {onTapCallback}) {
     return Padding(
-        padding:
-            EdgeInsets.only(top: 24.0, bottom: 24.0, right: 20.0, left: 20.0),
+        padding: EdgeInsets.only(
+            top: 24.0,
+            bottom: 24.0,
+            right: Utils.getHeaderOrientationSideMargin(orientation),
+            left: Utils.getHeaderOrientationSideMargin(orientation)),
         child: Utils.image(Config.logo));
   }
 }
