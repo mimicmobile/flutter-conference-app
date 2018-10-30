@@ -3,6 +3,7 @@ import 'package:flutter_conference_app/models/data.dart';
 import 'package:flutter_conference_app/widgets/reusable.dart';
 import 'package:flutter_conference_app/utils.dart';
 import 'package:flutter_conference_app/widgets/speaker.dart';
+import 'package:flutter_villains/villain.dart';
 
 class TalkWidget extends StatelessWidget {
   final TalkBoss boss;
@@ -14,8 +15,7 @@ class TalkWidget extends StatelessWidget {
     if (popBack) {
       Navigator.pop(context);
     } else {
-      Navigator.push(context,
-          MaterialPageRoute(builder: (context) => (SpeakerWidget(boss))));
+      Navigator.of(context).push(FadeRoute(SpeakerWidget(boss)));
     }
   }
 
@@ -85,7 +85,8 @@ class TalkWidget extends StatelessWidget {
     List<Widget> _getCardWidgets(orientation) {
       var widgets = <Widget>[
         Container(
-            padding: EdgeInsets.only(left: 20.0, top: 30.0, bottom: 20.0),
+            padding: EdgeInsets.only(
+                left: 20.0, right: 20.0, top: 30.0, bottom: 20.0),
             child: Text(
               "${boss.currentTalk.title}",
               textAlign: TextAlign.center,
@@ -121,53 +122,62 @@ class TalkWidget extends StatelessWidget {
                   color: Theme.of(context).backgroundColor,
                   child: Stack(children: <Widget>[
                     Reusable.header,
-                    Container(
-                        child: SingleChildScrollView(
-                            padding: EdgeInsets.only(
-                                top: Utils.getTalkOrientationTopMargin(
-                                    orientation),
-                                left:
-                                    Utils.getOrientationSideMargin(orientation),
-                                right:
-                                    Utils.getOrientationSideMargin(orientation),
-                                bottom: 26.0),
-                            child: Column(children: <Widget>[
-                              Card(
-                                  elevation: 12.0,
-                                  margin: EdgeInsets.only(bottom: 20.0),
-                                  child: Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.center,
-                                    children: _getCardWidgets(orientation),
-                                  )),
-                              Container(
-                                  alignment: AlignmentDirectional.centerStart,
-                                  padding: EdgeInsets.only(
-                                      top: 10.0,
-                                      bottom: 4.0,
-                                      right: 6.0,
-                                      left: 6.0),
-                                  child: Text(
-                                    'Overview',
-                                    style: TextStyle(
-                                        fontSize: 22.0, color: Colors.white),
-                                  )),
-                              Container(
-                                  alignment: AlignmentDirectional.centerStart,
-                                  padding: EdgeInsets.only(
-                                      top: 4.0,
-                                      bottom: 14.0,
-                                      right: 6.0,
-                                      left: 6.0),
-                                  child: Text(
-                                    "${boss.currentTalk.description}",
-                                    textAlign: TextAlign.justify,
-                                    style: TextStyle(
-                                        fontSize: 16.0,
-                                        height: 1.2,
-                                        color: Colors.grey[300]),
-                                  )),
-                            ]))),
+                    Villain(
+                        villainAnimation: VillainAnimation.fromBottom(
+                            relativeOffset: 0.05,
+                            to: Duration(milliseconds: 200)),
+                        secondaryVillainAnimation: VillainAnimation.fade(),
+                        animateExit: true,
+                        child: Container(
+                            child: SingleChildScrollView(
+                                padding: EdgeInsets.only(
+                                    top: Utils.getTalkOrientationTopMargin(
+                                        orientation),
+                                    left: Utils.getOrientationSideMargin(
+                                        orientation),
+                                    right: Utils.getOrientationSideMargin(
+                                        orientation),
+                                    bottom: 26.0),
+                                child: Column(children: <Widget>[
+                                  Card(
+                                      elevation: 12.0,
+                                      margin: EdgeInsets.only(bottom: 20.0),
+                                      child: Column(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.center,
+                                        children: _getCardWidgets(orientation),
+                                      )),
+                                  Container(
+                                      alignment:
+                                          AlignmentDirectional.centerStart,
+                                      padding: EdgeInsets.only(
+                                          top: 10.0,
+                                          bottom: 4.0,
+                                          right: 6.0,
+                                          left: 6.0),
+                                      child: Text(
+                                        'Overview',
+                                        style: TextStyle(
+                                            fontSize: 22.0,
+                                            color: Colors.white),
+                                      )),
+                                  Container(
+                                      alignment:
+                                          AlignmentDirectional.centerStart,
+                                      padding: EdgeInsets.only(
+                                          top: 4.0,
+                                          bottom: 14.0,
+                                          right: 6.0,
+                                          left: 6.0),
+                                      child: Text(
+                                        "${boss.currentTalk.description}",
+                                        textAlign: TextAlign.justify,
+                                        style: TextStyle(
+                                            fontSize: 16.0,
+                                            height: 1.2,
+                                            color: Colors.grey[300]),
+                                      ))
+                                ])))),
                     Reusable.statusBarTopShadow,
                     Reusable.backArrow(context)
                   ]))));

@@ -2,6 +2,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_conference_app/config.dart';
 import 'package:flutter_conference_app/widgets/home.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_villains/villains/villains.dart';
 
 void main() => runApp(MyApp());
 
@@ -21,6 +22,7 @@ class MyApp extends StatelessWidget {
         dialogBackgroundColor: Config.bottomNavBarColor
       ),
       home: Home(),
+      navigatorObservers: [new VillainTransitionObserver()]
     );
   }
 }

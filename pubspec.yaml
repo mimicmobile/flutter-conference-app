@@ -24,6 +24,7 @@ dependencies:
   json_annotation: ^2.0.0
   icons_helper: ^0.0.8
   url_launcher: ^3.0.3
+  flutter_villains: ^1.0.0
 
 dev_dependencies:
   flutter_test:
