@@ -37,6 +37,7 @@ class SpeakersWidgetState extends State<SpeakersWidget>
             !widget.loaded
                 ? Reusable.loadingProgress
                 : ListView.builder(
+                    physics: const AlwaysScrollableScrollPhysics(),
                     itemCount: widget.speakerList.length,
                     itemBuilder: (context, index) {
                       return widget.speakerList[index].getWidget(

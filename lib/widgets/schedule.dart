@@ -38,6 +38,7 @@ class ScheduleWidgetState extends State<ScheduleWidget>
             !widget.loaded
                 ? Reusable.loadingProgress(orientation)
                 : ListView.builder(
+                    physics: const AlwaysScrollableScrollPhysics(),
                     itemCount: widget.scheduleList.length,
                     itemBuilder: (context, index) {
                       return widget.scheduleList[index].getWidget(

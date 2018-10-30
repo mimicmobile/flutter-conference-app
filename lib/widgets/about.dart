@@ -36,6 +36,7 @@ class AboutWidgetState extends State<AboutWidget> implements IAboutView {
             !widget.loaded
                 ? Reusable.loadingProgress(orientation)
                 : ListView.builder(
+                    physics: const AlwaysScrollableScrollPhysics(),
                     itemCount: widget.aboutList.length,
                     itemBuilder: (context, index) {
                       return widget.aboutList[index].getWidget(
