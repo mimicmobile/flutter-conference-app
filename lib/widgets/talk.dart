@@ -42,12 +42,13 @@ class TalkWidget extends StatelessWidget {
     }
 
     Widget _getSpeakerContainer() {
-      return Padding(
-          padding: EdgeInsets.only(top: 4.0),
-          child: InkWell(
-              onTap: () {
-                _goToSpeaker(context);
-              },
+      return InkWell(
+          onTap: () {
+            _goToSpeaker(context);
+          },
+          child: Padding(
+              padding: EdgeInsets.only(
+                  left: 20.0, right: 20.0, top: 20.0, bottom: 20.0),
               child: Row(
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: <Widget>[
@@ -84,27 +85,30 @@ class TalkWidget extends StatelessWidget {
     List<Widget> _getCardWidgets(orientation) {
       var widgets = <Widget>[
         Container(
-            padding: EdgeInsets.only(top: 10.0, bottom: 8.0),
+            padding: EdgeInsets.only(left: 20.0, top: 30.0, bottom: 20.0),
             child: Text(
               "${boss.currentTalk.title}",
               textAlign: TextAlign.center,
               style: TextStyle(fontSize: 32.0),
             )),
         Container(
-            padding: EdgeInsets.only(bottom: 8.0),
+            padding: EdgeInsets.only(left: 20.0, right: 20.0, bottom: 8.0),
             child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: _getChips()))
       ];
       if (boss.currentTalk.talkType != null) {
-        widgets.add(Text(
-          "${boss.currentTalk.talkType.description}",
-          style: TextStyle(color: Theme.of(context).textTheme.caption.color),
-        ));
+        widgets.add(Padding(
+            padding: EdgeInsets.only(left: 20.0, right: 20.0, bottom: 20.0),
+            child: Text(
+              "${boss.currentTalk.talkType.description}",
+              style:
+                  TextStyle(color: Theme.of(context).textTheme.caption.color),
+            )));
       }
 
       if (boss.speaker != null) {
-        widgets.add(Divider(height: 40.0));
+        widgets.add(Divider(height: 4.0));
         widgets.add(_getSpeakerContainer());
       }
       return widgets;
@@ -120,21 +124,22 @@ class TalkWidget extends StatelessWidget {
                     Container(
                         child: SingleChildScrollView(
                             padding: EdgeInsets.only(
-                                top: Utils.getTalkOrientationTopMargin(orientation),
-                                left: Utils.getOrientationSideMargin(orientation),
-                                right: Utils.getOrientationSideMargin(orientation),
+                                top: Utils.getTalkOrientationTopMargin(
+                                    orientation),
+                                left:
+                                    Utils.getOrientationSideMargin(orientation),
+                                right:
+                                    Utils.getOrientationSideMargin(orientation),
                                 bottom: 26.0),
                             child: Column(children: <Widget>[
                               Card(
                                   elevation: 12.0,
                                   margin: EdgeInsets.only(bottom: 20.0),
-                                  child: Padding(
-                                      padding: EdgeInsets.all(18.0),
-                                      child: Column(
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.center,
-                                        children: _getCardWidgets(orientation),
-                                      ))),
+                                  child: Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.center,
+                                    children: _getCardWidgets(orientation),
+                                  )),
                               Container(
                                   alignment: AlignmentDirectional.centerStart,
                                   padding: EdgeInsets.only(

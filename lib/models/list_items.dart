@@ -76,13 +76,16 @@ class TalkItem implements ListItem {
     return widgets;
   }
 
-  Container _createTalk(context, TalkBoss boss, Function onTapCallback) {
+  Widget _createTalk(context, TalkBoss boss, Function onTapCallback) {
     if (boss.speaker != null) {
-      return Container(
-          child: InkWell(
-              onTap: () {
-                onTapCallback(context, boss);
-              },
+      return Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: <Widget>[InkWell(
+          onTap: () {
+            onTapCallback(context, boss);
+          },
+          child: Padding(
+              padding: EdgeInsets.all(20.0),
               child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: <Widget>[
@@ -107,37 +110,38 @@ class TalkItem implements ListItem {
                                           Utils.imageP(boss.speaker.imagePath),
                                     ))),
                             Expanded(
-                              flex: 2,
+                                flex: 2,
                                 child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: <Widget>[
-                                Text(
-                                  '${boss.speaker.name}',
-                                  style: TextStyle(fontSize: 18.0),
-                                ),
-                                Text(
-                                  '${boss.speaker.company}',
-                                  style: TextStyle(
-                                      fontSize: 16.0,
-                                      color: Theme.of(context)
-                                          .textTheme
-                                          .caption
-                                          .color),
-                                ),
-                                talks.length > 1
-                                    ? Container(
-                                        margin: EdgeInsets.only(top: 2.0),
-                                        child: Text(
-                                          '${boss.currentTalk.track.name}',
-                                          style: TextStyle(
-                                              fontSize: 14.0,
-                                              fontWeight: FontWeight.bold,
-                                              color: Utils.convertIntColor(boss
-                                                  .currentTalk.track.color)),
-                                        ))
-                                    : Container()
-                              ],
-                            )),
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: <Widget>[
+                                    Text(
+                                      '${boss.speaker.name}',
+                                      style: TextStyle(fontSize: 18.0),
+                                    ),
+                                    Text(
+                                      '${boss.speaker.company}',
+                                      style: TextStyle(
+                                          fontSize: 16.0,
+                                          color: Theme.of(context)
+                                              .textTheme
+                                              .caption
+                                              .color),
+                                    ),
+                                    talks.length > 1
+                                        ? Container(
+                                            margin: EdgeInsets.only(top: 2.0),
+                                            child: Text(
+                                              '${boss.currentTalk.track.name}',
+                                              style: TextStyle(
+                                                  fontSize: 14.0,
+                                                  fontWeight: FontWeight.bold,
+                                                  color: Utils.convertIntColor(
+                                                      boss.currentTalk.track
+                                                          .color)),
+                                            ))
+                                        : Container()
+                                  ],
+                                )),
                             Spacer(),
                             InkWell(
                                 onTap: () {
@@ -154,11 +158,11 @@ class TalkItem implements ListItem {
                                       color: Colors.white,
                                     )))
                           ],
-                        )),
+                        ))]))),
                     talks.length > 1 && talks.last != boss
-                        ? Divider(height: 40.0)
+                        ? Divider(height: 4.0)
                         : Container(),
-                  ])));
+                  ]);
     } else {
       return Container(
           child: InkWell(
@@ -167,7 +171,9 @@ class TalkItem implements ListItem {
                   onTapCallback(context, boss);
                 }
               },
-              child: Row(children: _getNonSpeakerRow(context, boss))));
+              child: Padding(
+                  padding: EdgeInsets.all(20.0),
+                  child: Row(children: _getNonSpeakerRow(context, boss)))));
     }
   }
 
@@ -180,13 +186,11 @@ class TalkItem implements ListItem {
             right: Utils.getOrientationSideMargin(orientation),
             top: 4.0,
             bottom: 26.0),
-        child: Padding(
-            padding: EdgeInsets.all(20.0),
-            child: Column(
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: talks
-                    .map((t) => _createTalk(context, t, onTapCallback))
-                    .toList())));
+        child: Column(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: talks
+                .map((t) => _createTalk(context, t, onTapCallback))
+                .toList()));
   }
 }
 
