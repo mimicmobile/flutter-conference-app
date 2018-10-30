@@ -34,7 +34,7 @@ class ConferenceData implements IHomeModel {
   IHomePresenter _presenter;
 
   @JsonKey(ignore: true)
-  int retryCounter;
+  int retryCounter = 0;
 
   ConferenceData();
 
