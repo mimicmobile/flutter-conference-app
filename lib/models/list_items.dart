@@ -107,6 +107,7 @@ class TalkItem implements ListItem {
                                           Utils.imageP(boss.speaker.imagePath),
                                     ))),
                             Expanded(
+                              flex: 2,
                                 child: Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: <Widget>[
