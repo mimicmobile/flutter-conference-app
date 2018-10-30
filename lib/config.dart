@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 class Config {
   static String title = "Flutter Conference app";
   static String jsonUrl =
-      "http://jeff.mimic.ca/p/androidto/data.json";
+      "https://raw.githubusercontent.com/mimicmobile/flutter-conference-app/master/json/data.json";
   static String listBackground = "images/list-bg.png";
   static String logo = "images/ato-logo.png";
 
