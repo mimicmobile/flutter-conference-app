@@ -106,7 +106,8 @@ class TalkItem implements ListItem {
                                       backgroundImage:
                                           Utils.imageP(boss.speaker.imagePath),
                                     ))),
-                            Column(
+                            Expanded(
+                                child: Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: <Widget>[
                                 Text(
@@ -135,7 +136,7 @@ class TalkItem implements ListItem {
                                         ))
                                     : Container()
                               ],
-                            ),
+                            )),
                             Spacer(),
                             InkWell(
                                 onTap: () {
