@@ -43,6 +43,8 @@ abstract class IHomeModel {
 
   Future checkAndLoadCache();
 
+  Future getSharedPrefs();
+
   List<AugmentedTalk> getTalksForSpeaker(String speakerId);
 
   AugmentedSpeaker getSpeaker(String speakerId);

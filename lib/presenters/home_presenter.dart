@@ -32,7 +32,6 @@ class HomePresenter implements IHomePresenter {
 
   @override
   Future checkCache() async {
-    print("loaded: $loaded");
     if (loaded) {
       await _model.checkAndLoadCache();
     }

@@ -36,6 +36,9 @@ class ConferenceData implements IHomeModel {
   @JsonKey(ignore: true)
   int retryCounter = 0;
 
+  @JsonKey(ignore: true)
+  String storedEtag;
+
   ConferenceData();
 
   factory ConferenceData.fromJson(Map<String, dynamic> content) =>
@@ -100,16 +103,20 @@ class ConferenceData implements IHomeModel {
   }
 
   @override
+  Future<SharedPreferences> getSharedPrefs() async {
+    return await SharedPreferences.getInstance();
+  }
+
+  @override
   Future<bool> isCacheStale() async {
     return await http.head(this.jsonUrl).then((response) async {
-      SharedPreferences sharedPrefs = await SharedPreferences.getInstance();
-
-      String etag = sharedPrefs.getString('etag') ?? null;
+      SharedPreferences sharedPrefs = await getSharedPrefs();
+      storedEtag = sharedPrefs.getString('etag') ?? null;
       String serverEtag = response.headers.containsKey('etag')
           ? response.headers['etag']
           : null;
 
-      if (etag == serverEtag) {
+      if (storedEtag == serverEtag) {
         print("Cache file not changed, keeping cache");
         return false;
       } else {
@@ -146,7 +153,7 @@ class ConferenceData implements IHomeModel {
   Future fetchAndSaveData() async {
     return http.get(this.jsonUrl).then((response) async {
       await saveData(utf8.decode(response.bodyBytes));
-      loadDataFromCache();
+      await loadDataFromCache();
     }).catchError((e) {
       print("fetchAndSaveData failed $e");
       _presenter.showNetworkError();
@@ -161,6 +168,7 @@ class ConferenceData implements IHomeModel {
         file.writeAsString(body);
       } catch (e) {
         print("File was not valid JSON!");
+        getSharedPrefs().then((s) => s.setString('etag', null));
       }
     });
   }
@@ -178,9 +186,10 @@ class ConferenceData implements IHomeModel {
     generateAboutList();
 
     var _wasLoaded = _presenter.loaded;
+    var _hadEtag = storedEtag != null;
 
     _presenter.loaded = true;
-    _presenter.refreshState(showSnackBar: _wasLoaded);
+    _presenter.refreshState(showSnackBar: _wasLoaded && _hadEtag);
   }
 
   @override
