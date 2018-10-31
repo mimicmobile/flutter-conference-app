@@ -22,6 +22,8 @@ abstract class IHomePresenter {
 
   void init();
 
+  void checkCache();
+
   void refreshState({bool showSnackBar = false});
 
   void showNetworkError();

@@ -54,8 +54,10 @@ class ConferenceData implements IHomeModel {
     bool exists = await cacheExists();
 
     if (exists) {
-      print("Cache exists, loading from disk");
-      await loadDataFromCache();
+      if (!_presenter.loaded) {
+        print("Cache exists, loading from disk");
+        await loadDataFromCache();
+      }
       isCacheStale().then((isStale) async {
         if (isStale) {
           print("Cache outdated, fetching new data..");

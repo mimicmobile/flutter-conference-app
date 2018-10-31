@@ -13,7 +13,7 @@ class Home extends StatefulWidget {
   }
 }
 
-class _HomeState extends State<Home> implements IHomeView {
+class _HomeState extends State<Home> with WidgetsBindingObserver implements IHomeView {
   HomePresenter _presenter;
 
   BuildContext _buildContext;
@@ -24,6 +24,20 @@ class _HomeState extends State<Home> implements IHomeView {
     _presenter.init();
 
     super.initState();
+    WidgetsBinding.instance.addObserver(this);
+  }
+
+  @override
+  void dispose() {
+    WidgetsBinding.instance.removeObserver(this);
+    super.dispose();
+  }
+
+  @override
+  void didChangeAppLifecycleState(AppLifecycleState state) {
+    if (state.index == 0) {
+      _presenter.checkCache();
+    }
   }
 
   @override
