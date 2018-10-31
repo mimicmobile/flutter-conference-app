@@ -62,6 +62,7 @@ class SpeakerWidget extends StatelessWidget {
                         animateExit: true,
                         child: Center(
                             child: SingleChildScrollView(
+                                physics: const AlwaysScrollableScrollPhysics(),
                                 padding: EdgeInsets.only(
                                     top: Utils.getSpeakerOrientationTopMargin(
                                         orientation),

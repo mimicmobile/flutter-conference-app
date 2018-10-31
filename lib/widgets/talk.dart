@@ -130,6 +130,7 @@ class TalkWidget extends StatelessWidget {
                         animateExit: true,
                         child: Container(
                             child: SingleChildScrollView(
+                                physics: const AlwaysScrollableScrollPhysics(),
                                 padding: EdgeInsets.only(
                                     top: Utils.getTalkOrientationTopMargin(
                                         orientation),
