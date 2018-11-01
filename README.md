@@ -2,7 +2,7 @@
 
 `Flutter Conference app` (what a name) is a project that lets you build your own version of the app for a conference.
 
-Because it's built in flutter, you can build copies of your app for both Android and iOS respectively!
+Because it's in flutter, you can build versions of your app for both Android and iOS respectively!
 
 
 ## Features
@@ -15,15 +15,14 @@ Because it's built in flutter, you can build copies of your app for both Android
 ## Screenshots
 <a href="screenshots/schedule.jpg"><img src="screenshots/schedule.jpg" width="260"></a>
 <a href="screenshots/speakers.jpg"><img src="screenshots/speakers.jpg" width="260"></a>
+<a href="screenshots/about.jpg"><img src="screenshots/about.jpg" width="260"></a>
 <a href="screenshots/talk.jpg"><img src="screenshots/talk.jpg" width="260"></a>
 <a href="screenshots/speaker.jpg"><img src="screenshots/speaker.jpg" width="260"></a>
 
 ## TODO
 - Support for multiple days
-- About section with Sponsors, Contacts, Code of conduct and more!
 - Fire off important notifications
 - Reviews/feedback for talks
-- Google auth with Firebase analytics
 
 ## Build the app
 
