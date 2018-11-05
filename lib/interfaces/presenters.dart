@@ -29,6 +29,8 @@ abstract class IHomePresenter {
   void showNetworkError();
 
   void fetchData();
+
+  void configureFirebase(BuildContext context);
 }
 
 abstract class ISchedulePresenter {

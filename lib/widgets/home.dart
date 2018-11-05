@@ -69,6 +69,8 @@ class _HomeState extends State<Home> with WidgetsBindingObserver implements IHom
     return Scaffold(
       body: Builder(builder: (BuildContext context) {
         _buildContext = context;
+        _presenter.configureFirebase(context);
+
         return PageStorage(
           child: _presenter.pages[_presenter.currentIndex],
           bucket: _presenter.bucket,

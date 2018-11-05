@@ -10,3 +10,4 @@ build/
 .idea
 pubspec.lock
 *.iml
+android/key.properties

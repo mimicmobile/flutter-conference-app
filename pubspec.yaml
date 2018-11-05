@@ -25,6 +25,8 @@ dependencies:
   icons_helper: ^0.0.8
   url_launcher: ^3.0.3
   flutter_villains: ^1.0.0
+  firebase_messaging: ^2.0.3
+  flutter_local_notifications: ^0.4.0
 
 dev_dependencies:
   flutter_test:

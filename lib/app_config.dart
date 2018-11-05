@@ -17,4 +17,6 @@ class AppConfig extends InheritedWidget {
 
   @override
   bool updateShouldNotify(InheritedWidget oldWidget) => false;
+
+  bool get isDev => flavorName == 'development';
 }
