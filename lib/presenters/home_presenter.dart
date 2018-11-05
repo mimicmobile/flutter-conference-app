@@ -109,9 +109,7 @@ class HomePresenter implements IHomePresenter {
       return;
     }
 
-    String title = message['data']['title'] == ""
-        ? Config.title
-        : message['data']['title'];
+    String title = message['data']['title'];
     String body = message['data']['body'] == ""
         ? 'Important notice'
         : message['data']['body'];
@@ -119,6 +117,10 @@ class HomePresenter implements IHomePresenter {
         ? Random().nextInt(900)
         : int.parse(message['data']['id']);
     String payload = message['data']['url'];
+
+    if (title == "") {
+      localNotif.cancel(id);
+    }
 
     var androidSpecifics = new AndroidNotificationDetails(
         'flutter-conference', Config.title, Config.description,
