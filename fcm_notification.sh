@@ -19,14 +19,16 @@ fi
 echo
 
 DATA="{
-    \"to\": \"/topics/all\",
+    \"to\": \"/topics/$FLAVOR\",
+    \"notification\": {
+        \"title\": \"${2}\",
+        \"body\": \"${3}\",
+        \"vibrate\": 1
+    },
     \"data\": {
         \"id\": \"${6}\",
-        \"title\": \"${2}\",
-        \"body\": \"${3}\"
         \"click_action\": \"FLUTTER_NOTIFICATION_CLICK\",
-        \"url\": \"${4}\",
-        \"flavor\": \"${FLAVOR}\"
+        \"url\": \"${4}\"
     }
 }"
 

@@ -19,7 +19,7 @@ class HomePresenter implements IHomePresenter {
 
   final PageStorageBucket bucket = PageStorageBucket();
 
-  final FirebaseMessaging _firebaseMessaging = FirebaseMessaging();
+  FirebaseMessaging _firebaseMessaging;
   FlutterLocalNotificationsPlugin localNotif =
       new FlutterLocalNotificationsPlugin();
 
@@ -69,7 +69,12 @@ class HomePresenter implements IHomePresenter {
   void configureFirebase(BuildContext context) {
     var config = AppConfig.of(context);
 
-    _firebaseMessaging.subscribeToTopic('all');
+    if (_firebaseMessaging != null) {
+      return;
+    }
+
+    _firebaseMessaging = FirebaseMessaging();
+    _firebaseMessaging.subscribeToTopic(config.flavorName);
 
     var initializationSettingsAndroid =
         new AndroidInitializationSettings('@drawable/notification');
@@ -88,11 +93,11 @@ class HomePresenter implements IHomePresenter {
       },
       onResume: (Map<String, dynamic> message) {
         // Backgrounded
-        handleNotification(config, message);
+        handleNotificationPayload(message['url']);
       },
       onLaunch: (Map<String, dynamic> message) {
         // Terminated
-        handleNotification(config, message);
+        handleNotificationPayload(message['url']);
       },
     );
   }
@@ -105,14 +110,11 @@ class HomePresenter implements IHomePresenter {
 
   void handleNotification(
       AppConfig config, Map<String, dynamic> message) async {
-    if (message['data']['flavor'] != config.flavorName) {
-      return;
-    }
 
-    String title = message['data']['title'];
-    String body = message['data']['body'] == ""
+    String title = message['notification']['title'];
+    String body = message['notification']['body'] == ""
         ? 'Important notice'
-        : message['data']['body'];
+        : message['notification']['body'];
     int id = message['data']['id'] == ""
         ? Random().nextInt(900)
         : int.parse(message['data']['id']);
