@@ -85,7 +85,7 @@ class HomePresenter implements IHomePresenter {
     localNotif = new FlutterLocalNotificationsPlugin();
 
     localNotif.initialize(initializationSettings,
-        selectNotification: handleNotificationPayload);
+        onSelectNotification: handleNotificationPayload);
 
     _firebaseMessaging.configure(
       onMessage: (Map<String, dynamic> message) {

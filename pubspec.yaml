@@ -21,8 +21,11 @@ dependencies:
   cupertino_icons: ^0.1.2
   path_provider: ^0.4.1
   shared_preferences: ^0.4.2
+  http: ^0.12.0
   json_annotation: ^2.0.0
-  icons_helper: ^0.0.8
+  icons_helper:
+      git:
+        url: git://github.com/sjmcdowall/icons_helper
   url_launcher: ^3.0.3
   flutter_villains: ^1.0.0
   firebase_messaging: ^2.0.3
