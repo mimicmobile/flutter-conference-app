@@ -1,60 +1,37 @@
 {
   "project_info": {
-    "project_number": "428583632004",
-    "firebase_url": "https://androidto-2018.firebaseio.com",
-    "project_id": "androidto-2018",
-    "storage_bucket": "androidto-2018.appspot.com"
+    "project_number": "1051481996009",
+    "firebase_url": "https://flutter-conference-adbb2.firebaseio.com",
+    "project_id": "flutter-conference-adbb2",
+    "storage_bucket": "flutter-conference-adbb2.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:428583632004:android:c6c012ff1c1d7b6a",
+        "mobilesdk_app_id": "1:1051481996009:android:a66f79b41ffff085",
         "android_client_info": {
-          "package_name": "ca.mimic.androidto2018"
+          "package_name": "ca.mimic.flutter_conference"
         }
       },
       "oauth_client": [
         {
-          "client_id": "428583632004-1daggjfra4jlkt4scamh1b4dq72chod1.apps.googleusercontent.com",
-          "client_type": 1,
-          "android_info": {
-            "package_name": "ca.mimic.androidto2018",
-            "certificate_hash": "195247b01913b106549bada3962bce394b1a0079"
-          }
-        },
-        {
-          "client_id": "428583632004-c6f7rfgu3qqcib6bsrh2e11t53thetqf.apps.googleusercontent.com",
-          "client_type": 1,
-          "android_info": {
-            "package_name": "ca.mimic.androidto2018",
-            "certificate_hash": "09f71fcad6a91b928ee75dfa31c5d97bb851fbee"
-          }
-        },
-        {
-          "client_id": "428583632004-ggsb59mai9aams5vp3env2g8rqlg6bqv.apps.googleusercontent.com",
+          "client_id": "1051481996009-ffa4qpr8u6lf53ajpiavh4igl5mlaba3.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyCviYmi28KMFYYsOvKPvo26GG22mzsRces"
+          "current_key": "AIzaSyBxtmKDUgIPKLgtD5r4DTQnEZ5btyCIWWg"
         }
       ],
       "services": {
-        "analytics_service": {
-          "status": 1
-        },
         "appinvite_service": {
-          "status": 2,
           "other_platform_oauth_client": [
             {
-              "client_id": "428583632004-ggsb59mai9aams5vp3env2g8rqlg6bqv.apps.googleusercontent.com",
+              "client_id": "1051481996009-ffa4qpr8u6lf53ajpiavh4igl5mlaba3.apps.googleusercontent.com",
               "client_type": 3
             }
           ]
-        },
-        "ads_service": {
-          "status": 2
         }
       }
     }
