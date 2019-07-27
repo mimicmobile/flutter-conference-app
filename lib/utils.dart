@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 
@@ -27,7 +28,10 @@ class Utils {
 
   static Image image(String src, {height, width, fit}) {
     if (src.startsWith('http')) {
-      return Image.network(src, height: height, width: width, fit: fit);
+      return Image(image: CachedNetworkImageProvider(src),
+          height: height,
+          width: width,
+          fit: fit);
     } else {
       return Image.asset(src, height: height, width: width, fit: fit);
     }
@@ -35,7 +39,7 @@ class Utils {
 
   static imageP(String src) {
     if (src.startsWith('http')) {
-      return NetworkImage(src);
+      return CachedNetworkImageProvider(src);
     } else {
       return AssetImage(src);
     }
@@ -71,7 +75,8 @@ class FadeRoute extends PageRoute {
 
 
   @override
-  Widget buildPage(BuildContext context, Animation<double> animation, Animation<double> secondaryAnimation) {
+  Widget buildPage(BuildContext context, Animation<double> animation,
+      Animation<double> secondaryAnimation) {
     return new FadeTransition(
       opacity: animation,
       child: child,
