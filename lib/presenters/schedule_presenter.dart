@@ -11,7 +11,7 @@ class SchedulePresenter implements ISchedulePresenter {
   SchedulePresenter(this._view);
 
   @override
-  scheduleTap(BuildContext context, TalkBoss boss) {
-    Navigator.of(context).push(FadeRoute(TalkWidget(boss)));
+  scheduleTap(BuildContext context, AugmentedTalk talk) {
+    Navigator.of(context).push(FadeRoute(TalkWidget(talk)));
   }
 }

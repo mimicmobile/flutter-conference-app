@@ -1,10 +1,12 @@
 import 'package:flutter_conference_app/config.dart';
+import 'package:flutter_conference_app/models/conference_data.dart';
 import 'package:flutter_conference_app/models/data.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_conference_app/utils.dart';
 import 'package:flutter_conference_app/widgets/reusable.dart';
 
 import 'package:icons_helper/icons_helper.dart';
+import 'package:provider/provider.dart';
 
 abstract class ListItem {
   Object getWidget(context, Orientation orientation, {Function onTapCallback});
@@ -14,14 +16,16 @@ class HeaderItem implements ListItem {
   HeaderItem();
 
   @override
-  Padding getWidget(context, orientation, {onTapCallback}) {
-    return Padding(
-        padding: EdgeInsets.only(
-            top: 24.0,
-            bottom: 24.0,
-            right: Utils.getHeaderOrientationSideMargin(orientation),
-            left: Utils.getHeaderOrientationSideMargin(orientation)),
-        child: Utils.image(Config.logo));
+  Widget getWidget(context, orientation, {onTapCallback}) {
+    return Consumer<ConferenceData>(builder: (context, data, child) {
+      return Padding(
+          padding: EdgeInsets.only(
+              top: 24.0,
+              bottom: 24.0,
+              right: Utils.getHeaderOrientationSideMargin(orientation),
+              left: Utils.getHeaderOrientationSideMargin(orientation)),
+          child: Utils.image(Config.logo));
+    });
   }
 }
 
@@ -47,133 +51,132 @@ class TitleItem implements ListItem {
 }
 
 class TalkItem implements ListItem {
-  final List<TalkBoss> talks;
+  final List<AugmentedTalk> talks;
 
   TalkItem(this.talks);
 
-  List<Widget> _getNonSpeakerRow(context, boss) {
+  List<Widget> _getNonSpeakerRow(context, AugmentedTalk talk) {
     var widgets = <Widget>[
       Expanded(
         child: Text(
-          '${boss.currentTalk.title}',
+          '${talk.title}',
           textAlign: TextAlign.start,
           style: TextStyle(fontSize: 22.0),
         ),
       )
     ];
-    if (boss.currentTalk.talkType != null)
+    if (talk.talkType != null)
       widgets.add(InkWell(
           onTap: () {
-            Reusable.showSnackBar(
-                context, boss.currentTalk.talkType.description);
+            Reusable.showSnackBar(context, talk.talkType.description);
           },
           child: CircleAvatar(
               backgroundColor: Theme.of(context).accentColor,
               child: Icon(
-                getMaterialIcon(name: boss.currentTalk.talkType.materialIcon),
+                getMaterialIcon(name: talk.talkType.materialIcon),
                 color: Colors.white,
               ))));
     return widgets;
   }
 
-  Widget _createTalk(context, TalkBoss boss, Function onTapCallback) {
-    if (boss.speaker != null) {
-      return Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: <Widget>[InkWell(
-          onTap: () {
-            onTapCallback(context, boss);
-          },
-          child: Padding(
-              padding: EdgeInsets.all(20.0),
-              child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: <Widget>[
-                    Text(
-                      '${boss.currentTalk.title}',
-                      textAlign: TextAlign.start,
-                      style: TextStyle(fontSize: 22.0),
-                    ),
-                    Padding(
-                        padding: EdgeInsets.only(top: 16.0),
-                        child: Row(
-                          children: <Widget>[
-                            Padding(
-                                padding: EdgeInsets.only(right: 20.0),
-                                child: Hero(
-                                    tag: "avatar${boss.speaker.id}",
-                                    child: CircleAvatar(
-                                      maxRadius: 30.0,
-                                      // TODO: Conditional lookup to replace with Icons.person
-                                      // if no imagePath exists
-                                      backgroundImage:
-                                          Utils.imageP(boss.speaker.imagePath),
-                                    ))),
-                            Expanded(
-                                flex: 2,
-                                child: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: <Widget>[
-                                    Text(
-                                      '${boss.speaker.name}',
-                                      style: TextStyle(fontSize: 18.0),
-                                    ),
-                                    Text(
-                                      '${boss.speaker.company}',
-                                      style: TextStyle(
-                                          fontSize: 16.0,
-                                          color: Theme.of(context)
-                                              .textTheme
-                                              .caption
-                                              .color),
-                                    ),
-                                    talks.length > 1
-                                        ? Container(
-                                            margin: EdgeInsets.only(top: 2.0),
-                                            child: Text(
-                                              '${boss.currentTalk.track.name}',
-                                              style: TextStyle(
-                                                  fontSize: 14.0,
-                                                  fontWeight: FontWeight.bold,
-                                                  color: Utils.convertIntColor(
-                                                      boss.currentTalk.track
-                                                          .color)),
-                                            ))
-                                        : Container()
-                                  ],
-                                )),
-                            Spacer(),
-                            InkWell(
-                                onTap: () {
-                                  Reusable.showSnackBar(context,
-                                      boss.currentTalk.talkType.description);
-                                },
-                                child: CircleAvatar(
-                                    backgroundColor:
-                                        Theme.of(context).accentColor,
-                                    child: Icon(
-                                      getMaterialIcon(
-                                          name: boss.currentTalk.talkType
-                                              .materialIcon),
-                                      color: Colors.white,
-                                    )))
-                          ],
-                        ))]))),
-                    talks.length > 1 && talks.last != boss
-                        ? Divider(height: 4.0)
-                        : Container(),
-                  ]);
+  Widget _createTalk(context, AugmentedTalk talk, Function onTapCallback) {
+    if (talk.hasSpeakers()) {
+      return Column(crossAxisAlignment: CrossAxisAlignment.start, children: <
+          Widget>[
+        InkWell(
+            onTap: () {
+              onTapCallback(context, talk);
+            },
+            child: Padding(
+                padding: EdgeInsets.all(20.0),
+                child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: <Widget>[
+                      Text(
+                        '${talk.title}',
+                        textAlign: TextAlign.start,
+                        style: TextStyle(fontSize: 22.0),
+                      ),
+                      Padding(
+                          padding: EdgeInsets.only(top: 16.0),
+                          child: Row(
+                            children: <Widget>[
+                              Padding(
+                                  padding: EdgeInsets.only(right: 20.0),
+                                  child: Stack(
+                                    children: <Widget>[
+                                      Hero(
+                                          tag: "avatar${talk.speakers[0].id}",
+                                          child: Reusable.circleAvatar(
+                                              talk.speakers[0].imagePath, 30.0))
+                                    ],
+                                  )),
+                              Expanded(
+                                  flex: 2,
+                                  child: Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: <Widget>[
+                                      Text(
+                                        '${talk.speakers[0].name}',
+                                        style: TextStyle(fontSize: 18.0),
+                                      ),
+                                      Text(
+                                        '${talk.speakers[0].company}',
+                                        style: TextStyle(
+                                            fontSize: 16.0,
+                                            color: Theme.of(context)
+                                                .textTheme
+                                                .caption
+                                                .color),
+                                      ),
+                                      talks.length > 1
+                                          ? Container(
+                                              margin: EdgeInsets.only(top: 2.0),
+                                              child: Text(
+                                                '${talk.track.name}',
+                                                style: TextStyle(
+                                                    fontSize: 14.0,
+                                                    fontWeight: FontWeight.bold,
+                                                    color:
+                                                        Utils.convertIntColor(
+                                                            talk.track.color)),
+                                              ))
+                                          : Container()
+                                    ],
+                                  )),
+                              Spacer(),
+                              InkWell(
+                                  onTap: () {
+                                    Reusable.showSnackBar(
+                                        context, talk.talkType.description);
+                                  },
+                                  child: CircleAvatar(
+                                      backgroundColor:
+                                          Theme.of(context).accentColor,
+                                      child: Icon(
+                                        getMaterialIcon(
+                                            name: talk.talkType.materialIcon),
+                                        color: Colors.white,
+                                      )))
+                            ],
+                          ))
+                    ]))),
+        talks.length > 1 && talks.last != talk
+            ? Divider(height: 4.0)
+            : Container(),
+      ]);
     } else {
       return Container(
           child: InkWell(
               onTap: () {
-                if (boss.currentTalk.description != null) {
-                  onTapCallback(context, boss);
+                if (talk.description.isNotEmpty) {
+                  onTapCallback(context, talk);
                 }
               },
               child: Padding(
                   padding: EdgeInsets.all(20.0),
-                  child: Row(children: _getNonSpeakerRow(context, boss)))));
+                  child: Row(children: _getNonSpeakerRow(context, talk)))));
     }
   }
 
@@ -195,15 +198,15 @@ class TalkItem implements ListItem {
 }
 
 class SpeakerItem implements ListItem {
-  final TalkBoss boss;
+  final Speaker speaker;
 
-  SpeakerItem(this.boss);
+  SpeakerItem(this.speaker);
 
   @override
   Widget getWidget(context, orientation, {onTapCallback}) {
     return GestureDetector(
         onTap: () {
-          onTapCallback(context, boss);
+          onTapCallback(context, speaker);
         },
         child: Stack(
             alignment: AlignmentDirectional.centerStart,
@@ -222,13 +225,13 @@ class SpeakerItem implements ListItem {
                       mainAxisAlignment: MainAxisAlignment.spaceAround,
                       children: <Widget>[
                         Hero(
-                            tag: "name${boss.speaker.id}",
+                            tag: "name${speaker.id}",
                             child: Text(
-                              '${boss.speaker.name}',
+                              '${speaker.name}',
                               style: TextStyle(fontSize: 22.0),
                             )),
                         Text(
-                          '${boss.speaker.company}',
+                          '${speaker.company}',
                           style: TextStyle(
                               fontSize: 16.0,
                               color: Theme.of(context).textTheme.caption.color),
@@ -238,7 +241,7 @@ class SpeakerItem implements ListItem {
                         ),
                         Row(
                             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                            children: Reusable.getLinkIcons(boss.speaker))
+                            children: Reusable.getLinkIcons(speaker))
                       ],
                     ),
                   )),
@@ -247,11 +250,8 @@ class SpeakerItem implements ListItem {
                       left: Utils.getOrientationSideMargin(orientation),
                       bottom: 26.0),
                   child: Hero(
-                      tag: "avatar${boss.speaker.id}",
-                      child: CircleAvatar(
-                        backgroundImage: Utils.imageP(boss.speaker.imagePath),
-                        maxRadius: 46.0,
-                      )))
+                      tag: "avatar${speaker.id}",
+                      child: Reusable.circleAvatar(speaker.imagePath, 46.0)))
             ]));
   }
 }
@@ -340,7 +340,9 @@ class VenueItem implements ListItem {
                           padding: EdgeInsets.only(top: 10.0, bottom: 10.0),
                           child: Flex(
                             direction: Axis.vertical,
-                            children: <Widget>[Utils.image(imagePath)],
+                            children: <Widget>[
+                              Utils.image(imagePath, height: 224.0)
+                            ],
                           )),
                       Text(address, style: TextStyle(fontSize: 14.0)),
                     ]))));

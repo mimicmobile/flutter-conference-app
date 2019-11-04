@@ -6,16 +6,16 @@ import 'package:flutter_conference_app/widgets/speaker.dart';
 import 'package:flutter_villains/villain.dart';
 
 class TalkWidget extends StatelessWidget {
-  final TalkBoss boss;
+  final AugmentedTalk talk;
   final bool popBack;
 
-  TalkWidget(this.boss, {this.popBack = false});
+  TalkWidget(this.talk, {this.popBack = false});
 
-  void _goToSpeaker(context) {
+  void _goToSpeaker(context, Speaker speaker) {
     if (popBack) {
       Navigator.pop(context);
     } else {
-      Navigator.of(context).push(FadeRoute(SpeakerWidget(boss)));
+      Navigator.of(context).push(FadeRoute(SpeakerWidget(speaker)));
     }
   }
 
@@ -25,26 +25,25 @@ class TalkWidget extends StatelessWidget {
       var widgets = <Widget>[
         Chip(
             backgroundColor: Colors.red[300],
-            label: Text("${boss.currentTalk.time}",
+            label: Text("${talk.time}",
                 style: TextStyle(fontSize: 16.0, color: Colors.white)))
       ];
 
-      if (boss.currentTalk.track != null) {
+      if (talk.track != null) {
         widgets.add(Chip(
-            backgroundColor:
-                Utils.convertIntColor(boss.currentTalk.track.color),
+            backgroundColor: Utils.convertIntColor(talk.track.color),
             label: Text(
-              "${boss.currentTalk.track.name}",
+              "${talk.track.name}",
               style: TextStyle(fontSize: 16.0, color: Colors.white),
             )));
       }
       return widgets;
     }
 
-    Widget _getSpeakerContainer() {
+    Widget _getSpeakerContainer(Speaker speaker) {
       return InkWell(
           onTap: () {
-            _goToSpeaker(context);
+            _goToSpeaker(context, speaker);
           },
           child: Padding(
               padding: EdgeInsets.only(
@@ -55,23 +54,18 @@ class TalkWidget extends StatelessWidget {
                     Padding(
                         padding: EdgeInsets.only(right: 20.0),
                         child: Hero(
-                            tag: "avatar${boss.speaker.id}",
-                            child: CircleAvatar(
-                              maxRadius: 30.0,
-                              // TODO: Conditional lookup to replace with Icons.person
-                              // if no imageUrl exists
-                              backgroundImage:
-                                  Utils.imageP(boss.speaker.imagePath),
-                            ))),
+                            tag: "avatar${talk.speakers[0].id}",
+                            child: Reusable.circleAvatar(
+                                talk.speakers[0].imagePath, 30.0))),
                     Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: <Widget>[
                         Text(
-                          "${boss.speaker.name}",
+                          "${talk.speakers[0].name}",
                           style: TextStyle(fontSize: 18.0),
                         ),
                         Text(
-                          "${boss.speaker.company}",
+                          "${talk.speakers[0].company}",
                           style: TextStyle(
                               fontSize: 14.0,
                               height: 1.4,
@@ -88,7 +82,7 @@ class TalkWidget extends StatelessWidget {
             padding: EdgeInsets.only(
                 left: 20.0, right: 20.0, top: 30.0, bottom: 20.0),
             child: Text(
-              "${boss.currentTalk.title}",
+              "${talk.title}",
               textAlign: TextAlign.center,
               style: TextStyle(fontSize: 32.0),
             )),
@@ -98,19 +92,19 @@ class TalkWidget extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: _getChips()))
       ];
-      if (boss.currentTalk.talkType != null) {
+      if (talk.talkType != null) {
         widgets.add(Padding(
             padding: EdgeInsets.only(left: 20.0, right: 20.0, bottom: 20.0),
             child: Text(
-              "${boss.currentTalk.talkType.description}",
+              "${talk.talkType.description}",
               style:
                   TextStyle(color: Theme.of(context).textTheme.caption.color),
             )));
       }
 
-      if (boss.speaker != null) {
+      if (talk.speakers.isNotEmpty) {
         widgets.add(Divider(height: 4.0));
-        widgets.add(_getSpeakerContainer());
+        widgets.add(_getSpeakerContainer(talk.speakers[0]));
       }
       return widgets;
     }
@@ -171,12 +165,12 @@ class TalkWidget extends StatelessWidget {
                                           right: 6.0,
                                           left: 6.0),
                                       child: Text(
-                                        "${boss.currentTalk.description}",
+                                        "${talk.description}",
                                         textAlign: TextAlign.justify,
                                         style: TextStyle(
                                             fontSize: 16.0,
                                             height: 1.2,
-                                            color: Colors.grey[300]),
+                                            color: Colors.white),
                                       ))
                                 ])))),
                     Reusable.statusBarTopShadow,

@@ -22,21 +22,24 @@ dependencies:
   path_provider: ^1.2.0
   shared_preferences: ^0.4.2
   http: ^0.12.0
-  json_annotation: ^2.0.0
+  json_annotation: ^3.0.0
+  provider: ^3.1.0
   icons_helper:
       git:
         url: git://github.com/sjmcdowall/icons_helper
   url_launcher: ^3.0.3
   flutter_villains: ^1.0.0
-  firebase_messaging: ^5.1.2
-  flutter_local_notifications: ^0.4.0
-  cached_network_image: ^1.1.1
+  firebase_messaging: ^5.1.6
+  cloud_firestore: 0.12.9+6
+  flutter_local_notifications: ^0.8.4
+  cached_network_image: ^1.1.3
+  circular_profile_avatar: ^1.0.2
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
   build_runner: ^1.0.0
-  json_serializable: ^2.0.0
+  json_serializable: ^3.2.3
 
 
 # For information on the generic Dart part of this file, see the

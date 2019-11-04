@@ -4,16 +4,23 @@ import 'package:flutter/material.dart';
 import 'package:flutter_conference_app/config.dart';
 import 'package:icons_helper/icons_helper.dart';
 import 'package:url_launcher/url_launcher.dart';
+import 'package:circular_profile_avatar/circular_profile_avatar.dart';
 
 class Reusable {
+  static String logoUrl;
+
+  static circleAvatar(String imageUrl, double radius) {
+    return CircularProfileAvatar(imageUrl,
+        radius: radius, cacheImage: true, backgroundColor: Colors.white, elevation: 2);
+  }
+
   static get header {
     return Container(
-      decoration: BoxDecoration(
-          image: DecorationImage(
-              image: AssetImage(Config.listBackground),
-              alignment: AlignmentDirectional.topCenter,
-              fit: BoxFit.fitWidth)),
-    );
+        decoration: BoxDecoration(
+            image: DecorationImage(
+                image: AssetImage(Config.listBackground),
+                alignment: AlignmentDirectional.topCenter,
+                fit: BoxFit.fitWidth)));
   }
 
   static get statusBarTopShadow {
@@ -64,13 +71,13 @@ class Reusable {
   static List<Widget> getLinkIcons(speaker) {
     var linkIcons = <Widget>[];
 
-    if (speaker.twitter != "") {
+    if (speaker.twitter != null) {
       linkIcons.add(getLinkIcon("twitter", Colors.blue[300], speaker.twitter));
     }
-    if (speaker.github != "") {
+    if (speaker.github != null) {
       linkIcons.add(getLinkIcon("github", Colors.black, speaker.github));
     }
-    if (speaker.linkedIn != "") {
+    if (speaker.linkedIn != null) {
       linkIcons
           .add(getLinkIcon("linkedin", Colors.blue[700], speaker.linkedIn));
     }

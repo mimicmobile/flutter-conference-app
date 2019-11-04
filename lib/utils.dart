@@ -26,22 +26,17 @@ class Utils {
     }
   }
 
-  static Image image(String src, {height, width, fit}) {
+  static Widget image(String src, {height, width, fit}) {
     if (src.startsWith('http')) {
-      return Image(image: CachedNetworkImageProvider(src),
+      return CachedNetworkImage(
+          fadeInDuration: Duration(milliseconds: 400),
+          imageUrl: src,
+          placeholder: (b, s) => Container(),
           height: height,
           width: width,
           fit: fit);
     } else {
       return Image.asset(src, height: height, width: width, fit: fit);
-    }
-  }
-
-  static imageP(String src) {
-    if (src.startsWith('http')) {
-      return CachedNetworkImageProvider(src);
-    } else {
-      return AssetImage(src);
     }
   }
 
@@ -73,7 +68,6 @@ class FadeRoute extends PageRoute {
   @override
   String get barrierLabel => null;
 
-
   @override
   Widget buildPage(BuildContext context, Animation<double> animation,
       Animation<double> secondaryAnimation) {
@@ -88,5 +82,4 @@ class FadeRoute extends PageRoute {
 
   @override
   Duration get transitionDuration => const Duration(milliseconds: 250);
-
 }

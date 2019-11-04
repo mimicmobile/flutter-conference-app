@@ -11,7 +11,7 @@ class SpeakersPresenter implements ISpeakersPresenter {
   SpeakersPresenter(this._view);
 
   @override
-  speakerTap(BuildContext context, TalkBoss boss) {
-    Navigator.of(context).push(FadeRoute(SpeakerWidget(boss)));
+  speakerTap(BuildContext context, Speaker speaker) {
+    Navigator.of(context).push(FadeRoute(SpeakerWidget(speaker)));
   }
 }

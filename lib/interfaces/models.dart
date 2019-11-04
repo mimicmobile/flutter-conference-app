@@ -1,39 +1,19 @@
 import 'dart:async';
-import 'dart:io';
 
-import 'package:flutter_conference_app/interfaces/presenters.dart';
 import 'package:flutter_conference_app/models/data.dart';
 
 abstract class IHomeModel {
   List<Speaker> speakers;
-  List<Track> tracks;
-  List<Schedule> schedule;
-  List<TalkType> talkTypes;
+  Schedule schedule;
   About about;
 
-  void init(IHomePresenter presenter);
+  Future getDataFromFireStore();
 
-  String cacheFileName(String path);
+  void populateScheduleAndSpeakers(IHomeModel model);
 
-  Future<String> get cachePath;
+  void populateAbout(IHomeModel model);
 
-  Future<File> get cachedFile;
-
-  Future<bool> cacheExists();
-
-  Future<bool> isCacheStale();
-
-  void loadDataFromCache();
-
-  Future fetchAndSaveData();
-
-  Future saveData(resource);
-
-  void populateData(IHomeModel model);
-
-  int getTalkIndex(List<AugmentedTalk> speakerTalks, int hashCode);
-
-  TalkBoss createTalkBoss(String speakerId, [Talk talk]);
+  AugmentedTalk createAugmentedTalk(List<String> speakerIds, Talk talk);
 
   void generateScheduleList();
 
@@ -41,11 +21,11 @@ abstract class IHomeModel {
 
   void generateAboutList();
 
-  Future checkAndLoadCache();
-
   Future getSharedPrefs();
 
   List<AugmentedTalk> getTalksForSpeaker(String speakerId);
 
-  AugmentedSpeaker getSpeaker(String speakerId);
+  Speaker getSpeaker(String speakerId);
+
+  String getTimeFromDateTime(String datetime);
 }
