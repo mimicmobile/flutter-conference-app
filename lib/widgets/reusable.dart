@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_conference_app/config.dart';
+import 'package:flutter_conference_app/utils.dart';
 import 'package:icons_helper/icons_helper.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:circular_profile_avatar/circular_profile_avatar.dart';
@@ -11,7 +12,10 @@ class Reusable {
 
   static circleAvatar(String imageUrl, double radius) {
     return CircularProfileAvatar(imageUrl,
-        radius: radius, cacheImage: true, backgroundColor: Colors.white, elevation: 2);
+        radius: radius,
+        cacheImage: true,
+        backgroundColor: Colors.white,
+        elevation: 2);
   }
 
   static get header {
@@ -37,10 +41,19 @@ class Reusable {
   }
 
   static loadingProgress(orientation) {
-    return Padding(
-        padding:
-            EdgeInsets.only(top: 100.0, right: 20.0, left: 20.0, bottom: 40.0),
-        child: Center(child: CircularProgressIndicator()));
+    return Column(children: <Widget>[
+      Container(margin: EdgeInsets.only(top: 48)),
+      Padding(
+          padding: EdgeInsets.only(
+              top: 24.0,
+              bottom: 24.0,
+              right: Utils.getHeaderOrientationSideMargin(orientation),
+              left: Utils.getHeaderOrientationSideMargin(orientation)),
+          child: Utils.image(Config.logo)),
+      Padding(
+          padding: EdgeInsets.only(top: 100, right: 20, left: 20, bottom: 40),
+          child: Center(child: CircularProgressIndicator()))
+    ]);
   }
 
   static Widget backArrow(BuildContext context) {
