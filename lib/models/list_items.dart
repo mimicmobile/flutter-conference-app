@@ -432,14 +432,16 @@ class AboutListItem implements ListItem {
             onTap: () {
               onTapCallback(context, AboutAction.Website, sponsor.website);
             },
-            child: ClipRRect(
-                borderRadius: new BorderRadius.circular(4.0),
-                child: Utils.image(
-                  sponsor.imagePath,
-                  height: 100.0,
-                  width: 100.0,
-                  fit: BoxFit.cover,
-                ))));
+              child: ClipRRect(
+                  borderRadius: new BorderRadius.circular(4.0),
+                  child: ConstrainedBox(
+                    constraints: BoxConstraints(maxWidth: 180, maxHeight: 80),
+                    child: Utils.image(
+                      sponsor.imagePath,
+                      fit: BoxFit.scaleDown,
+                    ),
+                  )),
+            ));
   }
 
   @override
@@ -453,7 +455,8 @@ class AboutListItem implements ListItem {
         child: Wrap(
             spacing: 20.0,
             runSpacing: 20.0,
-            alignment: WrapAlignment.spaceBetween,
+            alignment: WrapAlignment.spaceEvenly,
+            crossAxisAlignment: WrapCrossAlignment.center,
             children: links
                 .map((s) => _createLink(context, s, onTapCallback))
                 .toList()));
