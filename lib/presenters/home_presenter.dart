@@ -51,27 +51,27 @@ class HomePresenter implements IHomePresenter {
         onSelectNotification: handleNotificationPayload);
 
     _firebaseMessaging.configure(
-      onMessage: (Map<String, dynamic> message) {
-        handleNotification(config, message);
+      onMessage: (Map<String, dynamic> message) async {
+        await handleNotification(config, message);
       },
-      onResume: (Map<String, dynamic> message) {
+      onResume: (Map<String, dynamic> message) async {
         // Backgrounded
-        handleNotificationPayload(message['url']);
+        await handleNotificationPayload(message["data"]["url"]);
       },
-      onLaunch: (Map<String, dynamic> message) {
+      onLaunch: (Map<String, dynamic> message) async {
         // Terminated
-        handleNotificationPayload(message['url']);
+        await handleNotificationPayload(message["data"]["url"]);
       },
     );
   }
 
-  Future handleNotificationPayload(String payload) async {
+  Future<void> handleNotificationPayload(String payload) async {
     if (await canLaunch(payload)) {
       launch(payload);
     }
   }
 
-  void handleNotification(
+  Future<void> handleNotification(
       AppConfig config, Map<String, dynamic> message) async {
 
     String title = message['notification']['title'];
