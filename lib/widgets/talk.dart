@@ -47,25 +47,25 @@ class TalkWidget extends StatelessWidget {
           },
           child: Padding(
               padding: EdgeInsets.only(
-                  left: 20.0, right: 20.0, top: 20.0, bottom: 20.0),
+                  left: 20.0, right: 20.0, bottom: 20.0),
               child: Row(
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: <Widget>[
                     Padding(
                         padding: EdgeInsets.only(right: 20.0),
                         child: Hero(
-                            tag: "avatar${talk.speakers[0].id}",
+                            tag: "avatar${speaker.id}",
                             child: Reusable.circleAvatar(
-                                talk.speakers[0].imagePath, 30.0))),
+                                speaker.imagePath, 30.0))),
                     Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: <Widget>[
                         Text(
-                          "${talk.speakers[0].name}",
+                          "${speaker.name}",
                           style: TextStyle(fontSize: 18.0),
                         ),
                         Text(
-                          "${talk.speakers[0].company}",
+                          "${speaker.company}",
                           style: TextStyle(
                               fontSize: 14.0,
                               height: 1.4,
@@ -104,7 +104,8 @@ class TalkWidget extends StatelessWidget {
 
       if (talk.speakers.isNotEmpty) {
         widgets.add(Divider(height: 4.0));
-        widgets.add(_getSpeakerContainer(talk.speakers[0]));
+        widgets.add(Container(height: 20));
+        talk.speakers.forEach((s) => widgets.add(_getSpeakerContainer(s)));
       }
       return widgets;
     }

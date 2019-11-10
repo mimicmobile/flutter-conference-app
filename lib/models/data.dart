@@ -183,7 +183,6 @@ class AugmentedTalk {
   String get datetime => talk.datetime;
   List<String> get speakerIds => talk.speakerIds;
 
-  bool hasSpeakers() {
-    return speakers.length > 0;
-  }
+  bool hasSpeakers() => speakers.length > 0;
+  bool hasOneSpeaker() => speakers.length == 1;
 }

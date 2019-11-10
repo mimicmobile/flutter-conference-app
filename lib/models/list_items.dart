@@ -81,91 +81,33 @@ class TalkItem implements ListItem {
 
   Widget _createTalk(context, AugmentedTalk talk, Function onTapCallback) {
     if (talk.hasSpeakers()) {
-      return Column(crossAxisAlignment: CrossAxisAlignment.start, children: <
-          Widget>[
-        InkWell(
-            onTap: () {
-              onTapCallback(context, talk);
-            },
-            child: Padding(
-                padding: EdgeInsets.all(20.0),
-                child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: <Widget>[
-                      Text(
-                        '${talk.title}',
-                        textAlign: TextAlign.start,
-                        style: TextStyle(fontSize: 22.0),
-                      ),
-                      Padding(
-                          padding: EdgeInsets.only(top: 16.0),
-                          child: Row(
-                            children: <Widget>[
-                              Padding(
-                                  padding: EdgeInsets.only(right: 20.0),
-                                  child: Stack(
-                                    children: <Widget>[
-                                      Hero(
-                                          tag: "avatar${talk.speakers[0].id}",
-                                          child: Reusable.circleAvatar(
-                                              talk.speakers[0].imagePath, 30.0))
-                                    ],
-                                  )),
-                              Expanded(
-                                  flex: 2,
-                                  child: Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: <Widget>[
-                                      Text(
-                                        '${talk.speakers[0].name}',
-                                        style: TextStyle(fontSize: 18.0),
-                                      ),
-                                      Text(
-                                        '${talk.speakers[0].company}',
-                                        style: TextStyle(
-                                            fontSize: 16.0,
-                                            color: Theme.of(context)
-                                                .textTheme
-                                                .caption
-                                                .color),
-                                      ),
-                                      talks.length > 1
-                                          ? Container(
-                                              margin: EdgeInsets.only(top: 2.0),
-                                              child: Text(
-                                                '${talk.track.name}',
-                                                style: TextStyle(
-                                                    fontSize: 14.0,
-                                                    fontWeight: FontWeight.bold,
-                                                    color:
-                                                        Utils.convertIntColor(
-                                                            talk.track.color)),
-                                              ))
-                                          : Container()
-                                    ],
-                                  )),
-                              Spacer(),
-                              InkWell(
-                                  onTap: () {
-                                    Reusable.showSnackBar(
-                                        context, talk.talkType.description);
-                                  },
-                                  child: CircleAvatar(
-                                      backgroundColor:
-                                          Theme.of(context).accentColor,
-                                      child: Icon(
-                                        getMaterialIcon(
-                                            name: talk.talkType.materialIcon),
-                                        color: Colors.white,
-                                      )))
-                            ],
-                          ))
-                    ]))),
-        talks.length > 1 && talks.last != talk
-            ? Divider(height: 4.0)
-            : Container(),
-      ]);
+      return Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: <Widget>[
+            InkWell(
+                onTap: () {
+                  onTapCallback(context, talk);
+                },
+                child: Padding(
+                    padding: EdgeInsets.all(20.0),
+                    child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: <Widget>[
+                          Text(
+                            '${talk.title}',
+                            textAlign: TextAlign.start,
+                            style: TextStyle(fontSize: 22.0),
+                          ),
+                          Padding(
+                              padding: EdgeInsets.only(top: 16.0),
+                              child: talk.hasOneSpeaker()
+                                  ? _createSingleSpeaker(talk, context)
+                                  : _createDoubleSpeaker(talk, context))
+                        ]))),
+            talks.length > 1 && talks.last != talk
+                ? Divider(height: 4.0)
+                : Container(),
+          ]);
     } else {
       return Container(
           child: InkWell(
@@ -178,6 +120,136 @@ class TalkItem implements ListItem {
                   padding: EdgeInsets.all(20.0),
                   child: Row(children: _getNonSpeakerRow(context, talk)))));
     }
+  }
+
+  Row _createSingleSpeaker(AugmentedTalk talk, context) {
+    return Row(
+      children: <Widget>[
+        Padding(
+            padding: EdgeInsets.only(right: 20.0),
+            child: Stack(
+              children: <Widget>[
+                Hero(
+                    tag: "avatar${talk.speakers[0].id}",
+                    child:
+                        Reusable.circleAvatar(talk.speakers[0].imagePath, 30.0))
+              ],
+            )),
+        Expanded(
+            flex: 2,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: <Widget>[
+                Text(
+                  '${talk.speakers[0].name}',
+                  style: TextStyle(fontSize: 18.0),
+                ),
+                Text(
+                  '${talk.speakers[0].company}',
+                  style: TextStyle(
+                      fontSize: 16.0,
+                      color: Theme.of(context).textTheme.caption.color),
+                ),
+                talks.length > 1
+                    ? Container(
+                        margin: EdgeInsets.only(top: 2.0),
+                        child: Text(
+                          '${talk.track.name}',
+                          style: TextStyle(
+                              fontSize: 14.0,
+                              fontWeight: FontWeight.bold,
+                              color: Utils.convertIntColor(talk.track.color)),
+                        ))
+                    : Container()
+              ],
+            )),
+        Spacer(),
+        InkWell(
+            onTap: () {
+              Reusable.showSnackBar(context, talk.talkType.description);
+            },
+            child: CircleAvatar(
+                backgroundColor: Theme.of(context).accentColor,
+                child: Icon(
+                  getMaterialIcon(name: talk.talkType.materialIcon),
+                  color: Colors.white,
+                )))
+      ],
+    );
+  }
+
+  Row _createDoubleSpeaker(AugmentedTalk talk, context) {
+    return Row(
+      children: <Widget>[
+        Padding(
+            padding: EdgeInsets.only(right: 20.0),
+            child: Stack(
+              children: <Widget>[
+                Hero(
+                    tag: "avatar${talk.speakers[0].id}",
+                    child: Reusable.circleAvatar(
+                        talk.speakers[0].imagePath, 30.0)),
+                Container(
+                  margin: EdgeInsets.only(left: 34),
+                  child: Hero(
+                      tag: "avatar${talk.speakers[1].id}",
+                      child: Reusable.circleAvatar(
+                          talk.speakers[1].imagePath, 30.0)),
+                )
+              ],
+            )),
+        Expanded(
+            flex: 2,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: <Widget>[
+                Text(
+                  '${talk.speakers[0].name}',
+                  style: TextStyle(fontSize: 16.0),
+                ),
+                Text(
+                  '${talk.speakers[0].company}',
+                  style: TextStyle(
+                      fontSize: 14.0,
+                      color: Theme.of(context).textTheme.caption.color),
+                ),
+                Container(height: 5),
+                Text(
+                  '${talk.speakers[1].name}',
+                  style: TextStyle(fontSize: 16.0),
+                ),
+                Text(
+                  '${talk.speakers[1].company}',
+                  style: TextStyle(
+                      fontSize: 14.0,
+                      color: Theme.of(context).textTheme.caption.color),
+                ),
+                talks.length > 1
+                    ? Container(
+                        margin: EdgeInsets.only(top: 2.0),
+                        child: Text(
+                          '${talk.track.name}',
+                          style: TextStyle(
+                              fontSize: 12.0,
+                              fontWeight: FontWeight.bold,
+                              color: Utils.convertIntColor(talk.track.color)),
+                        ))
+                    : Container()
+              ],
+            )),
+        Spacer(),
+        InkWell(
+            onTap: () {
+              Reusable.showSnackBar(context, talk.talkType.description);
+            },
+            child: CircleAvatar(
+                backgroundColor: Theme.of(context).accentColor,
+                child: Icon(
+                  getMaterialIcon(name: talk.talkType.materialIcon),
+                  color: Colors.white,
+                )))
+      ],
+    );
   }
 
   @override
