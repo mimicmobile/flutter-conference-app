@@ -35,7 +35,7 @@ class SpeakersWidgetState extends State<SpeakersWidget>
           child: Stack(children: <Widget>[
             Reusable.header,
             !widget.loaded
-                ? Reusable.loadingProgress
+                ? Reusable.loadingProgress(orientation)
                 : ListView.builder(
                     physics: const AlwaysScrollableScrollPhysics(),
                     itemCount: widget.speakerList.length,
