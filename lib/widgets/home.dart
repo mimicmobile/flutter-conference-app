@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter_conference_app/interfaces/views.dart';
 import 'package:flutter_conference_app/models/conference_data.dart';
 import 'package:flutter_conference_app/presenters/home_presenter.dart';
@@ -60,42 +62,56 @@ class _HomeState extends State<Home>
             aboutList: data.aboutList,
             loaded: data.aboutLoaded),
       ];
-      return Scaffold(
-        body: Builder(builder: (BuildContext context) {
-          _buildContext = context;
-          _presenter.configureFirebase(context);
+      return WillPopScope(
+        onWillPop: _onWillPop,
+        child: Scaffold(
+          body: Builder(builder: (BuildContext context) {
+            _buildContext = context;
+            _presenter.configureFirebase(context);
 
-          return PageStorage(
-            child: _presenter.pages[_presenter.currentIndex],
-            bucket: _presenter.bucket,
-          );
-        }),
-        bottomNavigationBar: Theme(
-            data: Theme.of(context).copyWith(
-                canvasColor: Theme.of(context).dialogBackgroundColor,
-                primaryColor: Colors.white,
-                textTheme: Theme.of(context)
-                    .textTheme
-                    .copyWith(caption: TextStyle(color: Colors.grey[500]))),
-            // sets the inactive color of the `BottomNavigationBar`
-            child: BottomNavigationBar(
-              onTap: onTabTapped,
-              currentIndex: _presenter.currentIndex,
-              items: [
-                BottomNavigationBarItem(
-                  icon: Icon(Icons.schedule),
-                  title: Text('Schedule'),
-                ),
-                BottomNavigationBarItem(
-                  icon: Icon(Icons.person),
-                  title: Text('Speakers'),
-                ),
-                BottomNavigationBarItem(
-                    icon: Icon(Icons.help_outline), title: Text('About'))
-              ],
-            )),
+            return PageStorage(
+              child: _presenter.pages[_presenter.currentIndex],
+              bucket: _presenter.bucket,
+            );
+          }),
+          bottomNavigationBar: Theme(
+              data: Theme.of(context).copyWith(
+                  canvasColor: Theme
+                      .of(context)
+                      .dialogBackgroundColor,
+                  primaryColor: Colors.white,
+                  textTheme: Theme
+                      .of(context)
+                      .textTheme
+                      .copyWith(caption: TextStyle(color: Colors.grey[500]))),
+              // sets the inactive color of the `BottomNavigationBar`
+              child: BottomNavigationBar(
+                onTap: onTabTapped,
+                currentIndex: _presenter.currentIndex,
+                items: [
+                  BottomNavigationBarItem(
+                    icon: Icon(Icons.schedule),
+                    title: Text('Schedule'),
+                  ),
+                  BottomNavigationBarItem(
+                    icon: Icon(Icons.person),
+                    title: Text('Speakers'),
+                  ),
+                  BottomNavigationBarItem(
+                      icon: Icon(Icons.help_outline), title: Text('About'))
+                ],
+              )),
+        ),
       );
     });
+  }
+
+  Future<bool> _onWillPop() async {
+    if (_presenter.currentIndex != 0) {
+      onTabTapped(0);
+      return false;
+    }
+    return true;
   }
 
   @override
