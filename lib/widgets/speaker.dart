@@ -21,7 +21,6 @@ class SpeakerWidget extends StatelessWidget {
       List<AugmentedTalk> talks = data.getTalksForSpeaker(speaker.id);
       if (talks == null || talks.length == 0) {
         return Text("This speaker has no talks!",
-            textAlign: TextAlign.justify,
             style: TextStyle(
                 fontSize: 16.0, height: 1.2, color: Colors.grey[300]));
       } else {

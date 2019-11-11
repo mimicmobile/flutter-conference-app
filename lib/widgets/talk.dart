@@ -167,7 +167,6 @@ class TalkWidget extends StatelessWidget {
                                           left: 6.0),
                                       child: Text(
                                         "${talk.description}",
-                                        textAlign: TextAlign.justify,
                                         style: TextStyle(
                                             fontSize: 16.0,
                                             height: 1.2,
