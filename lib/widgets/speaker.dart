@@ -193,7 +193,7 @@ class SpeakerWidget extends StatelessWidget {
                                             style: TextStyle(
                                                 fontSize: 16.0,
                                                 height: 1.2,
-                                                color: Colors.grey[300]),
+                                                color: Colors.white),
                                           )),
                                     ])))),
                         Reusable.statusBarTopShadow,
