@@ -163,7 +163,6 @@ class TalkItem implements ListItem {
                     : Container()
               ],
             )),
-        Spacer(),
         InkWell(
             onTap: () {
               Reusable.showSnackBar(context, talk.talkType.description);
@@ -237,7 +236,6 @@ class TalkItem implements ListItem {
                     : Container()
               ],
             )),
-        Spacer(),
         InkWell(
             onTap: () {
               Reusable.showSnackBar(context, talk.talkType.description);
