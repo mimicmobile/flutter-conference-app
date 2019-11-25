@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_conference_app/config.dart';
+import 'package:flutter_conference_app/models/conference_data.dart';
 import 'package:flutter_conference_app/utils.dart';
 import 'package:icons_helper/icons_helper.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -40,16 +41,17 @@ class Reusable {
     );
   }
 
-  static loadingProgress(orientation) {
-    return Column(children: <Widget>[
-      Container(margin: EdgeInsets.only(top: 48)),
-      Padding(
+  static headerImage (ConferenceData data, orientation) => Padding(
           padding: EdgeInsets.only(
               top: 24.0,
               bottom: 24.0,
               right: Utils.getHeaderOrientationSideMargin(orientation),
               left: Utils.getHeaderOrientationSideMargin(orientation)),
-          child: Utils.image(Config.logo)),
+          child: Utils.image(data.headerImageUrl, height: 90.0));
+
+  static loadingProgress(orientation) {
+    return Column(children: <Widget>[
+      Container(margin: EdgeInsets.only(top: 48)),
       Padding(
           padding: EdgeInsets.only(top: 100, right: 20, left: 20, bottom: 40),
           child: Center(child: CircularProgressIndicator()))

@@ -29,9 +29,9 @@ class Utils {
   static Widget image(String src, {height, width, fit}) {
     if (src.startsWith('http')) {
       return CachedNetworkImage(
-          fadeInDuration: Duration(milliseconds: 400),
+          fadeInDuration: Duration(milliseconds: 200),
           imageUrl: src,
-          placeholder: (b, s) => Container(),
+          placeholder: (b, s) => Container(height: height, width: width),
           height: height,
           width: width,
           fit: fit);

@@ -199,6 +199,10 @@ class ConferenceData extends ChangeNotifier implements IHomeModel {
     return Utils.findItemById(speakers, speakerId);
   }
 
+  String get headerImageUrl {
+    return about.headerImage;
+  }
+
   @override
   String getTimeFromDateTime(String datetime) {
     return DateFormat("hh:mma")

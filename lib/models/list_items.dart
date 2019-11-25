@@ -18,13 +18,7 @@ class HeaderItem implements ListItem {
   @override
   Widget getWidget(context, orientation, {onTapCallback}) {
     return Consumer<ConferenceData>(builder: (context, data, child) {
-      return Padding(
-          padding: EdgeInsets.only(
-              top: 24.0,
-              bottom: 24.0,
-              right: Utils.getHeaderOrientationSideMargin(orientation),
-              left: Utils.getHeaderOrientationSideMargin(orientation)),
-          child: Utils.image(Config.logo));
+      return Reusable.headerImage(data, orientation);
     });
   }
 }
